@@ -1,4 +1,3 @@
-
 #ifndef DBL_LINKED_QUEUE_
 #define DBL_LINKED_QUEUE_
 
@@ -19,7 +18,7 @@ public:
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
 	~DoubleLinkedQueue();
-
+	
 	// Added Functions of Double 
 	bool dequeue_rear(T& rearEntry);
 	bool peek_rear(T& rearEntry)  const;
@@ -108,8 +107,8 @@ DoubleLinkedQueue<T>::~DoubleLinkedQueue()
 	T temp;
 	while (dequeue(temp));
 
-	cout << "\n Is LinkedQueue Empty now?? ==> " << boolalpha << isEmpty();
-	cout << "\nEnding LinkedQueue destructor..." << endl;
+	cout << "\n Is DoubleLinkedQueue Empty now?? ==> " << boolalpha << isEmpty();
+	cout << "\nEnding DoubleLinkedQueue destructor..." << endl;
 }
 
 
