@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DataStructHeaders">
+      <UniqueIdentifier>{d95c069f-0297-4e1c-9ac0-81c3c9700bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ArmiesHeaders">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="ArmiesHeaders\EarthHeaders">
+      <UniqueIdentifier>{1f6e5157-2c61-4590-a5ec-8c3c3685edbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ArmiesHeaders\AlienHeaders">
+      <UniqueIdentifier>{7193a081-98b4-40c5-b1b3-134f9d3182ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="RandGen">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="GameClass">
+      <UniqueIdentifier>{392b4b68-9277-4fe2-a75c-2302d3079577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ArmiesSource">
+      <UniqueIdentifier>{50d7487f-b7bc-49be-b52c-29a961c061d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ArmiesSource\AlienSource">
+      <UniqueIdentifier>{a832bac8-1ea9-4338-afc8-a9f5619bb84f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ArmiesSource\EarthSource">
+      <UniqueIdentifier>{b2e29cf1-bc12-416a-b6d8-6b4c1ead7518}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ArmiesHeaders\unit.h">
+      <Filter>ArmiesHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\EarthArmy\eGunnery.h">
+      <Filter>ArmiesHeaders\EarthHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\EarthArmy\eSoldier.h">
+      <Filter>ArmiesHeaders\EarthHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\EarthArmy\eTank.h">
+      <Filter>ArmiesHeaders\EarthHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\AlienArmy\aDrone.h">
+      <Filter>ArmiesHeaders\AlienHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\AlienArmy\aMonster.h">
+      <Filter>ArmiesHeaders\AlienHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\AlienArmy\aSoldier.h">
+      <Filter>ArmiesHeaders\AlienHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DS\ArrayStack.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DS\DoubleLinkedQueue.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DS\DoubleNode.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DS\LinkedQueue.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DS\Node.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DS\priNode.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DS\priQueue.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DS\QueueADT.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DS\StackADT.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RandGen\RandGen.h">
+      <Filter>RandGen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Game.h">
+      <Filter>GameClass</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RandGen\RandGen.cpp">
+      <Filter>RandGen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Game.cpp">
+      <Filter>GameClass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\unit.cpp">
+      <Filter>ArmiesSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\AlienArmy\aDrone.cpp">
+      <Filter>ArmiesSource\AlienSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\AlienArmy\aMonster.cpp">
+      <Filter>ArmiesSource\AlienSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\AlienArmy\aSoldier.cpp">
+      <Filter>ArmiesSource\AlienSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\EarthArmy\eGunnery.cpp">
+      <Filter>ArmiesSource\EarthSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\EarthArmy\eSoldier.cpp">
+      <Filter>ArmiesSource\EarthSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\EarthArmy\eTank.cpp">
+      <Filter>ArmiesSource\EarthSource</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
