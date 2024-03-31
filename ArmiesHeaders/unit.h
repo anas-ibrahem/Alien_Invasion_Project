@@ -4,6 +4,7 @@ using namespace std;
 
 class unit
 {
+protected:
 		int id;
 		std::string type;
 		int Tj;

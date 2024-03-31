@@ -7,12 +7,12 @@ class aDrone :public unit
 
 
 public :
-	aDrone(int id , int Tj, int Ta, int Health, int AttackCapacity);
+	aDrone( int Tj, int Ta, int Health, int AttackCapacity);
 	aDrone();
 	bool attack();
 	bool defend();
+	int GetId();
 
 
 };
 
-static int LastDroneID = 6001;

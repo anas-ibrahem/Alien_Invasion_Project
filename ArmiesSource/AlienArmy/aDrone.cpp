@@ -1,7 +1,9 @@
 #include "../ArmiesHeaders/AlienArmy/aDrone.h"
 
-aDrone::aDrone(int id , int Tj , int Ta , int Health , int AttackCapacity) :
-	unit(id, "AD", Tj, Ta, Health, AttackCapacity)
+int aDrone::LastDroneID = 6001;
+
+aDrone::aDrone(int Tj , int Ta , int Health , int AttackCapacity) :
+	unit(LastDroneID++ , "AD", Tj, Ta, Health, AttackCapacity)
 {
 	
 
@@ -18,6 +20,11 @@ bool aDrone::defend()
 
 
 	return 1;
+}
+
+int aDrone::GetId() // For testing Purpose  // Anas
+{
+	return id;
 }
 
 
