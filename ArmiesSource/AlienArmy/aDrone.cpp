@@ -3,13 +3,13 @@
 int aDrone::LastDroneID = 6001;
 
 aDrone::aDrone(int Tj , int Ta , int Health , int AttackCapacity) :
-	unit(LastDroneID++ , "AD", Tj, Ta, Health, AttackCapacity)
+	unit(LastDroneID++ , AD , Tj, Ta, Health, AttackCapacity)
 {
 	
 
 }
 
-aDrone::aDrone() : unit(10 , "AD" , 10, 10 , 10 , 10)
+aDrone::aDrone() : unit(10 , AD , 10, 10 , 10 , 10)
 {
 
 

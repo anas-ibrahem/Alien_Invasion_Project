@@ -2,21 +2,32 @@
 #include <iostream>
 using namespace std;
 
+enum UnitType {
+	ES = 1,
+	AS = 2,
+	ET = 3,
+	EG = 4,
+	AM = 5,
+	AD = 6
+};
+
+
 class unit
 {
 protected:
 		int id;
-		std::string type;
+		UnitType type;
 		int Tj;
 		int Ta;
 		int Health;
 		int AttackCapacity;
 		//RandGen* RG = new RandGen;
 public:
-	unit(int id , string type , int Tj , int Ta , int Health , int AttackCapacity);
+	unit(int id , UnitType type , int Tj , int Ta , int Health , int AttackCapacity);
 	virtual bool attack() = 0;
 	virtual bool defend() = 0;
 	virtual bool isDead(); // Implementes As it's the same for all
+	UnitType GetType() const;
 
 };
 

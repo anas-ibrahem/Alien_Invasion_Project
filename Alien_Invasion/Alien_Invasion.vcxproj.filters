@@ -90,6 +90,12 @@
     <ClInclude Include="..\Game\Game.h">
       <Filter>GameClass</Filter>
     </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\AlienArmy\AlienArmy.h">
+      <Filter>ArmiesHeaders\AlienHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\EarthArmy\EarthArmy.h">
+      <Filter>ArmiesHeaders\EarthHeaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -120,6 +126,12 @@
       <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\eTank.cpp">
+      <Filter>ArmiesSource\EarthSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\AlienArmy\AlienArmy.cpp">
+      <Filter>ArmiesSource\AlienSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\EarthArmy\EarthArmy.cpp">
       <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
   </ItemGroup>

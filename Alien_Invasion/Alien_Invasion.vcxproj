@@ -20,8 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ArmiesHeaders\AlienArmy\aDrone.h" />
+    <ClInclude Include="..\ArmiesHeaders\AlienArmy\AlienArmy.h" />
     <ClInclude Include="..\ArmiesHeaders\AlienArmy\aMonster.h" />
     <ClInclude Include="..\ArmiesHeaders\AlienArmy\aSoldier.h" />
+    <ClInclude Include="..\ArmiesHeaders\EarthArmy\EarthArmy.h" />
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\eGunnery.h" />
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\eSoldier.h" />
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\eTank.h" />
@@ -40,8 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ArmiesSource\AlienArmy\aDrone.cpp" />
+    <ClCompile Include="..\ArmiesSource\AlienArmy\AlienArmy.cpp" />
     <ClCompile Include="..\ArmiesSource\AlienArmy\aMonster.cpp" />
     <ClCompile Include="..\ArmiesSource\AlienArmy\aSoldier.cpp" />
+    <ClCompile Include="..\ArmiesSource\EarthArmy\EarthArmy.cpp" />
     <ClCompile Include="..\ArmiesSource\EarthArmy\eGunnery.cpp" />
     <ClCompile Include="..\ArmiesSource\EarthArmy\eSoldier.cpp" />
     <ClCompile Include="..\ArmiesSource\EarthArmy\eTank.cpp" />
