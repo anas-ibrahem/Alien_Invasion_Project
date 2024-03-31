@@ -1,0 +1,153 @@
+
+#ifndef DBL_LINKED_QUEUE_
+#define DBL_LINKED_QUEUE_
+
+
+#include "DoubleNode.h"
+#include "QueueADT.h"
+
+template <typename T>
+class DoubleLinkedQueue :public QueueADT<T>
+{
+private:
+	DoubleNode<T>* backPtr;
+	DoubleNode<T>* frontPtr;
+public:
+	DoubleLinkedQueue();
+	bool isEmpty() const;
+	bool enqueue(const T& newEntry);
+	bool dequeue(T& frntEntry);
+	bool peek(T& frntEntry)  const;
+	~DoubleLinkedQueue();
+
+	// Added Functions of Double 
+	bool dequeue_rear(T& rearEntry);
+	bool peek_rear(T& rearEntry)  const;
+
+};
+
+
+template <typename T>
+DoubleLinkedQueue<T>::DoubleLinkedQueue()
+{
+	backPtr = nullptr;
+	frontPtr = nullptr;
+
+}
+
+
+
+template <typename T>
+bool DoubleLinkedQueue<T>::isEmpty() const
+{
+	return (frontPtr == nullptr);
+}
+
+
+
+template <typename T>
+bool DoubleLinkedQueue<T>::enqueue(const T& newEntry)
+{
+	DoubleNode<T>* newNodePtr = new DoubleNode<T>(newEntry);
+	// Insert the new node
+	if (isEmpty())	//special case if this is the first node to insert
+		frontPtr = newNodePtr; // The queue is empty
+	else
+		backPtr->setNext(newNodePtr); // The queue was not empty
+
+	backPtr = newNodePtr; // New node is the last node now
+	return true;
+} // end enqueue
+
+
+
+template <typename T>
+bool DoubleLinkedQueue<T>::dequeue(T& frntEntry)
+{
+	if (isEmpty())
+		return false;
+
+	DoubleNode<T>* nodeToDeletePtr = frontPtr;
+	frntEntry = frontPtr->getItem();
+	frontPtr = frontPtr->getNext();
+	// Queue is not empty; remove front
+	if (nodeToDeletePtr == backPtr)	 // Special case: last node in the queue
+		backPtr = nullptr;
+
+	// Free memory reserved for the dequeued node
+	delete nodeToDeletePtr;
+
+	return true;
+}
+
+
+
+
+template <typename T>
+bool DoubleLinkedQueue<T>::peek(T& frntEntry) const
+{
+	if (isEmpty())
+		return false;
+
+	frntEntry = frontPtr->getItem();
+	return true;
+
+}
+
+
+
+template <typename T>
+DoubleLinkedQueue<T>::~DoubleLinkedQueue()
+{
+	//Note that the cout statements here is just for learning purpose
+	//They should be normally removed from the destructor
+	cout << "\nStarting DoubleLinkedQueue destructor...";
+	cout << "\nFreeing all nodes in the queue...";
+
+	//Free all nodes in the queue
+	T temp;
+	while (dequeue(temp));
+
+	cout << "\n Is LinkedQueue Empty now?? ==> " << boolalpha << isEmpty();
+	cout << "\nEnding LinkedQueue destructor..." << endl;
+}
+
+
+
+// Dequeue From Rear //
+template<typename T>
+bool DoubleLinkedQueue<T>::dequeue_rear(T& rearEntry)
+{
+
+
+	if (isEmpty())
+		return false;
+
+	DoubleNode<T>* nodeToDeletePtr = backPtr;
+	rearEntry = backPtr->getItem();
+	backPtr = backPtr->getPrev();
+
+	if (nodeToDeletePtr == frontPtr)	 // Special case: last node in the queue
+		frontPtr = nullptr;
+
+	// Free memory reserved for the dequeued node
+	delete nodeToDeletePtr;
+
+	return true;
+
+
+}
+
+template<typename T>
+bool DoubleLinkedQueue<T>::peek_rear(T& rearEntry) const
+{
+	if (isEmpty())
+		return false;
+
+	rearEntry = backPtr->getItem();
+	return true;
+}
+
+
+
+#endif
