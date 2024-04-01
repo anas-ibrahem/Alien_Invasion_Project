@@ -1,3 +1,4 @@
+#pragma once
 #include "..\unit.h"
 
 class aDrone :public unit
@@ -7,7 +8,7 @@ class aDrone :public unit
 
 
 public :
-	aDrone( int Tj, int Ta, int Health, int AttackCapacity);
+	aDrone( int Tj, int Health, int AttackCapacity);
 	aDrone();
 	bool attack();
 	bool defend();

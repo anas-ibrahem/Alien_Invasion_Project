@@ -2,8 +2,8 @@
 
 int aDrone::LastDroneID = 6001;
 
-aDrone::aDrone(int Tj , int Ta , int Health , int AttackCapacity) :
-	unit(LastDroneID++ , AD , Tj, Ta, Health, AttackCapacity)
+aDrone::aDrone(int Tj , int Health , int AttackCapacity) :
+	unit(LastDroneID++ , AD , Tj, Health, AttackCapacity)
 {
 	
 

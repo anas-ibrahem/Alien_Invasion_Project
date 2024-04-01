@@ -23,7 +23,7 @@ protected:
 		int AttackCapacity;
 		//RandGen* RG = new RandGen;
 public:
-	unit(int id , UnitType type , int Tj , int Ta , int Health , int AttackCapacity);
+	unit(int id , UnitType type , int Tj , int Health , int AttackCapacity);
 	virtual bool attack() = 0;
 	virtual bool defend() = 0;
 	virtual bool isDead(); // Implementes As it's the same for all
