@@ -13,13 +13,11 @@ bool AlienArmy::AddUnit(unit* unit)
 	switch (unit->GetType()) {
 	
 	case AD: {
-		Drones.enqueue(unit);
-		break;
+		return Drones.enqueue(unit);
 	}
 	case AS :
 	{
-		Soldiers.enqueue(unit);
-		break;
+		return Soldiers.enqueue(unit);
 	}
 	case AM: {
 		Monsters[MonsterCount++] = unit;

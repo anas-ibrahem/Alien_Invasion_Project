@@ -8,7 +8,8 @@ class aDrone :public unit
 
 
 public :
-	aDrone( int Tj, int Health, int AttackCapacity);
+
+	aDrone( int Tj, int Health, int AttackCapacity , int AttackPower);
 	aDrone();
 	bool attack();
 	bool defend();
