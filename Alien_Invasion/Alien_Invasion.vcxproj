@@ -31,6 +31,7 @@
     <ClInclude Include="..\DS\ArrayStack.h" />
     <ClInclude Include="..\DS\DoubleLinkedQueue.h" />
     <ClInclude Include="..\DS\DoubleNode.h" />
+    <ClInclude Include="..\DS\DynamicArray.h" />
     <ClInclude Include="..\DS\LinkedQueue.h" />
     <ClInclude Include="..\DS\Node.h" />
     <ClInclude Include="..\DS\priNode.h" />

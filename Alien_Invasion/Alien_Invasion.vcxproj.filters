@@ -96,6 +96,9 @@
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\EarthArmy.h">
       <Filter>ArmiesHeaders\EarthHeaders</Filter>
     </ClInclude>
+    <ClInclude Include="..\DS\DynamicArray.h">
+      <Filter>DataStructHeaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
