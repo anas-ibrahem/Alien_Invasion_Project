@@ -2,8 +2,9 @@
 #include "aDrone.h"
 #include "aSoldier.h"
 #include "aMonster.h"
-#include "../DS/DoubleLinkedQueue.h"
-#include "../DS/LinkedQueue.h"
+#include "..\..\DS\DoubleLinkedQueue.h"
+#include "..\..\DS\LinkedQueue.h"
+#include "..\..\DS\DynamicArray.h"
 
 
 class AlienArmy {
@@ -12,7 +13,7 @@ private:
 	int MonsterCount;
 	DoubleLinkedQueue<unit*> Drones;
 	LinkedQueue<unit*> Soldiers;
-	unit** Monsters = new unit*[1000];
+	DynamicArray<unit*> Monster;
 
 public :
 	AlienArmy();

@@ -20,8 +20,7 @@ bool AlienArmy::AddUnit(unit* unit)
 		return Soldiers.enqueue(unit);
 	}
 	case AM: {
-		Monsters[MonsterCount++] = unit;
-		break;
+		return Monster.insert(unit);
 	}
 	
 	

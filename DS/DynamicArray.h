@@ -12,16 +12,17 @@ private:
     int size;
 
 public:
-    DynamicArray(int capacity) {
-        this->capacity = capacity;
+    DynamicArray() {
+        capacity = 1000;
         size = 0;
         array = new T[capacity];
     }
-
-    void insert(T element)
+    bool insert(T element)
     {
-        array[size] = element;
-        ++size;
+        if (size == capacity)
+            return false;
+        array[size++] = element;
+        return true;
     }
 
     bool remove(int index)
