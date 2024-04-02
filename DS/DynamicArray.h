@@ -32,6 +32,7 @@ public:
             return false;
         }
         array[index] = array[--size];
+        return true;
     }
     T Pick() {
         if (isEmpty()) {
