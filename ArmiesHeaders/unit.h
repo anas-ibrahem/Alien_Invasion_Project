@@ -27,8 +27,10 @@ public:
 
 	unit(int id , UnitType type , int Tj  , int Health , int AttackCapacity , int AttackPower);
 	virtual bool attack() = 0;
-	virtual bool defend() = 0;
-	virtual bool isDead(); // Implementes As it's the same for all
+	virtual bool defend(unit* Attacker);
+	virtual bool isDead() const; // Implementes As it's the same for all
+	int getHealth() const;
+	int getPower() const;
 	UnitType GetType() const;
 
 };

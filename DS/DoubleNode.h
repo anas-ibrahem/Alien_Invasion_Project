@@ -7,8 +7,8 @@ class DoubleNode
 {
 private:
 	T item; // A data item
-	DoubleNode<T>* nextNodePtr<T>* next; // Pointer to next node
-	DoubleNode<T>* nextNodePtr<T>* prev; // Pointer to Previous node
+	DoubleNode<T>* next; // Pointer to next node
+	DoubleNode<T>* prev; // Pointer to Previous node
 
 public :
 	DoubleNode();

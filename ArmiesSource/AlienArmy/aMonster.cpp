@@ -2,24 +2,17 @@
 
 int aMonster::LastMonsterID = 5001;
 
-aMonster::aMonster(int Tj , int Health , int AttackCapacity) :
-	unit(LastMonsterID++ , AD , Tj, Health, AttackCapacity)
+aMonster::aMonster(int Tj, int Health, int AttackCapacity, int AttackPower) :
+	unit(LastMonsterID++ , AM , Tj, Health, AttackCapacity, AttackPower)
 {
 	
 
 }
 
-aMonster::aMonster() : unit(10 , AD , 10, 10 , 10 , 10)
+aMonster::aMonster() : unit(10 , AM , 10, 10 , 10 , 10)
 {
 
 
-}
-
-bool aMonster::defend()
-{
-
-
-	return 1;
 }
 
 int aMonster::GetId() 

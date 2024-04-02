@@ -2,12 +2,13 @@
 #include "..\unit.h"
 
 
-class ES :
+class eSolider :
     public unit
 {
+    static int LasteSoliderID;
 public:
+    eSolider();
+    eSolider(int Tj, int Health, int AttackCapacity, int AttackPower);
     virtual bool attack();
-    virtual bool defend();
-    virtual bool isDead();
 };
 

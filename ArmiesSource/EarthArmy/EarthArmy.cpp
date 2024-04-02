@@ -2,8 +2,5 @@
 
 bool EarthArmy::AddUnit(unit* unit)
 {
-	switch (unit->GetType()) {
-
-
-	}
+	return true;
 }

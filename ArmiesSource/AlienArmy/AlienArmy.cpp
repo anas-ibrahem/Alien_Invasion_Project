@@ -3,7 +3,7 @@
 AlienArmy::AlienArmy() {
 
 	DronesCount = 0;
-
+	MonsterCount = 0;
 
 }
 

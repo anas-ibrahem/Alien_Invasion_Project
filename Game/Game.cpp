@@ -22,5 +22,5 @@ bool Game::IncreaseTime(int Duration)
 
 bool Game::AddUnit(unit* unit)
 {
-	
+	return true;
 }

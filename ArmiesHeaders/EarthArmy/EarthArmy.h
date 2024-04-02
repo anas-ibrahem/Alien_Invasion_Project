@@ -1,5 +1,7 @@
 #pragma once
 #include "eSoldier.h"
+#include "eTank.h"
+#include "eGunnery.h"
 #include "..\..\DS\priQueue.h"
 #include "..\..\DS\LinkedQueue.h"
 #include "..\..\DS\ArrayStack.h"

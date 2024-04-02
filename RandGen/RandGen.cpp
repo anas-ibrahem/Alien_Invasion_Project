@@ -164,7 +164,7 @@ bool RandGen::Generate(UnitType type)
 	case AS:
 
 	{
-		aSoldier* S = new aSoldier(MainGame->GetTime(), GenerateValue(A_Health_Range),
+		aSolider* S = new aSolider(MainGame->GetTime(), GenerateValue(A_Health_Range),
 						GenerateValue(A_Capacity_Range), GenerateValue(A_Power_Range));
 		MainGame->AddUnit(S);
 		break;
@@ -178,7 +178,7 @@ bool RandGen::Generate(UnitType type)
 	}
 	case ES:
 	{
-		eSoldier* S = new eSoldier(MainGame->GetTime(), GenerateValue(E_Health_Range),
+		eSolider* S = new eSolider(MainGame->GetTime(), GenerateValue(E_Health_Range),
 												GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
 		MainGame->AddUnit(S);
 		break;
@@ -202,6 +202,6 @@ bool RandGen::Generate(UnitType type)
 		break;
 	}
 
-
+	return true;
 }
 

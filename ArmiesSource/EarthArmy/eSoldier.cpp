@@ -1,16 +1,20 @@
 #include "..\..\ArmiesHeaders\EarthArmy\eSoldier.h"
 
-bool ES::attack()
+int eSolider::LasteSoliderID = 1;
+
+eSolider::eSolider(int Tj, int Health, int AttackCapacity, int AttackPower) :
+	unit(LasteSoliderID++, ES, Tj, Health, AttackCapacity, AttackPower)
 {
-	return false;
+
+
 }
 
-bool ES::defend()
+eSolider::eSolider() : unit(10, ES, 10, 10, 10, 10)
 {
-	return false;
-}
 
-bool ES::isDead()
+
+}
+bool eSolider::attack()
 {
 	return false;
 }

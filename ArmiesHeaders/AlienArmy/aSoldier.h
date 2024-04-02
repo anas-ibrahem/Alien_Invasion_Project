@@ -5,9 +5,10 @@
 class aSolider :
     public unit
 {
+    static int LastSoliderID;
 public:
+    aSolider();
+    aSolider(int Tj, int Health, int AttackCapacity, int AttackPower);
     virtual bool attack();
-    virtual bool defend();
-    virtual bool isDead();
 };
 

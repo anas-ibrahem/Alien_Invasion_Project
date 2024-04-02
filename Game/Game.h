@@ -1,6 +1,5 @@
 #include "../DS/LinkedQueue.h"
 #include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
-#include "EarthArmy/EarthArmy.h"
 
 
 class Game {

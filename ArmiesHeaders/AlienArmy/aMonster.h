@@ -8,10 +8,9 @@ class aMonster :public unit
 
 
 public:
-	aMonster(int Tj, int Health, int AttackCapacity);
+	aMonster(int Tj, int Health, int AttackCapacity, int AttackPower);
 	aMonster();
 	bool attack();
-	bool defend();
 	int GetId();
 
 

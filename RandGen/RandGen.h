@@ -26,7 +26,9 @@ class RandGen
 	int A_Health_Range[2];
 	int A_Capacity_Range[2];
 	int A_Power_Range[2];
-
+	int E_Health_Range[2];
+	int E_Capacity_Range[2];
+	int E_Power_Range[2];
 	Game* MainGame;
 
 public:
