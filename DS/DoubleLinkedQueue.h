@@ -23,6 +23,8 @@ public:
 	bool dequeue_rear(T& rearEntry);
 	bool peek_rear(T& rearEntry)  const;
 
+	bool print() const; // Specialized for unit* type // returns false if empty
+
 };
 
 
@@ -146,6 +148,8 @@ bool DoubleLinkedQueue<T>::peek_rear(T& rearEntry) const
 	rearEntry = backPtr->getItem();
 	return true;
 }
+
+
 
 
 

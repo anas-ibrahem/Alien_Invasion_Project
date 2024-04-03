@@ -12,6 +12,8 @@ bool AlienArmy::AddUnit(unit* unit)
 
 	switch (unit->GetType()) {
 	
+
+
 	case AD: {
 		return Drones.enqueue(unit);
 	}
@@ -24,5 +26,17 @@ bool AlienArmy::AddUnit(unit* unit)
 	}
 	
 	
+	
 	}
 }
+
+void AlienArmy::PrintAliveUnits()
+{
+	cout << "Drones: " << endl;
+	Drones.print();
+	cout << "aSoldiers: " << endl;
+	Soldiers.print();
+
+}
+
+

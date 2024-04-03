@@ -31,6 +31,8 @@ public:
 	virtual bool isDead() const; // Implementes As it's the same for all
 	int getHealth() const;
 	int getPower() const;
+	int getID() const;
+	bool reduceHealth(int amount); // returns true if the unit died
 	UnitType GetType() const;
 
 };

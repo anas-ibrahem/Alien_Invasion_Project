@@ -18,6 +18,7 @@ private:
 public :
 	AlienArmy();
 	bool AddUnit(unit* unit);
+	void PrintAliveUnits();
 
 
 };

@@ -25,9 +25,25 @@ int unit::getHealth() const
 	return Health;
 }
 
+bool unit::reduceHealth(int amount)
+{
+	Health -= amount;
+	if (Health <= 0)
+	{
+		Health = 0;
+		return true;
+	}
+	return false;
+}
+
 int unit::getPower() const
 {
 	return AttackPower;
+}
+
+int unit::getID() const
+{
+	return id;
 }
 
 UnitType unit::GetType() const

@@ -58,6 +58,9 @@ public :
 	bool dequeue(T& frntEntry);  
 	bool peek(T& frntEntry)  const;	
 	~LinkedQueue();
+
+	bool print() const; // Specialized for unit* type // returns false if empty
+
 };
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -181,5 +184,8 @@ LinkedQueue<T>::~LinkedQueue()
 	cout<<"\n Is LinkedQueue Empty now?? ==> "<<boolalpha<<isEmpty();
 	cout<<"\nEnding LinkedQueue destructor..."<<endl;
 }
+
+
+
 
 #endif

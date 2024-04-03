@@ -140,11 +140,11 @@ bool RandGen::GenerateUnits()
 
 
 		return true; // Yes Generated
-		MainGame->IncreaseTime(1); //Increase Game Time By 1
+		MainGame->IncreaseTime(1); //Increase Game Time By 1 // To be moved to Game.cpp
 
 	}
 		return false;// NO Generated
-		MainGame->IncreaseTime(1); //Increase Game Time By 1
+		MainGame->IncreaseTime(1); //Increase Game Time By 1/  To be moved to Game.cpp
 
 }
 
@@ -176,27 +176,27 @@ bool RandGen::Generate(UnitType type)
 		MainGame->AddUnit(M);
 		break;
 	}
-	case ES:
-	{
-		eSolider* S = new eSolider(MainGame->GetTime(), GenerateValue(E_Health_Range),
-												GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
-		MainGame->AddUnit(S);
-		break;
-	}
-	case ET:
-	{
-		eTank* T = new eTank(MainGame->GetTime(), GenerateValue(E_Health_Range),
-											GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
-		MainGame->AddUnit(T);
-		break;
-	}
-	case EG:
-	{
-		eGunnery* G = new eGunnery(MainGame->GetTime(), GenerateValue(E_Health_Range),
-														GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
-		MainGame->AddUnit(G);
-		break;
-	}
+	//case ES:
+	//{
+	//	eSolider* S = new eSolider(MainGame->GetTime(), GenerateValue(E_Health_Range),
+	//											GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
+	//	MainGame->AddUnit(S);
+	//	break;
+	//}
+	//case ET:
+	//{
+	//	eTank* T = new eTank(MainGame->GetTime(), GenerateValue(E_Health_Range),
+	//										GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
+	//	MainGame->AddUnit(T);
+	//	break;
+	//}
+	//case EG:
+	//{
+	//	eGunnery* G = new eGunnery(MainGame->GetTime(), GenerateValue(E_Health_Range),
+	//													GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
+	//	MainGame->AddUnit(G);
+	//	break;
+	//}
 
 	default:
 		break;

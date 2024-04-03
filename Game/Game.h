@@ -16,5 +16,6 @@ public :
 	bool ReadFile(); // To Be implemented to Edit Values of n, ES_Per, AS_Per, ET_Per, EG_Per, AM_Per , AD_Per;
 	bool WriteFile(); // To Be implemented
 	bool AddUnit(unit* unit);
+	void PrintAliveUnits();
 
 };
