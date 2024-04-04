@@ -22,6 +22,8 @@ protected:
 		int Health;
 		int AttackCapacity;
 		int AttackPower;
+		static int LastAlienUnit;
+		static int LastEarthUnit;
 		//RandGen* RG = new RandGen;
 public:
 

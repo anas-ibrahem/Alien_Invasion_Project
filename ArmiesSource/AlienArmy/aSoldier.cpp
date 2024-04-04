@@ -1,9 +1,8 @@
 #include "..\..\ArmiesHeaders\AlienArmy\aSoldier.h"
 
-int aSolider::LastSoliderID = 3001;
 
 aSolider::aSolider(int Tj, int Health, int AttackCapacity, int AttackPower) :
-	unit(LastSoliderID++, AS, Tj, Health, AttackCapacity, AttackPower)
+	unit(LastAlienUnit++, AS, Tj, Health, AttackCapacity, AttackPower)
 {
 
 

@@ -1,9 +1,8 @@
 #include "..\..\ArmiesHeaders\AlienArmy\aMonster.h"
 
-int aMonster::LastMonsterID = 5001;
 
 aMonster::aMonster(int Tj, int Health, int AttackCapacity, int AttackPower) :
-	unit(LastMonsterID++ , AM , Tj, Health, AttackCapacity, AttackPower)
+	unit(LastAlienUnit++ , AM , Tj, Health, AttackCapacity, AttackPower)
 {
 	
 

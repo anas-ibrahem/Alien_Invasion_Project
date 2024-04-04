@@ -18,6 +18,7 @@ public:
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
+	int getCount() const;
 	~DoubleLinkedQueue();
 	
 	// Added Functions of Double 
@@ -96,6 +97,12 @@ bool DoubleLinkedQueue<T>::peek(T& frntEntry) const
 	frntEntry = frontPtr->getItem();
 	return true;
 
+}
+
+template<typename T>
+inline int DoubleLinkedQueue<T>::getCount() const
+{
+	return count;
 }
 
 

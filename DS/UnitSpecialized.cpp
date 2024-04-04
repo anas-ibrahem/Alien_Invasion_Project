@@ -9,13 +9,13 @@ bool DoubleLinkedQueue<unit*>::print() const
 		return false;
 	}
 	DoubleNode<unit*>* ptr = frontPtr;
-	cout << "[";
+	cout << "[ ";
 	while (ptr)
 	{
 		cout << ptr->getItem()->getID() << " ";
 		ptr = ptr->getNext();
 		if (!ptr) cout << "]"; // Last Element
-		else cout << ","; // Not Last Element
+		else cout << ", "; // Not Last Element
 	}
 
 	return true;
@@ -30,15 +30,28 @@ bool LinkedQueue<unit*>::print() const
 		return false;
 	}
 	Node<unit*>* ptr = frontPtr;
-	cout << "[";
+	cout << "[ ";
 	while (ptr)
 	{
 		cout << ptr->getItem()->getID() << " ";
 		ptr = ptr->getNext();
 		if (!ptr) cout << "]"; // Last Element
-		else cout << ","; // Not Last Element
+		else cout << ", "; // Not Last Element
 	}
 
 	return true;
 
+}
+template<>
+bool DynamicArray<unit*>::print() const
+{
+	if (count==0)
+		return false;
+	cout << "[ ";
+	for (int i = 0; i < count; i++)
+	{
+		cout << array[i]->getID() << " ";
+		if (i==count-1) cout << "]"; // Last Element
+		else cout << ", "; // Not Last Element
+	}
 }

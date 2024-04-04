@@ -58,6 +58,7 @@ public :
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);  
 	bool peek(T& frntEntry)  const;	
+	int getCount() const;
 	~LinkedQueue();
 
 	bool print() const; // Specialized for unit* type // returns false if empty
@@ -170,6 +171,11 @@ bool LinkedQueue<T>:: peek(T& frntEntry) const
 	frntEntry = frontPtr->getItem();
 	return true;
 
+}
+template<typename T>
+inline int LinkedQueue<T>::getCount() const
+{
+	return count;
 }
 ///////////////////////////////////////////////////////////////////////////////////
 

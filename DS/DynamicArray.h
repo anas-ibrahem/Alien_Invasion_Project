@@ -64,7 +64,11 @@ public:
         }
         return -1; // Return -1 if element is not found
     }
+    int getCount() const {
+        return count;
+    }
     ~DynamicArray() {
         delete[] array;
     }
+    bool print() const; // Specialized for unit* type // returns false if empty
 };
