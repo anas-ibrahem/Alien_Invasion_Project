@@ -137,5 +137,8 @@
     <ClCompile Include="..\ArmiesSource\EarthArmy\EarthArmy.cpp">
       <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
+    <ClCompile Include="..\DS\UnitSpecialized.cpp">
+      <Filter>DataStructHeaders</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

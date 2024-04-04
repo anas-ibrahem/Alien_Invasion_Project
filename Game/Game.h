@@ -17,5 +17,5 @@ public :
 	bool WriteFile(); // To Be implemented
 	bool AddUnit(unit* unit);
 	void PrintAliveUnits();
-
+	~Game();
 };

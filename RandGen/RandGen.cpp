@@ -19,6 +19,9 @@ RandGen::RandGen(Game* MainGame, int n, int Prob, int ES_P, int AS_P, int ET_P,
 	InitializeParameters
 		(ES_P, AS_P, ET_P, EG_P, AM_P, AD_P);
 	srand(time(0));
+
+
+	//MainGame->ReadFile("Input.txt");
 	
 }
 

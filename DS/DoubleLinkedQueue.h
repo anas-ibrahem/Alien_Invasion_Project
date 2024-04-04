@@ -9,6 +9,7 @@ template <typename T>
 class DoubleLinkedQueue :public QueueADT<T>
 {
 private:
+	int count;
 	DoubleNode<T>* backPtr;
 	DoubleNode<T>* frontPtr;
 public:
@@ -33,6 +34,7 @@ DoubleLinkedQueue<T>::DoubleLinkedQueue()
 {
 	backPtr = nullptr;
 	frontPtr = nullptr;
+	count = 0;
 
 }
 
@@ -49,6 +51,7 @@ bool DoubleLinkedQueue<T>::isEmpty() const
 template <typename T>
 bool DoubleLinkedQueue<T>::enqueue(const T& newEntry)
 {
+	count++;
 	DoubleNode<T>* newNodePtr = new DoubleNode<T>(newEntry);
 	// Insert the new node
 	if (isEmpty())	//special case if this is the first node to insert
@@ -77,7 +80,7 @@ bool DoubleLinkedQueue<T>::dequeue(T& frntEntry)
 
 	// Free memory reserved for the dequeued node
 	delete nodeToDeletePtr;
-
+	count--;
 	return true;
 }
 
@@ -133,7 +136,7 @@ bool DoubleLinkedQueue<T>::dequeue_rear(T& rearEntry)
 
 	// Free memory reserved for the dequeued node
 	delete nodeToDeletePtr;
-
+	count--;
 	return true;
 
 

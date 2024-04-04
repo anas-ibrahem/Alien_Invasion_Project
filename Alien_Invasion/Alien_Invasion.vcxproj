@@ -51,6 +51,7 @@
     <ClCompile Include="..\ArmiesSource\EarthArmy\eSoldier.cpp" />
     <ClCompile Include="..\ArmiesSource\EarthArmy\eTank.cpp" />
     <ClCompile Include="..\ArmiesSource\unit.cpp" />
+    <ClCompile Include="..\DS\UnitSpecialized.cpp" />
     <ClCompile Include="..\Game\Game.cpp" />
     <ClCompile Include="..\RandGen\RandGen.cpp" />
     <ClCompile Include="Main.cpp" />

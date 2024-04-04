@@ -57,6 +57,13 @@ public:
 		return true;
 	}  // end peek
 
+
+
+	int getCount() const
+	{
+		return top + 1;
+	}  
+
 }; // end ArrayStack
 
 #endif

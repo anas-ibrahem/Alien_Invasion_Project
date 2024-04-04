@@ -11,3 +11,5 @@ bool EarthArmy::AddUnit(unit* unit)
 		return Gunneries.enqueue(unit,unit->getPower()*unit->getHealth());
 	}
 }
+
+

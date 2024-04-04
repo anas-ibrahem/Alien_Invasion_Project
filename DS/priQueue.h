@@ -8,8 +8,10 @@ template <typename T>
 class priQueue
 {
     priNode<T>* head;
+    int count;
+
 public:
-    priQueue() : head(nullptr) {}
+    priQueue() : head(nullptr) { count = 0; }
 
     ~priQueue() {
         T tmp;
@@ -19,8 +21,8 @@ public:
 
     //insert the new node in its correct position according to its priority
     bool enqueue(const T& data, int priority) {
+        count++;
         priNode<T>* newNode = new priNode<T>(data, priority);
-
         if (head == nullptr || priority > head->getPri()) {
             
             newNode->setNext(head);
@@ -45,6 +47,7 @@ public:
         priNode<T>* temp = head;
         head = head->getNext();
         delete temp;
+        count--;
         return true;
     }
 

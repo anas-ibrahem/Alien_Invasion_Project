@@ -7,8 +7,8 @@
 
 struct ArmyParameter {
 
-	UnitType type;
-	int Percentage;
+	UnitType type; 
+	int Percentage; 
 
 	ArmyParameter()
 	{	

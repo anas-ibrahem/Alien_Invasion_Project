@@ -11,21 +11,31 @@ bool AlienArmy::AddUnit(unit* unit)
 {
 
 	switch (unit->GetType()) {
-	case AD: 
+	
+		
+
+	case AD: {
 		return Drones.enqueue(unit);
-	case AS:
+	}
+	case AS :
+	{
 		return Soldiers.enqueue(unit);
-	case AM: 
+	}
+	case AM: {
 		return Monster.insert(unit);
+	}
+	
+	
+	
 	}
 }
 
 void AlienArmy::PrintAliveUnits()
 {
-	cout << endl << "AS: ";
-	Soldiers.print();
-	cout << endl << "AD: ";
+	cout << "Drones: " << endl;
 	Drones.print();
+	cout << "aSoldiers: " << endl;
+	Soldiers.print();
 
 }
 
