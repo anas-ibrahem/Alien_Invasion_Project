@@ -18,14 +18,14 @@ public:
     }
 
     //insert the new node in its correct position according to its priority
-    void enqueue(const T& data, int priority) {
+    bool enqueue(const T& data, int priority) {
         priNode<T>* newNode = new priNode<T>(data, priority);
 
         if (head == nullptr || priority > head->getPri()) {
             
             newNode->setNext(head);
             head = newNode;
-            return;
+            return true;
         }
        
         priNode<T>* current = head;        
@@ -33,7 +33,8 @@ public:
             current = current->getNext();
         }
         newNode->setNext( current->getNext());
-        current->setNext( newNode);        
+        current->setNext( newNode);   
+        return true;
     }
 
     bool dequeue(T& topEntry, int& pri) {

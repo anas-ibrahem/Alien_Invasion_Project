@@ -11,6 +11,7 @@ class AlienArmy {
 private:
 	int DronesCount;
 	int MonsterCount;
+	int SoldierCount;
 	DoubleLinkedQueue<unit*> Drones;
 	LinkedQueue<unit*> Soldiers;
 	DynamicArray<unit*> Monster;

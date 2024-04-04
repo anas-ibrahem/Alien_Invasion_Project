@@ -2,6 +2,12 @@
 
 bool EarthArmy::AddUnit(unit* unit)
 {
-
-	return 1;
+	switch (unit->GetType()) {
+	case ET:
+		return Tanks.push(unit);
+	case ES:
+		return Soldiers.enqueue(unit);
+	case EG:
+		return Gunneries.enqueue(unit,unit->getPower()*unit->getHealth());
+	}
 }
