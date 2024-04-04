@@ -1,9 +1,8 @@
 #include "..\..\ArmiesHeaders\AlienArmy\aDrone.h"
 
-int aDrone::LastDroneID = 4001;
 
 aDrone::aDrone(int Tj , int Health , int AttackCapacity , int AttackPower) :
-	unit(LastDroneID++ , AD , Tj, Health, AttackCapacity, AttackPower)
+	unit(LastAlienUnit++ , AD , Tj, Health, AttackCapacity, AttackPower)
 {
 	
 

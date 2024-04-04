@@ -32,10 +32,14 @@ bool AlienArmy::AddUnit(unit* unit)
 
 void AlienArmy::PrintAliveUnits()
 {
-	cout << "Drones: " << endl;
-	Drones.print();
-	cout << "aSoldiers: " << endl;
+	cout << "=============== Alien Army Alive Units ===============" << endl;
+	cout << Soldiers.getCount() << " AS: ";
 	Soldiers.print();
+	cout << endl << Drones.getCount() << " AD: ";
+	Drones.print();
+	cout << endl << Monster.getCount() << " AM: ";
+	Monster.print();
+
 
 }
 
