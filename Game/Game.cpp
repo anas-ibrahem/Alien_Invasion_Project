@@ -26,13 +26,21 @@ bool Game::AddUnit(unit* unit)
 {
 	if ( (unit->GetType() == AD || unit->GetType() == AS ) || unit->GetType() == AM )
 	{
-		A_Army.AddUnit(unit);
+		if (!A_Army.AddUnit(unit))// Delete the unit if it is not added to the army
+		{
+			delete unit;
+			return false;
+		}
 	}
 	else
 	{
-		E_Army.AddUnit(unit);
+		if (!E_Army.AddUnit(unit)) // Delete the unit if it is not added to the army
+		{
+			delete unit;
+			return false;
+		}
 	}
-	return 1;
+	return true;
 }
 
 void Game::PrintAliveUnits()
