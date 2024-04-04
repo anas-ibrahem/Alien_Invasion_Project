@@ -30,15 +30,19 @@ bool Game::AddUnit(unit* unit)
 	}
 	else
 	{
-		//E_Army.AddUnit(unit);
+		E_Army.AddUnit(unit);
 	}
 	return 1;
 }
 
 void Game::PrintAliveUnits()
 {
+
+	E_Army.PrintAliveUnits();
+	cout << "\n\n";
+
 	A_Army.PrintAliveUnits();
-	//E_army 
+	
 }
 
 

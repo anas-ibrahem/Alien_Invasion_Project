@@ -1,10 +1,6 @@
 #include "..\..\ArmiesHeaders\AlienArmy\AlienArmy.h"
 
 AlienArmy::AlienArmy() {
-
-	DronesCount = 0;
-	MonsterCount = 0;
-
 }
 
 bool AlienArmy::AddUnit(unit* unit)

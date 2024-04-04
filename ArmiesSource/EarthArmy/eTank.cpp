@@ -1,9 +1,9 @@
 #include "..\..\ArmiesHeaders\EarthArmy\eTank.h"
 
-int eTank::LastTankID = 1001;
+
 
 eTank::eTank(int Tj, int Health, int AttackCapacity, int AttackPower) :
-	unit(LastTankID++, ET, Tj, Health, AttackCapacity, AttackPower)
+	unit(LastEarthUnit++, ET, Tj, Health, AttackCapacity, AttackPower)
 {
 
 

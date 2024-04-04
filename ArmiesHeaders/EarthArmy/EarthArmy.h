@@ -7,14 +7,14 @@
 #include "..\..\DS\ArrayStack.h"
 
 class EarthArmy {
-public:
+private:
 	LinkedQueue<unit*> Soldiers;
 	ArrayStack<unit*> Tanks;
-	priQueue<unit*> Gunneries;
+	priQueue<unit*>Gunneries ;
 
-private:
+public:
 	EarthArmy();
 	bool AddUnit(unit* unit);
-
+	void PrintAliveUnits();
 
 };

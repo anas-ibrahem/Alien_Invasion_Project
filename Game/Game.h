@@ -1,12 +1,15 @@
 #include "../DS/LinkedQueue.h"
 #include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
-
+#include"../DS/ArrayStack.h"
+#include"../DS/priQueue.h"
+#include"../ArmiesHeaders/EarthArmy/EarthArmy.h"
 
 class Game {
 private:
 	int TimeStep;
 	LinkedQueue<unit*> killedList;
 	AlienArmy A_Army;
+	EarthArmy E_Army;
 	//EarthArmy E_Army;
 	
 public :

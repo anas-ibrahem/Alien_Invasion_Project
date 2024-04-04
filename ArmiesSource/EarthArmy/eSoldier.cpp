@@ -1,9 +1,9 @@
 #include "..\..\ArmiesHeaders\EarthArmy\eSoldier.h"
 
-int eSolider::LasteSoliderID = 1;
+
 
 eSolider::eSolider(int Tj, int Health, int AttackCapacity, int AttackPower) :
-	unit(LasteSoliderID++, ES, Tj, Health, AttackCapacity, AttackPower)
+	unit(LastEarthUnit++, ES, Tj, Health, AttackCapacity, AttackPower)
 {
 
 

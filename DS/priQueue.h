@@ -63,4 +63,11 @@ public:
     bool isEmpty() const {
         return head == nullptr;
     }
+
+    int getCount() {
+        return count;
+    }
+
+    bool print()const;//Unit 
+    
 };

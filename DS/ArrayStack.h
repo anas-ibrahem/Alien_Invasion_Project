@@ -64,6 +64,10 @@ public:
 		return top + 1;
 	}  
 
+	bool print()const;//For unit
+
 }; // end ArrayStack
 
 #endif
+
+
