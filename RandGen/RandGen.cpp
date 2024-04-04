@@ -112,7 +112,6 @@ void RandGen::InitializeParameters(int ES_P, int AS_P, int ET_P, int EG_P, int A
 
 bool RandGen::GenerateUnits()
 {
-
 	int ProbGen = rand() % 100 + 1;
 	if (ProbGen <= Prob) {
 
