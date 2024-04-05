@@ -2,13 +2,16 @@
 #include "..\unit.h"
 
 
-class aSolider :
+class aSoldier :
     public unit
 {
-    static int LastSoliderID;
+
+
+
 public:
-    aSolider();
-    aSolider(int Tj, int Health, int AttackCapacity, int AttackPower);
+
+
+    aSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower);
     virtual bool attack();
 };
 

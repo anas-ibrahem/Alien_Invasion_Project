@@ -19,10 +19,11 @@ void EarthArmy::PrintAliveUnits()
 	cout << "=============== Earth Army Alive Units ===============" << endl;
 	cout << Soldiers.getCount() << " ES: ";
 	Soldiers.print();
-	cout << endl << Tanks.getCount() << " ET: ";
+	cout << endl << endl <<  Tanks.getCount() << " ET: ";
 	Tanks.print();
-	cout << endl << Gunneries.getCount() << " EG: ";
+	cout << endl << endl<<   Gunneries.getCount() << " EG: ";
 	Gunneries.print();
+	cout << endl << endl;
 }
 
 

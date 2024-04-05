@@ -1,8 +1,8 @@
 #include "..\..\ArmiesHeaders\AlienArmy\aMonster.h"
 
 
-aMonster::aMonster(int Tj, int Health, int AttackCapacity, int AttackPower) :
-	unit(LastAlienUnit++ , AM , Tj, Health, AttackCapacity, AttackPower)
+aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPower) :
+	unit(id  , AM , Tj, Health, AttackCapacity, AttackPower)
 {
 	
 

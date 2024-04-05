@@ -2,19 +2,16 @@
 
 
 
-eSolider::eSolider(int Tj, int Health, int AttackCapacity, int AttackPower) :
-	unit(LastEarthUnit++, ES, Tj, Health, AttackCapacity, AttackPower)
+eSoldier::eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower) :
+	unit(id , ES, Tj, Health, AttackCapacity, AttackPower)
 {
 
 
 }
 
-eSolider::eSolider() : unit(10, ES, 10, 10, 10, 10)
-{
 
 
-}
-bool eSolider::attack()
+bool eSoldier::attack()
 {
 	return false;
 }

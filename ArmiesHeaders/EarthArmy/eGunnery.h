@@ -8,7 +8,7 @@ class eGunnery :
     
 public:
 
-    eGunnery(int Tj, int Health, int AttackCapacity, int AttackPower);
+    eGunnery(int id ,int Tj, int Health, int AttackCapacity, int AttackPower);
     eGunnery();
     virtual bool attack();
 };

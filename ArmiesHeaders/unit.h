@@ -10,18 +10,9 @@ enum UnitType {
 	AM = 5,
 	AD = 6
 };
-struct ArmyParameter {
 
-	UnitType type;
-	int Percentage;
 
-	ArmyParameter()
-	{
-		type = ES;
-		Percentage = 0;
-	}
 
-};
 
 class unit
 {
@@ -33,9 +24,7 @@ protected:
 		int Health;
 		int AttackCapacity;
 		int AttackPower;
-		static int LastAlienUnit;
-		static int LastEarthUnit;
-		//RandGen* RG = new RandGen;
+
 public:
 
 	unit(int id , UnitType type , int Tj  , int Health , int AttackCapacity , int AttackPower);

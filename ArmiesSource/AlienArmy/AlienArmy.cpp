@@ -31,11 +31,11 @@ void AlienArmy::PrintAliveUnits()
 	cout << "=============== Alien Army Alive Units ===============" << endl;
 	cout << Soldiers.getCount() << " AS: ";
 	Soldiers.print();
-	cout << endl << Drones.getCount() << " AD: ";
+	cout << endl << endl << Drones.getCount() << " AD: ";
 	Drones.print();
-	cout << endl << Monster.getCount() << " AM: ";
+	cout << endl << endl << Monster.getCount() << " AM: ";
 	Monster.print();
-	cout << endl;
+	cout << endl << endl;
 
 }
 

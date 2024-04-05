@@ -1,6 +1,4 @@
 #include "..\ArmiesHeaders\unit.h"
-int unit::LastAlienUnit = 2001;
-int unit::LastEarthUnit = 1;
 
 unit::unit(int id, UnitType type, int Tj, int Health, int AttackCapacity, int AttackPower)
 	: type(type) , id(id) , Tj(Tj) , Health(Health) , AttackCapacity(AttackCapacity) , AttackPower(AttackPower)

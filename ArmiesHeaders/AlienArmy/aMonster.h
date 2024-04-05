@@ -4,11 +4,10 @@
 class aMonster :public unit
 {
 
-	static int LastMonsterID;
 
 
 public:
-	aMonster(int Tj, int Health, int AttackCapacity, int AttackPower);
+	aMonster(int id , int Tj, int Health, int AttackCapacity, int AttackPower);
 	aMonster();
 	bool attack();
 	int GetId();

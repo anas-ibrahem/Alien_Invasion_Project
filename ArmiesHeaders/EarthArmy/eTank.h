@@ -8,7 +8,7 @@ class eTank :
  
 public:
     eTank();
-    eTank(int Tj, int Health, int AttackCapacity, int AttackPower);
+    eTank(int id ,int Tj, int Health, int AttackCapacity, int AttackPower);
     virtual bool attack();
 };
 

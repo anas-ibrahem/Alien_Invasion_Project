@@ -2,8 +2,8 @@
 
 
 
-eTank::eTank(int Tj, int Health, int AttackCapacity, int AttackPower) :
-	unit(LastEarthUnit++, ET, Tj, Health, AttackCapacity, AttackPower)
+eTank::eTank(int id, int Tj, int Health, int AttackCapacity, int AttackPower) :
+	unit(id, ET, Tj, Health, AttackCapacity, AttackPower)
 {
 
 

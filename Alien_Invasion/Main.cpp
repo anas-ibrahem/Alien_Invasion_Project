@@ -1,37 +1,43 @@
 #include "../Game/Game.h"
-#include "..\RandGen\RandGen.h"
+#include <iostream>
+#include <ctime>
+
 // from 4001 to 5000 is Drones ID
 
 
 int main() {
 
- Game* MainGame = new Game();
- RandGen random(MainGame);
- random.GenerateUnits();
- random.GenerateUnits();
- random.GenerateUnits();
- /*MainGame->AddUnit(new aDrone(100, 1010, 0, 00));
- MainGame->AddUnit(new aMonster(100, 100, 100, 100));
- MainGame->AddUnit(new aSolider(100, 100, 100, 100));
- MainGame->AddUnit(new aMonster(100, 100, 100, 100));
- MainGame->AddUnit(new aDrone(100, 1010, 0, 00));
- MainGame->AddUnit(new aSolider(100, 100, 100, 100));
- MainGame->AddUnit(new aDrone(100, 1010, 0, 00));
- MainGame->AddUnit(new aMonster(100, 100, 100, 100));
- MainGame->AddUnit(new aSolider(100, 100, 100, 100));
- MainGame->AddUnit(new aDrone(100, 1010, 0, 00));
-
- MainGame->AddUnit(new eSolider(100, 1010, 0, 00));
- MainGame->AddUnit(new eTank(200, 100, 50, 100));
- MainGame->AddUnit(new eGunnery(100, 100, 100, 100));
- MainGame->AddUnit(new eSolider(100, 1010, 0, 00));
- MainGame->AddUnit(new eTank(200, 129, 50, 100));
- MainGame->AddUnit(new eGunnery(100, 100, 100, 100));
- MainGame->AddUnit(new eSolider(100, 1200, 0, 00));
- MainGame->AddUnit(new eTank(200, 100, 50, 100));
- MainGame->AddUnit(new eGunnery(100, 100, 100, 100));*/
+	int i = 50;
+	Game MainGame;// In Constructor we call Readfile
 
 
- MainGame->PrintAliveUnits();
+	do {	
+
+
+	MainGame.GenerateUnits();
+	
+	int X = rand() % 100 + 1;
+
+
+
+	if (X <= 10) {} // 
+	else if (X <= 20) {}
+	else if (X <= 30) {}
+	else if (X <= 40) {}
+	else if (X <= 50) {}
+	else if (X <= 60) {}
+	
+
+
+	MainGame.PrintAllStats();
+
+	cout << "Press any key to continue" << endl;
+	cin.get();
+	
+	MainGame.NextTS();
+	cout << "\n\n\n\n";
+
+
+	} while (--i);
 
 }

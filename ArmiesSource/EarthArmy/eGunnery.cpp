@@ -2,8 +2,8 @@
 
 
 
-eGunnery::eGunnery(int Tj, int Health, int AttackCapacity, int AttackPower) :
-	unit(LastEarthUnit++, EG, Tj, Health, AttackCapacity, AttackPower)
+eGunnery::eGunnery(int id ,int Tj, int Health, int AttackCapacity, int AttackPower) :
+	unit(id , EG, Tj, Health, AttackCapacity, AttackPower)
 {
 
 
