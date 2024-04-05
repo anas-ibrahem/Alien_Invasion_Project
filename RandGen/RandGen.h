@@ -2,10 +2,8 @@
 #include <ctime>
 #include <cstdlib>
 #include "../Game/Game.h"
-#include "../ArmiesHeaders/EarthArmy/EarthArmy.h"
-#include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
 
-struct ArmyParameter {
+/*struct ArmyParameter {
 
 	UnitType type; 
 	int Percentage; 
@@ -17,7 +15,7 @@ struct ArmyParameter {
 	}
 
 };
-
+*/
 class RandGen
 {
 	int n, Prob;
@@ -32,7 +30,7 @@ class RandGen
 	Game* MainGame;
 
 public:
-
+	RandGen(Game*);
 	RandGen(Game* MainGame , 
 	int n, int Prob, int ES_P , int AS_P , int ET_P , int EG_P, int AM_P, int AD_P ,
 	int A_Health_Range[],

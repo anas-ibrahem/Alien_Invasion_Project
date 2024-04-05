@@ -35,7 +35,7 @@ void AlienArmy::PrintAliveUnits()
 	Drones.print();
 	cout << endl << Monster.getCount() << " AM: ";
 	Monster.print();
-
+	cout << endl;
 
 }
 

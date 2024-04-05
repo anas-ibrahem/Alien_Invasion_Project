@@ -11,6 +11,12 @@ int GenerateValue(int Range[2]) {
 
 
 
+RandGen::RandGen(Game* MainGame) :MainGame(MainGame)
+{
+	MainGame->ReadFile(n, Prob, EarthParam, AlienParam, A_Health_Range, A_Capacity_Range, A_Power_Range, E_Health_Range, E_Capacity_Range, E_Power_Range);
+	srand(time(0));
+}
+
 RandGen::RandGen(Game* MainGame, int n, int Prob, int ES_P, int AS_P, int ET_P,
 	int EG_P, int AM_P, int AD_P, int A_Health_Range[], int A_Capacity_Range[],
 	int A_Power_Range[], int E_Health_Range[], int E_Capacity_Range[], int E_Power_Range[]) : MainGame(MainGame)
@@ -157,8 +163,8 @@ bool RandGen::Generate(UnitType type)
 	switch (type) {
 
 	case AD: {
-		aDrone* D = new aDrone(MainGame->GetTime(), GenerateValue(A_Health_Range), 
-								GenerateValue(A_Capacity_Range) , GenerateValue(A_Power_Range) );
+		aDrone* D = new aDrone(MainGame->GetTime(), GenerateValue(A_Health_Range),
+			GenerateValue(A_Capacity_Range), GenerateValue(A_Power_Range));
 		MainGame->AddUnit(D);
 		break;
 
@@ -167,38 +173,38 @@ bool RandGen::Generate(UnitType type)
 
 	{
 		aSolider* S = new aSolider(MainGame->GetTime(), GenerateValue(A_Health_Range),
-						GenerateValue(A_Capacity_Range), GenerateValue(A_Power_Range));
+			GenerateValue(A_Capacity_Range), GenerateValue(A_Power_Range));
 		MainGame->AddUnit(S);
 		break;
 	}
 	case AM:
 	{
 		aMonster* M = new aMonster(MainGame->GetTime(), GenerateValue(A_Health_Range),
-									GenerateValue(A_Capacity_Range), GenerateValue(A_Power_Range));
+			GenerateValue(A_Capacity_Range), GenerateValue(A_Power_Range));
 		MainGame->AddUnit(M);
 		break;
 	}
-	//case ES:
-	//{
-	//	eSolider* S = new eSolider(MainGame->GetTime(), GenerateValue(E_Health_Range),
-	//											GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
-	//	MainGame->AddUnit(S);
-	//	break;
-	//}
-	//case ET:
-	//{
-	//	eTank* T = new eTank(MainGame->GetTime(), GenerateValue(E_Health_Range),
-	//										GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
-	//	MainGame->AddUnit(T);
-	//	break;
-	//}
-	//case EG:
-	//{
-	//	eGunnery* G = new eGunnery(MainGame->GetTime(), GenerateValue(E_Health_Range),
-	//													GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
-	//	MainGame->AddUnit(G);
-	//	break;
-	//}
+	case ES:
+	{
+		eSolider* S = new eSolider(MainGame->GetTime(), GenerateValue(E_Health_Range),
+			GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
+		MainGame->AddUnit(S);
+		break;
+	}
+	case ET:
+	{
+		eTank* T = new eTank(MainGame->GetTime(), GenerateValue(E_Health_Range),
+			GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
+		MainGame->AddUnit(T);
+		break;
+	}
+	case EG:
+	{
+		eGunnery* G = new eGunnery(MainGame->GetTime(), GenerateValue(E_Health_Range),
+			GenerateValue(E_Capacity_Range), GenerateValue(E_Power_Range));
+		MainGame->AddUnit(G);
+		break;
+	}
 
 	default:
 		break;
