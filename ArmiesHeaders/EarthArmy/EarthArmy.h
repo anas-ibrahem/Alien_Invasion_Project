@@ -1,4 +1,5 @@
 #pragma once
+#include "Army.h"
 #include "eSoldier.h"
 #include "eTank.h"
 #include "eGunnery.h"
@@ -6,7 +7,7 @@
 #include "..\..\DS\LinkedQueue.h"
 #include "..\..\DS\ArrayStack.h"
 
-class EarthArmy {
+class EarthArmy : public Army {
 private:
 	LinkedQueue<unit*> Soldiers;
 	ArrayStack<unit*> Tanks;

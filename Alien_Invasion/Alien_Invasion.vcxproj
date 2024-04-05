@@ -27,6 +27,7 @@
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\eGunnery.h" />
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\eSoldier.h" />
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\eTank.h" />
+    <ClInclude Include="..\ArmiesHeaders\Army.h" />
     <ClInclude Include="..\ArmiesHeaders\unit.h" />
     <ClInclude Include="..\DS\ArrayStack.h" />
     <ClInclude Include="..\DS\DoubleLinkedQueue.h" />

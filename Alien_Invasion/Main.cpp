@@ -1,13 +1,12 @@
 #include "../Game/Game.h"
 #include <iostream>
-#include <ctime>
 
 // from 4001 to 5000 is Drones ID
 
 
 int main() {
 
-	int i = 50;
+	int i = 50; // loop for 50 times as requested
 	Game MainGame;// In Constructor we call Readfile
 
 

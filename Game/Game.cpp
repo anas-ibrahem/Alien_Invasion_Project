@@ -6,7 +6,7 @@ Game::Game() {
 	mode = 'a'; // default mode is 'a' // 's' for silent mode	// 'a' for interactive mode
 	TimeStep = 1;
 	Generator = new RandGen(ReadFile());
-	srand(time(NULL)); // seed the random number generator
+	srand(time(NULL)); // seed the random number generator // SEED ONCE NO NEED TO SEED AGAIN
 
 }
 
@@ -144,6 +144,9 @@ void Game::PrintAliveUnits()
 
 void Game::PrintKilledUnits()
 {
+	cout << "=============== Killed Units ===============" << endl;
+
+	killedList.print();
 }
 
 void Game::PrintFights()
@@ -166,8 +169,6 @@ bool Game::GenerateUnits()
 	return true;
 }
 
-
-
 void Game::PrintAllStats()
 {
 	cout << "Current TimeStep " << TimeStep << endl << endl;
@@ -176,7 +177,6 @@ void Game::PrintAllStats()
 	PrintKilledUnits();
 
 }
-
 
 Game::~Game()
 {
