@@ -10,14 +10,14 @@ bool AlienArmy::AddUnit(unit* unit)
 	
 		
 
-	case AD: {
+	case unit::AD: {
 		return Drones.enqueue(unit);
 	}
-	case AS :
+	case unit::AS :
 	{
 		return Soldiers.enqueue(unit);
 	}
-	case AM: {
+	case unit::AM: {
 		return Monster.insert(unit);
 	}
 	

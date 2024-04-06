@@ -22,11 +22,11 @@ unit* RandGen::GenerateUnitAlien(int TimeJoin)
 
 	int ArmyGen = rand() % 100 + 1;
 	if (ArmyGen <= Data.AlienPercentage[0])
-		return Create(AS,  TimeJoin);
+		return Create(unit::AS,  TimeJoin);
 	else if (ArmyGen <= Data.AlienPercentage[0] + Data.AlienPercentage[1])
-		return Create(AM, TimeJoin);
+		return Create(unit::AM, TimeJoin);
 	else
-		return Create(AD, TimeJoin);
+		return Create(unit::AD, TimeJoin);
 
 
 }
@@ -37,11 +37,11 @@ unit* RandGen::GenerateUnitEarth(int TimeJoin)
 
 	int ArmyGen = rand() % 100 + 1;
 	if (ArmyGen <= Data.EarthPercentage[0])
-		return Create(ES, TimeJoin);
+		return Create(unit::ES, TimeJoin);
 	else if (ArmyGen <= Data.EarthPercentage[0] + Data.EarthPercentage[1])
-		return Create(ET, TimeJoin);
+		return Create(unit::ET, TimeJoin);
 	else
-		return Create(EG, TimeJoin);
+		return Create(unit::EG, TimeJoin);
 }
 
 int RandGen::ValueRand(int Range[])
@@ -49,41 +49,41 @@ int RandGen::ValueRand(int Range[])
 	return (rand() % (Range[1] - Range[0] + 1) + Range[0]);
 }
 
-unit* RandGen::Create(UnitType T , int TimeJoin)
+unit* RandGen::Create(unit::UnitType T , int TimeJoin)
 {
 
 	switch (T) {
 
-	case AD: {
+	case unit::AD: {
 		return new aDrone(LastAlienID++ , TimeJoin , ValueRand(Data.A_Health_Range) ,
 			ValueRand(Data.A_Capacity_Range) , ValueRand(Data.A_Power_Range) );
 
 	}
-	case AS:
+	case unit::AS:
 
 	{
 	return new aSoldier(LastAlienID++ , TimeJoin , ValueRand(Data.A_Health_Range) ,
 			ValueRand(Data.A_Capacity_Range) , ValueRand(Data.A_Power_Range) );
 
 	}
-	case AM:
+	case unit::AM:
 	{
 	return new aMonster(LastAlienID++ , TimeJoin , ValueRand(Data.A_Health_Range) ,
 			ValueRand(Data.A_Capacity_Range) , ValueRand(Data.A_Power_Range) );
 
 	}
-	case ES:
+	case unit::ES:
 	{
 	return new eSoldier(LastEarthID++ , TimeJoin , ValueRand(Data.E_Health_Range) ,
 			ValueRand(Data.E_Capacity_Range) , ValueRand(Data.E_Power_Range) );
 	}
-	case ET:
+	case unit::ET:
 	{
 	return new eTank(LastEarthID++ , TimeJoin , ValueRand(Data.E_Health_Range) ,
 			ValueRand(Data.E_Capacity_Range) , ValueRand(Data.E_Power_Range) );
 
 	}
-	case EG:
+	case unit::EG:
 	{
 	return new eGunnery(LastEarthID++ , TimeJoin , ValueRand(Data.E_Health_Range) ,
 			ValueRand(Data.E_Capacity_Range) , ValueRand(Data.E_Power_Range) );

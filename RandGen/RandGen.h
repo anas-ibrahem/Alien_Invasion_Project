@@ -39,7 +39,7 @@ public:
 	bool WillGenerate();
 	unit* GenerateUnitAlien(int TimeJoin);
 	unit* GenerateUnitEarth(int TimeJoin);
-	unit* Create(UnitType T, int TimeJoin);
+	unit* Create(unit::UnitType T, int TimeJoin);
 	int ValueRand(int Range[]);
 
 };

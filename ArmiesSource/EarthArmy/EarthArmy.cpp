@@ -5,11 +5,11 @@ EarthArmy::EarthArmy(){}
 bool EarthArmy::AddUnit(unit* unit)
 {
 	switch (unit->GetType()) {
-	case ET:
+	case unit::ET:
 		return Tanks.push(unit);
-	case ES:
+	case unit::ES:
 		return Soldiers.enqueue(unit);
-	case EG:
+	case unit::EG:
 		return Gunneries.enqueue(unit,unit->getPower()*unit->getHealth());
 	}
 }

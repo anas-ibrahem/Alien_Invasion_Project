@@ -2,31 +2,23 @@
 #include <iostream>
 using namespace std;
 
-enum UnitType {
-	ES = 1,
-	AS = 2,
-	ET = 3,
-	EG = 4,
-	AM = 5,
-	AD = 6
-};
 
 
 
 
 class unit
 {
-protected:
-		int id;
-		UnitType type;
-		int Tj;
-		int Ta;
-		int Health;
-		int AttackCapacity;
-		int AttackPower;
-
 public:
 
+
+	enum UnitType {
+		ES = 1,
+		AS = 2,
+		ET = 3,
+		EG = 4,
+		AM = 5,
+		AD = 6
+	};
 	unit(int id , UnitType type , int Tj  , int Health , int AttackCapacity , int AttackPower);
 	virtual bool attack() = 0;
 	virtual bool defend(unit* Attacker);
@@ -36,6 +28,23 @@ public:
 	int getID() const;
 	bool reduceHealth(int amount); // returns true if the unit died
 	UnitType GetType() const;
+
+
+
+protected:
+
+
+
+		int id;
+		UnitType type;
+		int Tj;
+		int Ta;
+		int Health;
+		int AttackCapacity;
+		int AttackPower;
+
+
+
 
 };
 

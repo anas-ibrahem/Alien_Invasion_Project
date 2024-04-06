@@ -92,7 +92,7 @@ GenParameters Game::ReadFile()
 
 bool Game::AddUnit(unit* unit)
 {
-	if ( unit->GetType() == AD || unit->GetType() == AS || unit->GetType() == AM)
+	if ( unit->GetType() == unit::AD || unit->GetType() == unit::AS || unit->GetType() == unit::AM)
 	{
 		if (!A_Army.AddUnit(unit))// Delete the unit if it is not added to the army
 		{

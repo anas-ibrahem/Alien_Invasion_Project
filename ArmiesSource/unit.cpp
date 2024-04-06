@@ -46,7 +46,7 @@ int unit::getID() const
 	return id;
 }
 
-UnitType unit::GetType() const
+unit::UnitType unit::GetType() const
 {
 	return type;
 }
