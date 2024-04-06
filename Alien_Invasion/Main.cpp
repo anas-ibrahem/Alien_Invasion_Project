@@ -1,6 +1,6 @@
 #include "../Game/Game.h"
 #include <iostream>
-
+#include <conio.h>
 // from 4001 to 5000 is Drones ID
 
 
@@ -31,8 +31,9 @@ int main() {
 	MainGame.PrintAllStats();
 
 	cout << "Press any key to continue" << endl;
-	cin.get();
-	
+
+	_getch(); // wait for user to press any key to continue
+
 	MainGame.NextTS();
 	cout << "\n\n\n\n";
 

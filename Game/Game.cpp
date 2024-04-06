@@ -41,7 +41,7 @@ GenParameters Game::ReadFile()
 	ifstream inFile(input);
 	GenParameters P;
 	inFile >> N;
-	cin.ignore(256, '\n'); // Clear the buffer
+	// cin.ignore(256, '\n'); // Clear the buffer
 
 	//UnitTypePercentage temp;
 	string Range;
