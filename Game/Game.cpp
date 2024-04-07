@@ -39,6 +39,12 @@ GenParameters Game::ReadFile()
 
 
 	ifstream inFile(input);
+	while(!inFile.is_open())
+	{
+		cout << "The Name you entered is invalid ... Enter a valid name" << endl;
+		cin >> input;
+		inFile.open(input);
+	}
 	GenParameters P;
 	inFile >> N;
 	// cin.ignore(256, '\n'); // Clear the buffer
