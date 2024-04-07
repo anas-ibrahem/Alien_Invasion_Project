@@ -45,7 +45,6 @@ GenParameters Game::ReadFile()
 
 	//UnitTypePercentage temp;
 	//string Range;
-	int X;
 	//P.Earth[0].type = ES;		P.Earth[1].type = ET;		P.Earth[2].type = EG;
 	//P.Alien[0].type = AS;		P.Alien[1].type = AM;		P.Alien[2].type = AD;
 	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] ;
@@ -172,4 +171,3 @@ Game::~Game()
 {
 	delete Generator;
 }
-

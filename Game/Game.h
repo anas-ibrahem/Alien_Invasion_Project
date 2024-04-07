@@ -42,7 +42,6 @@ public :
 	void SetMode(char mode);
 
 
-	void FixRanges(string input, int array[]);
 	void PrintAliveUnits();
 	bool WriteFile(); // To Be implemented
 
