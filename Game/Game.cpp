@@ -44,7 +44,8 @@ GenParameters Game::ReadFile()
 	// cin.ignore(256, '\n'); // Clear the buffer
 
 	//UnitTypePercentage temp;
-	string Range;
+	//string Range;
+	int X;
 	//P.Earth[0].type = ES;		P.Earth[1].type = ET;		P.Earth[2].type = EG;
 	//P.Alien[0].type = AS;		P.Alien[1].type = AM;		P.Alien[2].type = AD;
 	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] ;
@@ -71,18 +72,24 @@ GenParameters Game::ReadFile()
 
 
 	inFile >> P.prob;
-	inFile >> Range;
-	FixRanges(Range, P.E_Power_Range);
-	inFile >> Range;
-	FixRanges(Range, P.E_Health_Range);
-	inFile >> Range;
-	FixRanges(Range, P.E_Capacity_Range);
-	inFile >> Range;
-	FixRanges(Range, P.A_Power_Range);
-	inFile >> Range;
-	FixRanges(Range, P.A_Health_Range);
-	inFile >> Range;
-	FixRanges(Range, P.A_Capacity_Range);
+	inFile >> P.E_Power_Range[0];
+	inFile >> P.E_Power_Range[1];
+	P.E_Power_Range[1] *= -1;
+	inFile >> P.E_Health_Range[0];
+	inFile >> P.E_Health_Range[1];
+	P.E_Health_Range[1] *= -1;
+	inFile >> P.E_Capacity_Range[0];
+	inFile >> P.E_Capacity_Range[1];
+	P.E_Capacity_Range[1] *= -1;
+	inFile >> P.A_Power_Range[0];
+	inFile >> P.A_Power_Range[1];
+	P.A_Power_Range[1] *= -1;
+	inFile >> P.A_Health_Range[0];
+	inFile >> P.A_Health_Range[1];
+	P.A_Health_Range[1] *= -1;
+	inFile >> P.A_Capacity_Range[0];
+	inFile >> P.A_Capacity_Range[1];
+	P.A_Capacity_Range[1] *= -1;
 
 
 	return P;
@@ -112,23 +119,6 @@ bool Game::AddUnit(unit* unit)
 }
 
 
-
-void Game::FixRanges(string input, int array[])
-{
-	string nums1 = "", nums2 = "";
-	int i = 0;
-	while (input[i] != '-')
-	{
-		nums1 += input[i];
-		i++;
-	}
-	for (++i; i < input.length(); i++)
-	{
-		nums2 += input[i];
-	}
-	array[0] = stoi(nums1);
-	array[1] = stoi(nums2);
-}
 
 
 void Game::PrintAliveUnits()

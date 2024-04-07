@@ -1,5 +1,5 @@
 #pragma once
-#include "Army.h"
+#include "../Army.h"
 #include "eSoldier.h"
 #include "eTank.h"
 #include "eGunnery.h"

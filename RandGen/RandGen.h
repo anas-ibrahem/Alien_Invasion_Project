@@ -1,9 +1,9 @@
 #pragma once
 #include <ctime>
 #include <cstdlib>
-#include "unit.h"
-#include "AlienArmy/AlienArmy.h"
-#include "EarthArmy/EarthArmy.h"
+#include "../ArmiesHeaders/unit.h"
+#include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
+#include "../ArmiesHeaders/EarthArmy/EarthArmy.h"
 
 struct GenParameters {
 
