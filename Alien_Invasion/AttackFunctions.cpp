@@ -15,6 +15,7 @@ bool eSoldier::attack() {
 			game->AddToKilled(t);
 		else
 			Temp2.enqueue(t);
+		cap++;
 	}
 
 	while (!Temp2.isEmpty()) {//NOT sure what to do  here
@@ -39,6 +40,7 @@ bool aSoldier::attack() {
 			game->AddToKilled(t);
 		else
 			Temp2.enqueue(t);
+		cap++;
 	}
 
 	while (!Temp2.isEmpty()) {//NOT sure what to do  here
