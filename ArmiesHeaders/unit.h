@@ -2,9 +2,7 @@
 #include <iostream>
 using namespace std;
 
-
-
-
+class Game;
 
 class unit
 {
@@ -19,7 +17,7 @@ public:
 		AM = 5,
 		AD = 6
 	};
-	unit(int id , UnitType type , int Tj  , int Health , int AttackCapacity , int AttackPower);
+	unit(int id , UnitType type , int Tj  , int Health , int AttackCapacity , int AttackPower,Game*game);
 	virtual bool attack() = 0;
 	virtual bool defend(unit* Attacker);
 	virtual bool isDead() const; // Implementes As it's the same for all
@@ -42,6 +40,7 @@ protected:
 		int Health;
 		int AttackCapacity;
 		int AttackPower;
+		Game* game;
 
 
 

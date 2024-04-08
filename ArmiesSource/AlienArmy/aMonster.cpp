@@ -1,16 +1,10 @@
 #include "..\..\ArmiesHeaders\AlienArmy\aMonster.h"
 
 
-aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPower) :
-	unit(id  , AM , Tj, Health, AttackCapacity, AttackPower)
+aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
+	unit(id  , AM , Tj, Health, AttackCapacity, AttackPower,game)
 {
 	
-
-}
-
-aMonster::aMonster() : unit(10 , AM , 10, 10 , 10 , 10)
-{
-
 
 }
 

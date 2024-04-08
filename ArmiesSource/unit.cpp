@@ -1,7 +1,7 @@
 #include "..\ArmiesHeaders\unit.h"
 
-unit::unit(int id, UnitType type, int Tj, int Health, int AttackCapacity, int AttackPower)
-	: type(type) , id(id) , Tj(Tj) , Health(Health) , AttackCapacity(AttackCapacity) , AttackPower(AttackPower)
+unit::unit(int id, UnitType type, int Tj, int Health, int AttackCapacity, int AttackPower, Game* game)
+	: type(type), id(id), Tj(Tj), Health(Health), AttackCapacity(AttackCapacity), AttackPower(AttackPower), game(game)
 {
 	Ta = -1;
 }

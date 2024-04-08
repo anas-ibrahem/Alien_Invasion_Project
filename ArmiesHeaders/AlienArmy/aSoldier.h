@@ -11,7 +11,7 @@ class aSoldier :
 public:
 
 
-    aSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower);
+    aSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game);
     virtual bool attack();
 };
 

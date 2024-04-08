@@ -4,6 +4,7 @@
 #include "../ArmiesHeaders/unit.h"
 #include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
 #include "../ArmiesHeaders/EarthArmy/EarthArmy.h"
+class Game;
 
 struct GenParameters {
 
@@ -37,9 +38,9 @@ public:
 
 	RandGen(GenParameters P);
 	bool WillGenerate();
-	unit* GenerateUnitAlien(int TimeJoin);
-	unit* GenerateUnitEarth(int TimeJoin);
-	unit* Create(unit::UnitType T, int TimeJoin);
+	unit* GenerateUnitAlien(int TimeJoin, Game* game);
+	unit* GenerateUnitEarth(int TimeJoin,Game*game);
+	unit* Create(unit::UnitType T, int TimeJoin, Game* game);
 	int ValueRand(int Range[]);
 
 };

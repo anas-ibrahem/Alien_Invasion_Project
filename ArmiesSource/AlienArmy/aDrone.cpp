@@ -1,16 +1,10 @@
 #include "..\..\ArmiesHeaders\AlienArmy\aDrone.h"
 
 
-aDrone::aDrone(int id , int Tj , int Health , int AttackCapacity , int AttackPower) :
-	unit(id , AD , Tj, Health, AttackCapacity, AttackPower)
+aDrone::aDrone(int id , int Tj , int Health , int AttackCapacity , int AttackPower, Game* game) :
+	unit(id , AD , Tj, Health, AttackCapacity, AttackPower,game)
 {
 	
-
-}
-
-aDrone::aDrone() : unit(10 , AD , 10, 10 , 10 , 10)
-{
-
 
 }
 

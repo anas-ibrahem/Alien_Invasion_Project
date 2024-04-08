@@ -38,12 +38,12 @@ GenParameters Game::ReadFile()
 	cin >> input;
 
 
-	ifstream inFile(input);
+	ifstream inFile(input+".txt");
 	while(!inFile.is_open())
 	{
 		cout << "The Name you entered is invalid ... Enter a valid name" << endl;
 		cin >> input;
-		inFile.open(input);
+		inFile.open(input+".txt");
 	}
 	GenParameters P;
 	inFile >> N;
@@ -155,8 +155,8 @@ bool Game::GenerateUnits()
 
 	for (int i = N; i > 0; --i) // Generate if meet the prob 
 	{
-		AddUnit(Generator->GenerateUnitEarth(TimeStep));
-		AddUnit(Generator->GenerateUnitAlien(TimeStep));
+		AddUnit(Generator->GenerateUnitEarth(TimeStep,this));
+		AddUnit(Generator->GenerateUnitAlien(TimeStep,this));
 
 	}
 
