@@ -39,4 +39,9 @@ void AlienArmy::PrintAliveUnits()
 
 }
 
+LinkedQueue<unit*>& AlienArmy::GetSoldiers()
+{
+	return Soldiers;
+}
+
 

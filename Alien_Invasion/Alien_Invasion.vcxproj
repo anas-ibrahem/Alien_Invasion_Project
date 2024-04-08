@@ -55,6 +55,7 @@
     <ClCompile Include="..\DS\UnitSpecialized.cpp" />
     <ClCompile Include="..\Game\Game.cpp" />
     <ClCompile Include="..\RandGen\RandGen.cpp" />
+    <ClCompile Include="AttackFunctions.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

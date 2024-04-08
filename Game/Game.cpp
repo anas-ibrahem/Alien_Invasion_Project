@@ -16,6 +16,36 @@ void Game::SetMode(char mode)
 	this->mode = mode;
 }
 
+bool Game::AddToKilled(unit*U)
+{
+		
+	return killedList.enqueue(U);
+}
+
+LinkedQueue<unit*>& Game::GetSoldierTemp(int Type)
+{
+	LinkedQueue<unit*>Temp;
+	if (Type == 1)//Call Send 1 Func return list of ASoldiers
+	{
+		LinkedQueue<unit*>Soldiers = A_Army.GetSoldiers();
+		while (!Soldiers.isEmpty()) {
+			unit* T;
+			Soldiers.enqueue(T);
+			Temp.enqueue(T);
+		}
+	}
+	else
+		{
+			LinkedQueue<unit*>Soldiers = E_Army.GetSoldiers();
+			while (!Soldiers.isEmpty()) {
+				unit* T;
+				Soldiers.enqueue(T);
+				Temp.enqueue(T);
+			}
+		}
+	return Temp;
+}
+
 
 
 int Game::GetTS() const

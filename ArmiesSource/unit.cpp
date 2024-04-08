@@ -11,7 +11,7 @@ bool unit::defend(unit* Attacker)
 {
 	if (Attacker->isDead() || this->isDead())
 		return false;
-	Health -= Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health));
+	reduceHealth(Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health)));
 	return true;
 }
 

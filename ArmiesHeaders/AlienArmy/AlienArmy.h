@@ -19,5 +19,7 @@ public :
 	bool AddUnit(unit* unit);
 	void PrintAliveUnits();
 
+	LinkedQueue<unit*> &GetSoldiers();
+
 
 };

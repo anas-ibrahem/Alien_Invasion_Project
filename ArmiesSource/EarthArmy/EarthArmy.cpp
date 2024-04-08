@@ -14,6 +14,13 @@ bool EarthArmy::AddUnit(unit* unit)
 	}
 }
 
+LinkedQueue<unit*>& EarthArmy::GetSoldiers()
+{
+	return Soldiers;
+}
+
+
+
 void EarthArmy::PrintAliveUnits()
 {
 	cout << "=============== Earth Army Alive Units ===============" << endl;

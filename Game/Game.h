@@ -10,6 +10,7 @@
 #include "../DS/LinkedQueue.h"
 #include"../DS/ArrayStack.h"
 #include"../DS/priQueue.h"
+#include"../ArmiesHeaders/unit.h"
 
 
 
@@ -40,10 +41,12 @@ public :
 	bool GenerateUnits(); // return 1 if the generation is successful and 0 if not (Prob Control)
 	bool AddUnit(unit* unit);
 	void SetMode(char mode);
-
+	bool AddToKilled(unit* U);
+	
+	LinkedQueue<unit*>& GetSoldierTemp(int Type);
 
 	void PrintAliveUnits();
-	bool WriteFile(); // To Be implemented
+	//bool WriteFile(); // To Be implemented
 
 
 
