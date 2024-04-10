@@ -95,7 +95,7 @@ GenParameters Game::ReadFile()
 	inFile >> P.A_Capacity_Range[0];
 	inFile >> P.A_Capacity_Range[1];
 	P.A_Capacity_Range[1] *= -1;
-
+	inFile.close();
 
 	return P;
 }
