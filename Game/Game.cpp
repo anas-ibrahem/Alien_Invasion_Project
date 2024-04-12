@@ -30,7 +30,7 @@ LinkedQueue<unit*>& Game::GetSoldierTemp(int Type)
 		LinkedQueue<unit*>Soldiers = A_Army.GetSoldiers();
 		while (!Soldiers.isEmpty()) {
 			unit* T;
-			Soldiers.enqueue(T);
+			Soldiers.dequeue(T);
 			Temp.enqueue(T);
 		}
 	}
@@ -39,10 +39,22 @@ LinkedQueue<unit*>& Game::GetSoldierTemp(int Type)
 			LinkedQueue<unit*>Soldiers = E_Army.GetSoldiers();
 			while (!Soldiers.isEmpty()) {
 				unit* T;
-				Soldiers.enqueue(T);
+				Soldiers.dequeue(T);
 				Temp.enqueue(T);
 			}
 		}
+	return Temp;
+}
+
+DynamicArray<unit*>& Game::GetMonsterTemp()
+{
+	DynamicArray<unit*>Temp;
+	DynamicArray<unit*>Monsters = A_Army.GetMonsters();
+	while (!Monsters.isEmpty()) {
+		unit* X;
+		Monsters.removeFirst(X);
+		Temp.insert(X);
+	}
 	return Temp;
 }
 

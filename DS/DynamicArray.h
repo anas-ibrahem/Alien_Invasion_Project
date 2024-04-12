@@ -24,16 +24,28 @@ public:
         array[count++] = element;
         return true;
     }
+    
+    bool removeFirst(T element) {
+        element = remove(0);
+    }
 
-    bool remove(int index)
+    T remove(int index)
     {
         if (index < 0 || index >= count)
         {
-            return false;
+            return 0;
         }
+
+        T temp = array[index];
         array[index] = array[--count];
-        return true;
+        return T;
     }
+     
+    bool remove(T x) {
+        int i = search(x);
+        remove(i);
+    }
+        
     T Pick() {
         if (isEmpty()) {
             return NULL;

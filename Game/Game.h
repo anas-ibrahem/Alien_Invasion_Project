@@ -44,7 +44,7 @@ public :
 	bool AddToKilled(unit* U);
 	
 	LinkedQueue<unit*>& GetSoldierTemp(int Type);
-
+	DynamicArray<unit*>& GetMonsterTemp();
 	void PrintAliveUnits();
 	//bool WriteFile(); // To Be implemented
 

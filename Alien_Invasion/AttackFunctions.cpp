@@ -25,6 +25,95 @@ bool eSoldier::attack() {
 	}
 }
 
+bool eTank::attack() {
+	//if()condition will do it 14/4/2024
+	DynamicArray<unit*>Monsters = game->GetMonsterTemp();
+	int cap = 0;
+	while (cap != AttackCapacity) {
+		unit* t;
+		t = Monsters.Pick();
+		if (t->defend(this)) {
+			Monsters.remove(t);
+			game->AddToKilled(t);
+		}
+		cap++;
+	}
+
+	//else will make it attack A soldiers
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//A_Army attack
+
 bool aSoldier::attack() {
 	LinkedQueue<unit*>Temp = game->GetSoldierTemp(2);
 	LinkedQueue<unit*>Temp2;

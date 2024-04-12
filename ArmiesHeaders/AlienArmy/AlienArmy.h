@@ -20,6 +20,7 @@ public :
 	void PrintAliveUnits();
 
 	LinkedQueue<unit*> &GetSoldiers();
+	DynamicArray<unit*>& GetMonsters();
 
 
 };

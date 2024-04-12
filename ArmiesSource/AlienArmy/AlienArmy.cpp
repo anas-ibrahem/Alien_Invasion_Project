@@ -44,4 +44,9 @@ LinkedQueue<unit*>& AlienArmy::GetSoldiers()
 	return Soldiers;
 }
 
+DynamicArray<unit*>& AlienArmy::GetMonsters()
+{
+	return Monster;
+}
+
 
