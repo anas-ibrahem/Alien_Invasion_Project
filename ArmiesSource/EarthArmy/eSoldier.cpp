@@ -7,3 +7,8 @@ eSoldier::eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPo
 {
 }
 
+bool eSoldier::attack()
+{
+	return false;
+}
+

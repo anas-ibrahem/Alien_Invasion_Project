@@ -3,9 +3,7 @@
 #include "aSoldier.h"
 #include "aMonster.h"
 #include "../Army.h"
-#include "..\..\DS\DoubleLinkedQueue.h"
-#include "..\..\DS\LinkedQueue.h"
-#include "..\..\DS\DynamicArray.h"
+
 
 
 class AlienArmy : public Army {

@@ -1,7 +1,6 @@
 #pragma once
 #include "..\unit.h"
-template<class T>
-class LinkedQueue;
+
 
 class eSoldier :
     public unit

@@ -3,9 +3,7 @@
 #include "eSoldier.h"
 #include "eTank.h"
 #include "eGunnery.h"
-#include "..\..\DS\priQueue.h"
-#include "..\..\DS\LinkedQueue.h"
-#include "..\..\DS\ArrayStack.h"
+
 
 class EarthArmy : public Army {
 private:
@@ -17,6 +15,9 @@ public:
 	EarthArmy();
 	bool AddUnit(unit* unit);
 	void PrintAliveUnits();
+
+
 	LinkedQueue<unit*>& GetSoldiers();
+	~EarthArmy();
 
 };

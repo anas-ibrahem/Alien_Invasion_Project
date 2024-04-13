@@ -1,5 +1,12 @@
 #pragma once
 #include "unit.h"
+#include "../DS/ArrayStack.h"
+#include "../DS/LinkedQueue.h"
+#include "../DS/DoubleLinkedQueue.h"
+#include "../DS/priQueue.h"
+#include "../DS/DynamicArray.h"
+
+
 
 class Army {
 

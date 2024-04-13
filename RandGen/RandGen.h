@@ -4,6 +4,7 @@
 #include "../ArmiesHeaders/unit.h"
 #include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
 #include "../ArmiesHeaders/EarthArmy/EarthArmy.h"
+
 class Game;
 
 struct GenParameters {

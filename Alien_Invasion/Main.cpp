@@ -1,8 +1,6 @@
-
 #include "../Game/Game.h"
 #include <iostream>
 #include <conio.h>
-// from 4001 to 5000 is Drones ID
 
 
 int main() {

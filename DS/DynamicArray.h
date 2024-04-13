@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include "unit.h"
 
 template <typename T>
 class DynamicArray
@@ -12,11 +13,15 @@ private:
     int count;
 
 public:
+
+
     DynamicArray() {
         capacity = 1000;
         count = 0;
         array = new T[capacity];
     }
+
+
     bool insert(T element)
     {
         if (count == capacity)
@@ -25,35 +30,6 @@ public:
         return true;
     }
     
-    bool removeFirst(T element) {
-        element = remove(0);
-    }
-
-    T remove(int index)
-    {
-        if (index < 0 || index >= count)
-        {
-            return 0;
-        }
-
-        T temp = array[index];
-        array[index] = array[--count];
-        return T;
-    }
-     
-    bool remove(T x) {
-        int i = search(x);
-        remove(i);
-    }
-        
-    T Pick() {
-        if (isEmpty()) {
-            return NULL;
-        }
-        srand(time(0)); // Seed for random number generator
-        int randomIndex = rand() % count; // Generate random index
-        return array[randomIndex];
-    }
     bool isEmpty() {
         return count == 0;
     }
@@ -68,6 +44,8 @@ public:
         }
         std::cout << "]" << std::endl;
     }
+
+
     int search(T element) {
         for (int i = 0; i < count; ++i) {
             if (array[i] == element) {
@@ -76,11 +54,62 @@ public:
         }
         return -1; // Return -1 if element is not found
     }
+
+
+
     int getCount() const {
         return count;
     }
+
+
     ~DynamicArray() {
         delete[] array;
     }
+
+
     bool print() const; // Specialized for unit* type // returns false if empty
+
+
+
+    T PickRand() {
+        if (isEmpty()) {
+            return NULL;
+        }
+        int randomIndex = rand() % count; // Generate random index
+        return array[randomIndex];
+    }
+
+
+
 };
+
+
+template<>
+inline bool DynamicArray<unit*>::print() const
+{
+    if (count == 0)
+        return false;
+    cout << "[ ";
+    for (int i = 0; i < count; i++)
+    {
+        cout << array[i]->getID() << " ";
+        if (i == count - 1) cout << "]"; // Last Element
+        else cout << ", "; // Not Last Element
+    }
+    return true;
+}
+
+template <>
+inline DynamicArray<unit*>::~DynamicArray()
+{
+
+    //Delete All units
+
+    for (int i = 0; i < count; i++)
+    {
+        delete array[i];
+    }
+
+    delete []array;
+
+}

@@ -1,13 +1,6 @@
-//	This is an updated version of code originally
-//  created by Frank M. Carrano and Timothy M. Henry.
-//  Copyright (c) 2017 Pearson Education, Hoboken, New Jersey.
-
-/** ADT stack: Array-based implementation.
- @file ArrayStack.h */
-
 #ifndef ARRAY_STACK_
 #define ARRAY_STACK_
-
+#include "unit.h"
 #include "StackADT.h"
 
  //Unless spesificed by the stack user, the default size is 100
@@ -66,7 +59,39 @@ public:
 
 	bool print()const;//For unit
 
+	~ArrayStack() {}
+
+
 }; // end ArrayStack
+
+
+
+template<>
+inline bool ArrayStack<unit*>::print()const
+{
+	if (isEmpty())
+		return false;
+	cout << "[ ";
+	for (int i = 0; i < top + 1; i++) {
+		cout << items[i]->getID() << " ";
+		if (i != top)cout << ", ";
+		else
+			cout << "]";
+	}
+	return true;
+}
+
+
+template <>
+inline ArrayStack<unit*>::~ArrayStack()
+{
+
+	//Delete All units
+	unit* temp;
+	while (pop(temp))
+	delete  temp;
+
+}
 
 #endif
 

@@ -9,3 +9,8 @@ eTank::eTank(int id, int Tj, int Health, int AttackCapacity, int AttackPower, Ga
 
 }
 
+bool eTank::attack()
+{
+	return false;
+}
+

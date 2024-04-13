@@ -21,6 +21,8 @@ bool AlienArmy::AddUnit(unit* unit)
 		return Monster.insert(unit);
 	}
 	
+	default :
+		return false;
 	
 	
 	}

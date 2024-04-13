@@ -52,10 +52,8 @@
     <ClCompile Include="..\ArmiesSource\EarthArmy\eSoldier.cpp" />
     <ClCompile Include="..\ArmiesSource\EarthArmy\eTank.cpp" />
     <ClCompile Include="..\ArmiesSource\unit.cpp" />
-    <ClCompile Include="..\DS\UnitSpecialized.cpp" />
     <ClCompile Include="..\Game\Game.cpp" />
     <ClCompile Include="..\RandGen\RandGen.cpp" />
-    <ClCompile Include="AttackFunctions.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -144,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\anasi\source\repos\anas-ibrahem\Alien_Invasion_Project\ArmiesHeaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
