@@ -31,7 +31,7 @@
     <Filter Include="ArmiesSource\AlienSource">
       <UniqueIdentifier>{a832bac8-1ea9-4338-afc8-a9f5619bb84f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ArmiesSource\EarthSource">
+    <Filter Include="ArmiesSource\AlienSource\EarthSource">
       <UniqueIdentifier>{b2e29cf1-bc12-416a-b6d8-6b4c1ead7518}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -99,6 +99,9 @@
     <ClInclude Include="..\DS\DynamicArray.h">
       <Filter>DataStructHeaders</Filter>
     </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\Army.h">
+      <Filter>ArmiesHeaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -110,9 +113,6 @@
     <ClCompile Include="..\Game\Game.cpp">
       <Filter>GameClass</Filter>
     </ClCompile>
-    <ClCompile Include="..\ArmiesSource\unit.cpp">
-      <Filter>ArmiesSource</Filter>
-    </ClCompile>
     <ClCompile Include="..\ArmiesSource\AlienArmy\aDrone.cpp">
       <Filter>ArmiesSource\AlienSource</Filter>
     </ClCompile>
@@ -123,22 +123,28 @@
       <Filter>ArmiesSource\AlienSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\eGunnery.cpp">
-      <Filter>ArmiesSource\EarthSource</Filter>
+      <Filter>ArmiesSource\AlienSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\eSoldier.cpp">
-      <Filter>ArmiesSource\EarthSource</Filter>
+      <Filter>ArmiesSource\AlienSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\eTank.cpp">
-      <Filter>ArmiesSource\EarthSource</Filter>
+      <Filter>ArmiesSource\AlienSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\AlienArmy\AlienArmy.cpp">
       <Filter>ArmiesSource\AlienSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\EarthArmy.cpp">
-      <Filter>ArmiesSource\EarthSource</Filter>
+      <Filter>ArmiesSource\AlienSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\DS\UnitSpecialized.cpp">
       <Filter>DataStructHeaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\unit.cpp">
+      <Filter>ArmiesSource\AlienSource</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackFunctions.cpp">
+      <Filter>ArmiesSource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

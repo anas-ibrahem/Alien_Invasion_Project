@@ -1,5 +1,5 @@
 #include "..\..\ArmiesHeaders\EarthArmy\EarthArmy.h"
-#include"cmath"
+
 EarthArmy::EarthArmy(){}
 
 bool EarthArmy::AddUnit(unit* unit)
@@ -11,8 +11,18 @@ bool EarthArmy::AddUnit(unit* unit)
 		return Soldiers.enqueue(unit);
 	case unit::EG:
 		return Gunneries.enqueue(unit,unit->getPower()*unit->getHealth());
+	default:
+		return false;
 	}
 }
+
+LinkedQueue<unit*>& EarthArmy::GetSoldiers()
+{
+	return Soldiers;
+}
+
+
+
 
 void EarthArmy::PrintAliveUnits()
 {
@@ -27,3 +37,7 @@ void EarthArmy::PrintAliveUnits()
 }
 
 
+
+EarthArmy::~EarthArmy()
+{
+}

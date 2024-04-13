@@ -1,6 +1,6 @@
 #pragma once
 #include "priNode.h"
-
+#include "unit.h"
 
 //This class impelements the priority queue as a sorted list (Linked List)
 //The item with highest priority is at the front of the queue
@@ -71,3 +71,39 @@ public:
     bool print()const;//Unit 
     
 };
+
+
+template<>
+inline bool priQueue<unit*>::print()const {
+    if (isEmpty())
+    {
+        return false;
+    }
+    priNode<unit*>* ptr = head;
+    cout << "[ ";
+    while (ptr)
+    {
+        int pri;
+        cout << ptr->getItem(pri)->getID() << " ";
+        ptr = ptr->getNext();
+        if (!ptr) cout << "]"; // Last Element
+        else cout << ", "; // Not Last Element
+    }
+
+    return true;
+}
+
+
+
+
+
+template <>
+inline priQueue<unit*>::~priQueue()
+{
+
+    //Delete All units
+    unit* temp; int p;
+    while (dequeue(temp,p))
+     delete  temp;
+
+}

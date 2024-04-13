@@ -89,6 +89,8 @@ unit* RandGen::Create(unit::UnitType T , int TimeJoin, Game* game)
 			ValueRand(Data.E_Capacity_Range) , ValueRand(Data.E_Power_Range) , game);
 
 	}
+	default :
+		return nullptr;
 
 	}
 

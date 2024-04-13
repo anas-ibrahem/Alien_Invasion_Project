@@ -1,6 +1,7 @@
 #pragma once
 #include "..\unit.h"
 
+
 class eSoldier :
     public unit
 {

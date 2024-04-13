@@ -4,6 +4,7 @@
 
 #include "DoubleNode.h"
 #include "QueueADT.h"
+#include "unit.h"
 
 template <typename T>
 class DoubleLinkedQueue :public QueueADT<T>
@@ -159,6 +160,39 @@ bool DoubleLinkedQueue<T>::peek_rear(T& rearEntry) const
 	return true;
 }
 
+
+template<>
+inline bool DoubleLinkedQueue<unit*>::print() const
+{
+	if (isEmpty())
+	{
+		return false;
+	}
+	DoubleNode<unit*>* ptr = frontPtr;
+	cout << "[ ";
+	while (ptr)
+	{
+		cout << ptr->getItem()->getID() << " ";
+		ptr = ptr->getNext();
+		if (!ptr) cout << "]"; // Last Element
+		else cout << ", "; // Not Last Element
+	}
+
+	return true;
+
+}
+
+
+template <>
+inline DoubleLinkedQueue<unit*>::~DoubleLinkedQueue()
+{
+
+	//Delete All units
+	unit* temp;
+	while (dequeue(temp))
+	delete  temp;
+
+}
 
 
 

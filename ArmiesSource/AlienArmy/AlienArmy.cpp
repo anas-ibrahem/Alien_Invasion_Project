@@ -21,6 +21,8 @@ bool AlienArmy::AddUnit(unit* unit)
 		return Monster.insert(unit);
 	}
 	
+	default :
+		return false;
 	
 	
 	}
@@ -37,6 +39,16 @@ void AlienArmy::PrintAliveUnits()
 	Monster.print();
 	cout << endl << endl;
 
+}
+
+LinkedQueue<unit*>& AlienArmy::GetSoldiers()
+{
+	return Soldiers;
+}
+
+DynamicArray<unit*>& AlienArmy::GetMonsters()
+{
+	return Monster;
 }
 
 

@@ -5,6 +5,9 @@ Game::Game() {
 
 	mode = 'a'; // default mode is 'a' // 's' for silent mode	// 'a' for interactive mode
 	TimeStep = 1;
+	A_Army = new AlienArmy();
+	E_Army = new EarthArmy();
+	killedList = new LinkedQueue<unit*>();
 	Generator = new RandGen(ReadFile());
 	srand(time(NULL)); // seed the random number generator // SEED ONCE NO NEED TO SEED AGAIN
 
@@ -14,6 +17,12 @@ Game::Game() {
 void Game::SetMode(char mode)
 {
 	this->mode = mode;
+}
+
+bool Game::AddToKilled(unit*U)
+{
+		
+	return killedList->enqueue(U);
 }
 
 
@@ -32,14 +41,13 @@ int Game::NextTS()
 
 GenParameters Game::ReadFile()
 {
-	// TODO : Reask The file name if it is not found
 	string input;
 	cout << "Enter Input File Name : ex(input.txt)" << endl;
 	cin >> input;
 
 
 	ifstream inFile(input+".txt");
-	while(!inFile.is_open())
+	while(!inFile.is_open()) // Re Ask If Name is Invalid
 	{
 		cout << "The Name you entered is invalid ... Enter a valid name" << endl;
 		cin >> input;
@@ -47,33 +55,9 @@ GenParameters Game::ReadFile()
 	}
 	GenParameters P;
 	inFile >> N;
-	// cin.ignore(256, '\n'); // Clear the buffer
 
-	//UnitTypePercentage temp;
-	//string Range;
-	//P.Earth[0].type = ES;		P.Earth[1].type = ET;		P.Earth[2].type = EG;
-	//P.Alien[0].type = AS;		P.Alien[1].type = AM;		P.Alien[2].type = AD;
 	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] ;
 	inFile >> P.AlienPercentage[0] >> P.AlienPercentage[1] >> P.AlienPercentage[2];
-
-
-	//for (int i = 0; i < 2; i++)
-	//	for (int j = 0; j < 2 - i; j++)				//bubble sort
-	//	{
-	//		if (P.Earth[j].Percentage < P.Earth[j + 1].Percentage)
-	//		{
-	//			temp = P.Earth[j];
-	//			P.Earth[j] = P.Earth[j + 1];
-	//			P.Earth[j + 1] = temp;
-	//		}
-	//		if (P.Alien[j].Percentage < P.Alien[j + 1].Percentage)
-	//		{
-	//			temp = P.Alien[j];
-	//			P.Alien[j] = P.Alien[j + 1];
-	//			P.Alien[j + 1] = temp;
-	//		}
-	//	}
-
 
 
 	inFile >> P.prob;
@@ -106,7 +90,7 @@ bool Game::AddUnit(unit* unit)
 {
 	if ( unit->GetType() == unit::AD || unit->GetType() == unit::AS || unit->GetType() == unit::AM)
 	{
-		if (!A_Army.AddUnit(unit))// Delete the unit if it is not added to the army
+		if (!A_Army->AddUnit(unit))// Delete the unit if it is not added to the army
 		{
 			delete unit;
 			return false;
@@ -114,7 +98,7 @@ bool Game::AddUnit(unit* unit)
 	}
 	else
 	{
-		if (!E_Army.AddUnit(unit)) // Delete the unit if it is not added to the army
+		if (!E_Army->AddUnit(unit)) // Delete the unit if it is not added to the army
 		{
 			delete unit;
 			return false;
@@ -129,11 +113,11 @@ bool Game::AddUnit(unit* unit)
 void Game::PrintAliveUnits()
 {
 
-	E_Army.PrintAliveUnits();
+	E_Army->PrintAliveUnits();
 
 	cout << "\n\n";
 
-	A_Army.PrintAliveUnits();
+	A_Army->PrintAliveUnits();
 
 }
 
@@ -141,7 +125,7 @@ void Game::PrintKilledUnits()
 {
 	cout << "=============== Killed Units ===============" << endl;
 
-	killedList.print();
+	killedList->print();
 }
 
 void Game::PrintFights()
@@ -175,5 +159,14 @@ void Game::PrintAllStats()
 
 Game::~Game()
 {
-	delete Generator;
+		cout << "\nClosing Game...........\n";
+		cout << "\nDelete All Earth Army Units.............";
+		delete E_Army;
+		cout << "\nDelete All Alien Army Units.............";
+		delete A_Army;
+		cout << "\nDelete All Dead Units.............";
+		delete killedList;
+
+		// Deleting Generator
+		delete Generator;
 }
