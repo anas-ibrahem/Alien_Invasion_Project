@@ -41,17 +41,17 @@ int Game::NextTS()
 
 GenParameters Game::ReadFile()
 {
-	string input;
+	string inputfilename;
 	cout << "Enter Input File Name : ex(input.txt)" << endl;
-	cin >> input;
+	cin >> inputfilename;
 
 
-	ifstream inFile(input+".txt");
+	ifstream inFile("../InputFiles/" + inputfilename);
 	while(!inFile.is_open()) // Re Ask If Name is Invalid
 	{
 		cout << "The Name you entered is invalid ... Enter a valid name" << endl;
-		cin >> input;
-		inFile.open(input+".txt");
+		cin >> inputfilename;
+		inFile.open("../InputFiles/"+ inputfilename);
 	}
 	GenParameters P;
 	inFile >> N;
