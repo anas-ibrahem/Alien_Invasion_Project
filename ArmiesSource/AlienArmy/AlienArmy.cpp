@@ -41,14 +41,36 @@ void AlienArmy::PrintAliveUnits()
 
 }
 
-LinkedQueue<unit*>& AlienArmy::GetSoldiers()
+unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 {
-	return Soldiers;
+	
+		unit* temp = nullptr ;
+
+		switch (type) {
+		case unit::AS:
+			Soldiers.dequeue(temp);
+			break;
+		case unit::AM:
+
+			temp = Monster.PickRand();
+			break;
+
+		case unit::AD :
+
+
+			if (dronedir == 'f') // Front dequeue
+				Drones.dequeue(temp);
+			else if (dronedir == 'r') // Rear Dequeue
+				Drones.dequeue_rear(temp);
+
+			break;
+
+		default:
+			break;
+
+		}
+		return temp;
 }
 
-DynamicArray<unit*>& AlienArmy::GetMonsters()
-{
-	return Monster;
-}
 
 

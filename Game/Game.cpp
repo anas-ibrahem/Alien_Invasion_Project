@@ -21,7 +21,6 @@ void Game::SetMode(char mode)
 
 bool Game::AddToKilled(unit*U)
 {
-		
 	return killedList->enqueue(U);
 }
 
@@ -121,6 +120,21 @@ void Game::PrintAliveUnits()
 
 }
 
+unit* Game::PickUnit(unit::UnitType type , char dronedir)
+{
+	if (type == unit::AD || type == unit::AS || type == unit::AM)
+	{
+		return A_Army->PickUnit(type , dronedir);
+	}
+	else
+	{
+		return E_Army->PickUnit(type);
+
+	}
+}
+
+
+
 void Game::PrintKilledUnits()
 {
 	cout << "=============== Killed Units ===============" << endl;
@@ -154,6 +168,93 @@ void Game::PrintAllStats()
 	PrintAliveUnits();
 	PrintFights();
 	PrintKilledUnits();
+
+}
+
+void Game::TestCode()
+{
+
+
+	int X = rand() % 100 + 1;
+
+	cout << "Current X  :  " << X << endl;
+
+
+	if (X <= 10) {
+		unit* ESDummy = PickUnit(unit::ES);
+		if (ESDummy) AddUnit(ESDummy);
+	}  
+	else if (X <= 20) {
+		unit* ETdummy = PickUnit(unit::ET);
+		if (ETdummy) AddToKilled(ETdummy);
+	}
+	else if (X <= 30) {
+		unit* EGdummy = PickUnit(unit::EG);
+
+		if (EGdummy) {
+			if (EGdummy->reduceHealth(EGdummy->getHealth() / 2)) // Really Won't Happen
+				AddToKilled(EGdummy);
+
+			AddUnit(EGdummy);
+		}
+
+
+	}
+	else if (X <= 40) {
+
+		unit* ASdummy;
+		LinkedQueue<unit*> templist;
+
+		for (int i = 0; i < 5; i++)
+		{
+			ASdummy = PickUnit(unit::AS);
+			if (ASdummy) {
+
+				if (ASdummy->reduceHealth(ASdummy->getHealth() / 2))  // Really Won't Happen
+					AddToKilled(ASdummy);
+
+				templist.enqueue(ASdummy);
+			}
+		}
+
+		while (templist.dequeue(ASdummy))
+			AddUnit(ASdummy);
+
+
+	
+	}
+	else if (X <= 50) {
+	
+		unit* AMdummy;
+
+		for (int i = 0; i < 5; i++)
+		{
+			AMdummy = PickUnit(unit::AM);
+
+			if (AMdummy)
+				AddUnit(AMdummy);
+
+		}
+	
+	
+	}
+	else if (X <= 60) {
+	
+	
+		unit* ADdummyF;
+		unit* ADdummyR;
+
+
+		for (int i = 0; i < 3; i++)
+		{
+			ADdummyF = PickUnit(unit::AD , 'f' );
+			ADdummyR = PickUnit(unit::AD , 'r');
+			if (ADdummyF) AddToKilled(ADdummyF);
+			if (ADdummyR) AddToKilled(ADdummyR);
+
+		}
+	
+	}
 
 }
 

@@ -9,7 +9,7 @@ unit::unit(int id, UnitType type, int Tj, int Health, int AttackCapacity, int At
 
 bool unit::getAttacked(unit* Attacker)
 {
-	if (Attacker->isDead() || this->isDead()) // Won't Be Actually in use "Win't attack A dead Unit in any case "
+	if (Attacker->isDead() || this->isDead()) // Won't Be Actually in use "Won't attack A dead Unit in any case "
 		return false;
 
 	return reduceHealth(Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health)));
@@ -32,7 +32,7 @@ bool unit::reduceHealth(int amount)
 	if (Health <= 0)
 	{
 		Health = 0;
-		return true;
+		return true; // True if unit died
 	}
 	return false;
 }

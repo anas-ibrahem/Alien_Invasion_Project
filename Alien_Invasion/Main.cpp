@@ -14,22 +14,12 @@ int main() {
 
 	MainGame.GenerateUnits();
 	
-	int X = rand() % 100 + 1;
-
-
-
-	if (X <= 10) {} // 
-	else if (X <= 20) {}
-	else if (X <= 30) {}
-	else if (X <= 40) {}
-	else if (X <= 50) {}
-	else if (X <= 60) {}
-	
-
+	MainGame.TestCode();
+	cout << "\n\n";
 
 	MainGame.PrintAllStats();
 
-	cout << "Press any key to continue" << endl;
+	cout << "\n\nPress any key to continue" << endl;
 
 	_getch(); // wait for user to press any key to continue
 

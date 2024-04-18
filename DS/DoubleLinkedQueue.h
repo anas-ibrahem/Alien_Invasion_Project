@@ -45,7 +45,7 @@ DoubleLinkedQueue<T>::DoubleLinkedQueue()
 template <typename T>
 bool DoubleLinkedQueue<T>::isEmpty() const
 {
-	return (frontPtr == nullptr);
+	return (count == 0);
 }
 
 
@@ -53,15 +53,19 @@ bool DoubleLinkedQueue<T>::isEmpty() const
 template <typename T>
 bool DoubleLinkedQueue<T>::enqueue(const T& newEntry)
 {
-	count++;
 	DoubleNode<T>* newNodePtr = new DoubleNode<T>(newEntry);
 	// Insert the new node
 	if (isEmpty())	//special case if this is the first node to insert
-		frontPtr = newNodePtr; // The queue is empty
+	{
+		frontPtr = newNodePtr;
+	}// The queue is empty
 	else
+	{
+		newNodePtr->setPrev(backPtr);
 		backPtr->setNext(newNodePtr); // The queue was not empty
-
+	}
 	backPtr = newNodePtr; // New node is the last node now
+	count++;
 	return true;
 } // end enqueue
 
@@ -76,9 +80,12 @@ bool DoubleLinkedQueue<T>::dequeue(T& frntEntry)
 	DoubleNode<T>* nodeToDeletePtr = frontPtr;
 	frntEntry = frontPtr->getItem();
 	frontPtr = frontPtr->getNext();
+
 	// Queue is not empty; remove front
-	if (nodeToDeletePtr == backPtr)	 // Special case: last node in the queue
+	if (count == 1)	 // Special case: last node in the queue
 		backPtr = nullptr;
+	else
+		frontPtr->setPrev(nullptr);
 
 	// Free memory reserved for the dequeued node
 	delete nodeToDeletePtr;
@@ -139,8 +146,11 @@ bool DoubleLinkedQueue<T>::dequeue_rear(T& rearEntry)
 	rearEntry = backPtr->getItem();
 	backPtr = backPtr->getPrev();
 
-	if (nodeToDeletePtr == frontPtr)	 // Special case: last node in the queue
+	if (count == 1)	 // Special case: last node in the queue
 		frontPtr = nullptr;
+	else 
+		backPtr->setNext(nullptr);
+	
 
 	// Free memory reserved for the dequeued node
 	delete nodeToDeletePtr;

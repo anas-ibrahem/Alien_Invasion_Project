@@ -38,7 +38,13 @@ public :
 	void SetMode(char mode);
 	bool AddToKilled(unit* U);
 	void PrintAliveUnits();
+	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
 
+
+
+
+
+	void TestCode();
 	//bool WriteFile(); // To Be implemented
 
 

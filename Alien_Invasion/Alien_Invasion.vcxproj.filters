@@ -31,7 +31,7 @@
     <Filter Include="ArmiesSource\AlienSource">
       <UniqueIdentifier>{a832bac8-1ea9-4338-afc8-a9f5619bb84f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ArmiesSource\AlienSource\EarthSource">
+    <Filter Include="ArmiesSource\EarthSource">
       <UniqueIdentifier>{b2e29cf1-bc12-416a-b6d8-6b4c1ead7518}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -123,27 +123,21 @@
       <Filter>ArmiesSource\AlienSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\eGunnery.cpp">
-      <Filter>ArmiesSource\AlienSource\EarthSource</Filter>
+      <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\eSoldier.cpp">
-      <Filter>ArmiesSource\AlienSource\EarthSource</Filter>
+      <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\eTank.cpp">
-      <Filter>ArmiesSource\AlienSource\EarthSource</Filter>
+      <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\AlienArmy\AlienArmy.cpp">
       <Filter>ArmiesSource\AlienSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\EarthArmy.cpp">
-      <Filter>ArmiesSource\AlienSource\EarthSource</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DS\UnitSpecialized.cpp">
-      <Filter>DataStructHeaders</Filter>
+      <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\unit.cpp">
-      <Filter>ArmiesSource\AlienSource</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackFunctions.cpp">
       <Filter>ArmiesSource</Filter>
     </ClCompile>
   </ItemGroup>

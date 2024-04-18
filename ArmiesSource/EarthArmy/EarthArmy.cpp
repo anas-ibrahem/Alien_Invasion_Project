@@ -16,10 +16,6 @@ bool EarthArmy::AddUnit(unit* unit)
 	}
 }
 
-LinkedQueue<unit*>& EarthArmy::GetSoldiers()
-{
-	return Soldiers;
-}
 
 
 
@@ -34,6 +30,31 @@ void EarthArmy::PrintAliveUnits()
 	cout << endl << endl<<   Gunneries.getCount() << " EG: ";
 	Gunneries.print();
 	cout << endl << endl;
+}
+
+unit* EarthArmy::PickUnit(unit::UnitType type , char dronedir)
+{
+	unit* temp = nullptr ;
+	int I; // Dummy integer
+
+	switch (type) {
+	case unit::ET : 
+			 Tanks.pop(temp);
+			 break;
+	case unit::ES:
+			 Soldiers.dequeue(temp);
+			 break;
+	case unit::EG:
+			 Gunneries.dequeue(temp , I);
+			 break;
+
+	default:
+		break;
+		 
+	}
+
+
+	return temp;
 }
 
 

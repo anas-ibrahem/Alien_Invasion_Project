@@ -15,9 +15,9 @@ public:
 	EarthArmy();
 	bool AddUnit(unit* unit);
 	void PrintAliveUnits();
+	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
 
 
-	LinkedQueue<unit*>& GetSoldiers();
 	~EarthArmy();
 
 };

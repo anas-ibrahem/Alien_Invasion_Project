@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "unit.h"
+#include "../ArmiesHeaders/unit.h"
 
 template <typename T>
 class DynamicArray
@@ -56,6 +56,19 @@ public:
     }
 
 
+    T remove(int index)
+    {
+        if (index < 0 || index >= count)
+        {
+            return 0;
+        }
+
+        T temp = array[index];
+        array[index] = array[--count];
+        return temp;
+    }
+
+
 
     int getCount() const {
         return count;
@@ -73,15 +86,18 @@ public:
 
     T PickRand() {
         if (isEmpty()) {
-            return NULL;
+            return nullptr ;
         }
         int randomIndex = rand() % count; // Generate random index
-        return array[randomIndex];
+        return remove(randomIndex) ;
     }
 
 
 
 };
+
+
+
 
 
 template<>
