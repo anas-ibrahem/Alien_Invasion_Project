@@ -41,7 +41,7 @@ int Game::NextTS()
 GenParameters Game::ReadFile()
 {
 	string inputfilename;
-	cout << "Enter Input File Name : ex(input.txt)" << endl;
+	cout << "Enter Input File Name : ex(input.txt)  * Make Sure the file is inside InputFiles Folder  " << endl;
 	cin >> inputfilename;
 
 
@@ -139,6 +139,7 @@ void Game::PrintKilledUnits()
 {
 	cout << "=============== Killed Units ===============" << endl;
 
+	cout << killedList->getCount() << " units ";
 	killedList->print();
 }
 
