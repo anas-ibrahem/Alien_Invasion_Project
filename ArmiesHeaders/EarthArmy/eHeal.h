@@ -8,7 +8,7 @@ class eHeal :
     
 public:
 
-    eHeal(int id ,int Tj, int Health, int AttackCapacity, int AttackPower, Game* game);
+    eHeal(int id ,int Tj, double Health, int AttackCapacity, double AttackPower, Game* game);
     virtual bool attack();
 };
 
