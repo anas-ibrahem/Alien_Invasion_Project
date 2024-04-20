@@ -8,6 +8,7 @@
 
 class AlienArmy : public Army {
 private:
+	char LastAddedAD;
 	DoubleLinkedQueue<unit*> Drones;
 	LinkedQueue<unit*> Soldiers;
 	DynamicArray<unit*> Monster;

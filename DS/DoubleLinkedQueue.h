@@ -4,7 +4,7 @@
 
 #include "DoubleNode.h"
 #include "QueueADT.h"
-#include "unit.h"
+#include "../ArmiesHeaders/unit.h"
 
 template <typename T>
 class DoubleLinkedQueue :public QueueADT<T>
@@ -23,6 +23,12 @@ public:
 	~DoubleLinkedQueue();
 	
 	// Added Functions of Double 
+
+	bool enqueue_front(const T& newEntry);
+	bool dequeue_front(T& frntEntry);
+	bool peek_front(T& frntEntry)  const;
+
+	bool enqueue_rear(const T& newEntry);
 	bool dequeue_rear(T& rearEntry);
 	bool peek_rear(T& rearEntry)  const;
 
@@ -50,8 +56,10 @@ bool DoubleLinkedQueue<T>::isEmpty() const
 
 
 
+
+
 template <typename T>
-bool DoubleLinkedQueue<T>::enqueue(const T& newEntry)
+bool DoubleLinkedQueue<T>::enqueue_rear(const T& newEntry) // enqueue from back
 {
 	DoubleNode<T>* newNodePtr = new DoubleNode<T>(newEntry);
 	// Insert the new node
@@ -71,8 +79,30 @@ bool DoubleLinkedQueue<T>::enqueue(const T& newEntry)
 
 
 
+template <typename T> // enqueue front
+bool DoubleLinkedQueue<T>::enqueue_front(const T& newEntry)
+{
+	DoubleNode<T>* newNodePtr = new DoubleNode<T>(newEntry);
+	// Insert the new node
+	if (isEmpty())	//special case if this is the first node to insert
+	{
+		backPtr = newNodePtr;
+	}// The queue is empty
+	else
+	{
+		newNodePtr->setNext(frontPtr);
+		frontPtr->setPrev(newNodePtr); // The queue was not empty
+	}
+	frontPtr = newNodePtr; // New node is the last node now
+	count++;
+	return true;
+} // end enqueue
+
+
+
+
 template <typename T>
-bool DoubleLinkedQueue<T>::dequeue(T& frntEntry)
+bool DoubleLinkedQueue<T>::dequeue_front(T& frntEntry)
 {
 	if (isEmpty())
 		return false;
@@ -94,10 +124,46 @@ bool DoubleLinkedQueue<T>::dequeue(T& frntEntry)
 }
 
 
+// Dequeue From Rear //
+template<typename T>
+bool DoubleLinkedQueue<T>::dequeue_rear(T& rearEntry)
+{
+
+
+	if (isEmpty())
+		return false;
+
+	DoubleNode<T>* nodeToDeletePtr = backPtr;
+	rearEntry = backPtr->getItem();
+	backPtr = backPtr->getPrev();
+
+	if (count == 1)	 // Special case: last node in the queue
+		frontPtr = nullptr;
+	else
+		backPtr->setNext(nullptr);
+
+
+	// Free memory reserved for the dequeued node
+	delete nodeToDeletePtr;
+	count--;
+	return true;
+
+
+}
+
+template<typename T>
+bool DoubleLinkedQueue<T>::peek_rear(T& rearEntry) const
+{
+	if (isEmpty())
+		return false;
+
+	rearEntry = backPtr->getItem();
+	return true;
+}
 
 
 template <typename T>
-bool DoubleLinkedQueue<T>::peek(T& frntEntry) const
+bool DoubleLinkedQueue<T>::peek_front(T& frntEntry) const
 {
 	if (isEmpty())
 		return false;
@@ -105,6 +171,25 @@ bool DoubleLinkedQueue<T>::peek(T& frntEntry) const
 	frntEntry = frontPtr->getItem();
 	return true;
 
+}
+
+
+template<typename T>
+bool DoubleLinkedQueue<T>::enqueue(const T& newEntry)
+{
+	return enqueue_rear(newEntry);
+}
+
+template<typename T>
+bool DoubleLinkedQueue<T>::dequeue(T& frntEntry)
+{
+	return dequeue_front(frntEntry);
+}
+
+template<typename T>
+bool DoubleLinkedQueue<T>::peek(T& frntEntry) const
+{
+	return peek_front(frntEntry);
 }
 
 template<typename T>
@@ -125,7 +210,7 @@ DoubleLinkedQueue<T>::~DoubleLinkedQueue()
 
 	//Free all nodes in the queue
 	T temp;
-	while (dequeue(temp));
+	while (dequeue_rear(temp));
 
 	cout << "\n Is DoubleLinkedQueue Empty now?? ==> " << boolalpha << isEmpty();
 	cout << "\nEnding DoubleLinkedQueue destructor..." << endl;
@@ -133,42 +218,9 @@ DoubleLinkedQueue<T>::~DoubleLinkedQueue()
 
 
 
-// Dequeue From Rear //
-template<typename T>
-bool DoubleLinkedQueue<T>::dequeue_rear(T& rearEntry)
-{
 
 
-	if (isEmpty())
-		return false;
 
-	DoubleNode<T>* nodeToDeletePtr = backPtr;
-	rearEntry = backPtr->getItem();
-	backPtr = backPtr->getPrev();
-
-	if (count == 1)	 // Special case: last node in the queue
-		frontPtr = nullptr;
-	else 
-		backPtr->setNext(nullptr);
-	
-
-	// Free memory reserved for the dequeued node
-	delete nodeToDeletePtr;
-	count--;
-	return true;
-
-
-}
-
-template<typename T>
-bool DoubleLinkedQueue<T>::peek_rear(T& rearEntry) const
-{
-	if (isEmpty())
-		return false;
-
-	rearEntry = backPtr->getItem();
-	return true;
-}
 
 
 template<>
@@ -199,7 +251,7 @@ inline DoubleLinkedQueue<unit*>::~DoubleLinkedQueue()
 
 	//Delete All units
 	unit* temp;
-	while (dequeue(temp))
+	while (dequeue_rear(temp))
 	delete  temp;
 
 }

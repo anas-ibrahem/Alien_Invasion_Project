@@ -1,6 +1,7 @@
 #include "..\..\ArmiesHeaders\AlienArmy\AlienArmy.h"
 
 AlienArmy::AlienArmy() {
+	LastAddedAD = 'r';
 }
 
 bool AlienArmy::AddUnit(unit* unit)
@@ -11,7 +12,18 @@ bool AlienArmy::AddUnit(unit* unit)
 		
 
 	case unit::AD: {
-		return Drones.enqueue(unit);
+		
+		if (LastAddedAD == 'r')
+		{
+			Drones.enqueue_front(unit);
+			LastAddedAD = 'f';
+		}
+		else if (LastAddedAD == 'f')
+		{
+			Drones.enqueue_rear(unit);
+			LastAddedAD = 'r';
+		}
+
 	}
 	case unit::AS :
 	{
@@ -59,7 +71,7 @@ unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 
 
 			if (dronedir == 'f') // Front dequeue
-				Drones.dequeue(temp);
+				Drones.dequeue_front(temp);
 			else if (dronedir == 'r') // Rear Dequeue
 				Drones.dequeue_rear(temp);
 
