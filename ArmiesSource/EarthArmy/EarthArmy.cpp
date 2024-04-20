@@ -11,6 +11,8 @@ bool EarthArmy::AddUnit(unit* unit)
 		return Soldiers.enqueue(unit);
 	case unit::EG:
 		return Gunneries.enqueue(unit,unit->getPower()*unit->getHealth());
+	case unit::EH:
+		return Healers.push(unit);
 	default:
 		return false;
 	}
@@ -25,11 +27,11 @@ void EarthArmy::PrintAliveUnits()
 	cout << "=============== Earth Army Alive Units ===============" << endl;
 	cout << Soldiers.getCount() << " ES: ";
 	Soldiers.print();
-	cout << endl << endl <<  Tanks.getCount() << " ET: ";
+	cout << endl << endl << Tanks.getCount() << " ET: ";
 	Tanks.print();
-	cout << endl << endl<<   Gunneries.getCount() << " EG: ";
+	cout << endl << endl << Gunneries.getCount() << " EG: ";
 	Gunneries.print();
-	cout << endl << endl;
+	cout << endl << endl << Healers.getCount() << " EH: ";
 }
 
 unit* EarthArmy::PickUnit(unit::UnitType type , char dronedir)

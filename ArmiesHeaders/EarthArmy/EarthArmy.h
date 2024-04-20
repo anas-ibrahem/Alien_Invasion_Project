@@ -3,6 +3,7 @@
 #include "eSoldier.h"
 #include "eTank.h"
 #include "eGunnery.h"
+#include "eHeal.h"
 
 
 class EarthArmy : public Army {
@@ -10,6 +11,7 @@ private:
 	LinkedQueue<unit*> Soldiers;
 	ArrayStack<unit*> Tanks;
 	priQueue<unit*>Gunneries ;
+	ArrayStack<unit*> Healers;
 
 public:
 	EarthArmy();

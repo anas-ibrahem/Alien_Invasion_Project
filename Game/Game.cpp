@@ -55,7 +55,8 @@ GenParameters Game::ReadFile()
 	GenParameters P;
 	inFile >> N;
 
-	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] ;
+	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] >>P.EarthPercentage[3];
+	if (P.EarthPercentage[3] > 5) P.EarthPercentage[3] = 5;
 	inFile >> P.AlienPercentage[0] >> P.AlienPercentage[1] >> P.AlienPercentage[2];
 
 

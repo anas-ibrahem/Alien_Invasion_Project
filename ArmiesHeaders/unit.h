@@ -15,7 +15,8 @@ public:
 		ET = 3,
 		EG = 4,
 		AM = 5,
-		AD = 6
+		AD = 6,
+		EH = 7
 	};
 	unit(int id , UnitType type , int Tj  , double Health , int AttackCapacity , int AttackPower,Game*game);
 	virtual bool attack() = 0;
