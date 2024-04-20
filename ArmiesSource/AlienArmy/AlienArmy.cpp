@@ -15,13 +15,13 @@ bool AlienArmy::AddUnit(unit* unit)
 		
 		if (LastAddedAD == 'r')
 		{
-			Drones.enqueue_front(unit);
 			LastAddedAD = 'f';
+			return Drones.enqueue_front(unit);
 		}
 		else if (LastAddedAD == 'f')
 		{
-			Drones.enqueue_rear(unit);
 			LastAddedAD = 'r';
+			return Drones.enqueue_rear(unit);
 		}
 
 	}
