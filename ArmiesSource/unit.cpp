@@ -1,6 +1,6 @@
 #include "..\ArmiesHeaders\unit.h"
 
-unit::unit(int id, UnitType type, int Tj, int Health, int AttackCapacity, int AttackPower, Game* game)
+unit::unit(int id, UnitType type, int Tj, double Health, int AttackCapacity, int AttackPower, Game* game)
 	: type(type), id(id), Tj(Tj), Health(Health), AttackCapacity(AttackCapacity), AttackPower(AttackPower), game(game)
 {
 	Ta = -1;
@@ -21,7 +21,7 @@ bool unit::isDead() const
 	return (Health == 0) ;
 }
 
-int unit::getHealth() const
+double unit::getHealth() const
 {
 	return Health;
 }

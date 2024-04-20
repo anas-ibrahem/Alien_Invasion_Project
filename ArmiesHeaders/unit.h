@@ -17,11 +17,11 @@ public:
 		AM = 5,
 		AD = 6
 	};
-	unit(int id , UnitType type , int Tj  , int Health , int AttackCapacity , int AttackPower,Game*game);
+	unit(int id , UnitType type , int Tj  , double Health , int AttackCapacity , int AttackPower,Game*game);
 	virtual bool attack() = 0;
 	virtual bool getAttacked(unit* Attacker);
 	virtual bool isDead() const; // Implementes As it's the same for all
-	int getHealth() const;
+	double getHealth() const;
 	int getPower() const;
 	int getID() const;
 	bool reduceHealth(int amount); // returns true if the unit died
@@ -38,7 +38,7 @@ protected:
 		int Tj;
 		int Ta;
 		int Td;
-		int Health;
+		double Health;
 		int AttackCapacity;
 		int AttackPower;
 		Game* game;
