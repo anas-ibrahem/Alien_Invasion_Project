@@ -220,17 +220,16 @@ void Game::Battle()
 
 bool Game::GenerateUnits()
 {
-	if (!Generator->WillGenerate()) return false; // if didn't meet the prob
-
-
-	for (int i = N; i > 0; --i) // Generate if meet the prob 
-	{
-		AddUnit(Generator->GenerateUnitEarth(TimeStep,this));
-		AddUnit(Generator->GenerateUnitAlien(TimeStep,this));
-
-	}
-
-
+	if (Generator->WillGenerate())
+		for (int i = N; i > 0; --i) // Generate if meet the prob 
+		{
+			AddUnit(Generator->GenerateUnitAlien(TimeStep, this));
+		}
+	if (Generator->WillGenerate())
+		for (int i = N; i > 0; --i) // Generate if meet the prob 
+		{
+			AddUnit(Generator->GenerateUnitEarth(TimeStep, this));
+		}
 	return true;
 }
 

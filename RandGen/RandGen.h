@@ -38,7 +38,7 @@ private :
 public:
 
 	RandGen(GenParameters P);
-	bool WillGenerate();
+	bool WillGenerate() const;
 	unit* GenerateUnitAlien(int TimeJoin, Game* game);
 	unit* GenerateUnitEarth(int TimeJoin,Game*game);
 	unit* Create(unit::UnitType T, int TimeJoin, Game* game);
