@@ -16,3 +16,4 @@ bool aSoldier::attack()
 {
 	return false;
 }
+

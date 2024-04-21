@@ -25,6 +25,15 @@ private :
 
 public :
 
+	LinkedQueue<int>ESattack;
+	LinkedQueue<int>ETattack;
+	LinkedQueue<int>EGattack;
+
+	LinkedQueue<int>ASattack;
+	LinkedQueue<int>AMattack;
+	LinkedQueue<int>ADattack;
+
+
 
 	Game();
 	int GetTS() const;
@@ -32,7 +41,6 @@ public :
 	GenParameters ReadFile();
 	void PrintAllStats();
 	void PrintKilledUnits();
-	void PrintFights();
 	bool GenerateUnits(); // return 1 if the generation is successful and 0 if not (Prob Control)
 	bool AddUnit(unit* unit);
 	void SetMode(char mode);
@@ -40,14 +48,20 @@ public :
 	void PrintAliveUnits();
 	bool checkUML(unit* U);
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
+	void  AddAttacked(unit::UnitType type, int id);
 
-
+	
 
 
 
 	void TestCode();
-	//bool WriteFile(); // To Be implemented
 
+
+
+	// Phase 2 Added Functions 
+	//bool WriteFile(); // To Be implemented
+	void PrintFights();
+	void Battle();
 
 	~Game();
 

@@ -143,6 +143,33 @@ unit* Game::PickUnit(unit::UnitType type , char dronedir)
 	}
 }
 
+void Game::AddAttacked(unit::UnitType type,int id)
+{
+	switch (type)
+	{
+	case unit::ES:
+		ESattack.enqueue(id);
+		break;
+	case unit::ET:
+		ETattack.enqueue(id);
+		break;
+	case unit::EG:
+		EGattack.enqueue(id);
+		break;
+	case unit::AS:
+		ASattack.enqueue(id);
+		break;
+	case unit::AM:
+		AMattack.enqueue(id);
+		break;
+	case unit::AD:
+		ADattack.enqueue(id);
+		break;
+	default:
+		break;
+	}
+}
+
 
 
 void Game::PrintKilledUnits()
@@ -155,6 +182,24 @@ void Game::PrintKilledUnits()
 
 void Game::PrintFights()
 {
+	cout << "=============== Fights  ===============" << endl;
+	/*cout << " " << id << ;*/
+	int id;
+	cout << "[ ";
+	while (!ESattack.isEmpty()) {
+		ESattack.dequeue(id);
+		cout << id;
+		if (!ESattack.isEmpty())
+			cout << ", ";
+	}
+	cout << "] " << endl;
+}
+
+void Game::Battle()
+{
+	E_Army->attack();
+	A_Army->attack();
+
 }
 
 bool Game::GenerateUnits()

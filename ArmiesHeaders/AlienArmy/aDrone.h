@@ -1,5 +1,6 @@
 #pragma once
 #include "..\unit.h"
+class Game;
 
 class aDrone :public unit
 {

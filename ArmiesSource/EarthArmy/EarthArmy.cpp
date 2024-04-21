@@ -84,6 +84,16 @@ bool EarthArmy::AddtoUML(unit* unit)
 	return false;
 }
 
+void EarthArmy::attack()
+{
+	unit* Attacker = nullptr;
+	if (Soldiers.peek(Attacker))
+		Attacker->attack();
+
+
+
+}
+
 
 EarthArmy::~EarthArmy()
 {

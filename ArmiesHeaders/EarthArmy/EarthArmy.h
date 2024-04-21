@@ -20,8 +20,7 @@ public:
 	void PrintAliveUnits();
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
 	bool AddtoUML(unit* unit);
-
-
+	void attack();
 	~EarthArmy();
 
 };
