@@ -21,7 +21,7 @@ int main() {
 
 	cout << "\n\nPress any key to continue" << endl;
 
-	_getch(); // wait for user to press any key to continue
+	//_getch(); // wait for user to press any key to continue
 
 	MainGame.NextTS();
 	cout << "\n\n\n\n";

@@ -1,9 +1,12 @@
 #include "..\ArmiesHeaders\unit.h"
+#include "..\Game\Game.h"
 
 unit::unit(int id, UnitType type, int Tj, double Health, int AttackCapacity, double AttackPower, Game* game)
 	: type(type), id(id), Tj(Tj), Health(Health), AttackCapacity(AttackCapacity), AttackPower(AttackPower), game(game)
 {
+	intialHealth = Health;
 	Ta = -1;
+	Td = -1;
 }
 
 
@@ -21,9 +24,20 @@ bool unit::isDead() const
 	return (Health == 0) ;
 }
 
+void unit::setTd()
+{
+	if (Td == -1)
+		Td = game->GetTS();
+}
+
 double unit::getHealth() const
 {
 	return Health;
+}
+
+double unit::HealthPercent() const
+{
+	return Health * 100 / intialHealth;
 }
 
 bool unit::reduceHealth(double amount)

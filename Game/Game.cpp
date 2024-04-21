@@ -21,6 +21,7 @@ void Game::SetMode(char mode)
 
 bool Game::AddToKilled(unit*U)
 {
+	U->setTd();
 	return killedList->enqueue(U);
 }
 
@@ -55,7 +56,8 @@ GenParameters Game::ReadFile()
 	GenParameters P;
 	inFile >> N;
 
-	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] ;
+	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] >>P.EarthPercentage[3];
+	if (P.EarthPercentage[3] > 5) P.EarthPercentage[3] = 5;
 	inFile >> P.AlienPercentage[0] >> P.AlienPercentage[1] >> P.AlienPercentage[2];
 
 
@@ -118,6 +120,14 @@ void Game::PrintAliveUnits()
 
 	A_Army->PrintAliveUnits();
 
+}
+
+bool Game::checkUML(unit* U)
+{
+	if (U->HealthPercent() < 20)
+		if (E_Army->AddtoUML(U))
+			return true;
+	return false;
 }
 
 unit* Game::PickUnit(unit::UnitType type , char dronedir)
@@ -245,7 +255,13 @@ void Game::TestCode()
 
 	if (X <= 10) {
 		unit* ESDummy = PickUnit(unit::ES);
-		if (ESDummy) AddUnit(ESDummy);
+		if (ESDummy) {
+			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
+			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
+			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
+			if (!checkUML(ESDummy))
+				AddUnit(ESDummy);
+		}
 	}  
 	else if (X <= 20) {
 		unit* ETdummy = PickUnit(unit::ET);
