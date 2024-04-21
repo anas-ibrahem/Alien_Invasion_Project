@@ -10,7 +10,7 @@ RandGen::RandGen(GenParameters P) : Data(P)
 
 
 
-bool RandGen::WillGenerate()
+bool RandGen::WillGenerate() const
 {
 	int ProbGen = rand() % 100 + 1;
 	return (ProbGen <= Data.prob);
