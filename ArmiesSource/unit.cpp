@@ -24,12 +24,6 @@ bool unit::isDead() const
 	return (Health == 0) ;
 }
 
-void unit::setTd()
-{
-	if (Td == -1)
-		Td = game->GetTS();
-}
-
 double unit::getHealth() const
 {
 	return Health;

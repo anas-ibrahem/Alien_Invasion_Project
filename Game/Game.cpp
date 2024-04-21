@@ -21,7 +21,6 @@ void Game::SetMode(char mode)
 
 bool Game::AddToKilled(unit*U)
 {
-	U->setTd();
 	return killedList->enqueue(U);
 }
 

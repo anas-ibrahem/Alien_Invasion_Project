@@ -21,7 +21,6 @@ public:
 	virtual bool attack() = 0;
 	virtual bool getAttacked(unit* Attacker);
 	virtual bool isDead() const; // Implementes As it's the same for all
-	void setTd();
 	double getHealth() const;
 	double HealthPercent() const;
 	double getPower() const;
