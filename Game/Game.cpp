@@ -21,6 +21,7 @@ void Game::SetMode(char mode)
 
 bool Game::AddToKilled(unit*U)
 {
+	U->setTd();
 	return killedList->enqueue(U);
 }
 
@@ -121,6 +122,14 @@ void Game::PrintAliveUnits()
 
 }
 
+bool Game::checkUML(unit* U)
+{
+	if (U->HealthPercent() < 20)
+		if (E_Army->AddtoUML(U))
+			return true;
+	return false;
+}
+
 unit* Game::PickUnit(unit::UnitType type , char dronedir)
 {
 	if (type == unit::AD || type == unit::AS || type == unit::AM)
@@ -184,7 +193,13 @@ void Game::TestCode()
 
 	if (X <= 10) {
 		unit* ESDummy = PickUnit(unit::ES);
-		if (ESDummy) AddUnit(ESDummy);
+		if (ESDummy) {
+			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
+			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
+			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
+			if (!checkUML(ESDummy))
+				AddUnit(ESDummy);
+		}
 	}  
 	else if (X <= 20) {
 		unit* ETdummy = PickUnit(unit::ET);

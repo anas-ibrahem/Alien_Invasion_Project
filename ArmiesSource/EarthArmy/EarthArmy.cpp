@@ -32,6 +32,10 @@ void EarthArmy::PrintAliveUnits()
 	cout << endl << endl << Gunneries.getCount() << " EG: ";
 	Gunneries.print();
 	cout << endl << endl << Healers.getCount() << " EH: ";
+	Healers.print();
+	cout << endl << endl << "=============== Unit Maintenance Units ===============" << endl;
+	cout << UML.getCount() << " UML: ";
+	UML.print();
 }
 
 unit* EarthArmy::PickUnit(unit::UnitType type , char dronedir)
@@ -40,25 +44,45 @@ unit* EarthArmy::PickUnit(unit::UnitType type , char dronedir)
 	int I; // Dummy integer
 
 	switch (type) {
-	case unit::ET : 
-			 Tanks.pop(temp);
-			 break;
+	case unit::ET:
+		Tanks.pop(temp);
+		break;
 	case unit::ES:
-			 Soldiers.dequeue(temp);
-			 break;
+		Soldiers.dequeue(temp);
+		break;
 	case unit::EG:
-			 Gunneries.dequeue(temp , I);
-			 break;
-
+		Gunneries.dequeue(temp, I);
+		break;
+	case unit::EH:
+		Healers.pop(temp);
+		break;
 	default:
 		break;
-		 
+
 	}
 
 
 	return temp;
 }
 
+bool EarthArmy::AddtoUML(unit* unit)
+{
+	if (unit)
+		switch (unit->GetType())
+		{
+		case unit::ES:
+			if(UML.enqueue(unit, INT_MAX / unit->getHealth()))
+				return true;
+			break;
+		case unit::ET:
+			if(UML.enqueue(unit, -1))
+				return true;
+			break;
+		default:
+			break;
+		}
+	return false;
+}
 
 
 EarthArmy::~EarthArmy()

@@ -38,6 +38,7 @@ public :
 	void SetMode(char mode);
 	bool AddToKilled(unit* U);
 	void PrintAliveUnits();
+	bool checkUML(unit* U);
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
 
 

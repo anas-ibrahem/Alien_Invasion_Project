@@ -22,30 +22,23 @@ public:
 	virtual bool attack() = 0;
 	virtual bool getAttacked(unit* Attacker);
 	virtual bool isDead() const; // Implementes As it's the same for all
+	void setTd();
 	double getHealth() const;
+	double HealthPercent() const;
 	int getPower() const;
 	int getID() const;
 	bool reduceHealth(int amount); // returns true if the unit died
 	UnitType GetType() const;
-
-
-
 protected:
-
-
-
 		int id;
 		UnitType type;
 		int Tj;
 		int Ta;
 		int Td;
 		double Health;
+		double intialHealth;
 		int AttackCapacity;
 		int AttackPower;
 		Game* game;
-
-
-
-
 };
 
