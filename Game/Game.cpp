@@ -145,6 +145,16 @@ void Game::PrintKilledUnits()
 
 void Game::PrintFights()
 {
+	cout << "=============== Fights  ===============" << endl;
+	E_Army->PrintAttack();
+	A_Army->PrintAttack();
+}
+
+void Game::Battle()
+{
+	E_Army->attack();
+	A_Army->attack();
+
 }
 
 bool Game::GenerateUnits()

@@ -84,5 +84,15 @@ unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 		return temp;
 }
 
+void AlienArmy::attack()
+{
+}
+
+void AlienArmy::PrintAttack()
+{
+
+
+}
+
 
 

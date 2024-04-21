@@ -32,7 +32,6 @@ public :
 	GenParameters ReadFile();
 	void PrintAllStats();
 	void PrintKilledUnits();
-	void PrintFights();
 	bool GenerateUnits(); // return 1 if the generation is successful and 0 if not (Prob Control)
 	bool AddUnit(unit* unit);
 	void SetMode(char mode);
@@ -45,8 +44,13 @@ public :
 
 
 	void TestCode();
-	//bool WriteFile(); // To Be implemented
 
+
+
+	// Phase 2 Added Functions 
+	//bool WriteFile(); // To Be implemented
+	void PrintFights();
+	void Battle();
 
 	~Game();
 

@@ -16,8 +16,8 @@ public:
 	bool AddUnit(unit* unit);
 	void PrintAliveUnits();
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
-
-
+	void attack();
+	void PrintAttack();
 	~EarthArmy();
 
 };
