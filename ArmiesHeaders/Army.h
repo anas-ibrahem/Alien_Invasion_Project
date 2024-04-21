@@ -17,7 +17,6 @@ class Army {
 		virtual void PrintAliveUnits() = 0 ;
 		virtual unit* PickUnit(unit::UnitType type , char dronedir = 'f') = 0 ;
 		virtual void attack() = 0;
-		virtual void PrintAttack() = 0;
 
 
 };

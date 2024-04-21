@@ -25,6 +25,15 @@ private :
 
 public :
 
+	LinkedQueue<int>ESattack;
+	LinkedQueue<int>ETattack;
+	LinkedQueue<int>EGattack;
+
+	LinkedQueue<int>ASattack;
+	LinkedQueue<int>AMattack;
+	LinkedQueue<int>ADattack;
+
+
 
 	Game();
 	int GetTS() const;
@@ -38,8 +47,9 @@ public :
 	bool AddToKilled(unit* U);
 	void PrintAliveUnits();
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
+	void  AddAttacked(unit::UnitType type, int id);
 
-
+	
 
 
 

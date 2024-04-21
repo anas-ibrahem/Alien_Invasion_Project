@@ -9,7 +9,9 @@ class EarthArmy : public Army {
 private:
 	LinkedQueue<unit*> Soldiers;
 	ArrayStack<unit*> Tanks;
-	priQueue<unit*>Gunneries ;
+	priQueue<unit*>Gunneries;
+
+	
 
 public:
 	EarthArmy();
@@ -17,7 +19,7 @@ public:
 	void PrintAliveUnits();
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
 	void attack();
-	void PrintAttack();
+	
 	~EarthArmy();
 
 };

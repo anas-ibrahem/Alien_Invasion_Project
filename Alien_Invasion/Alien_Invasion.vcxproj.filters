@@ -140,5 +140,8 @@
     <ClCompile Include="..\ArmiesSource\unit.cpp">
       <Filter>ArmiesSource</Filter>
     </ClCompile>
+    <ClCompile Include="AttackFunc.cpp">
+      <Filter>ArmiesSource</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -51,3 +51,8 @@ unit::UnitType unit::GetType() const
 {
 	return type;
 }
+
+void unit::setTD(int T)
+{
+	Td = T;
+}

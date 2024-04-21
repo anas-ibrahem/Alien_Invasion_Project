@@ -59,22 +59,15 @@ unit* EarthArmy::PickUnit(unit::UnitType type , char dronedir)
 
 void EarthArmy::attack()
 {
-	// Check IF null
 	unit* Attacker = nullptr;
-
-	
-	if (Soldiers.peek(Attacker)) Attacker->attack();
-
-	//Tanks.peek()->attack();
-	//Gunneries.peek()->attack();
+	if (Soldiers.peek(Attacker))
+		Attacker->attack();
 
 
 
 }
 
-void EarthArmy::PrintAttack()
-{
-}
+
 
 
 

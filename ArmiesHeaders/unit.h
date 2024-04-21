@@ -25,6 +25,7 @@ public:
 	int getID() const;
 	bool reduceHealth(double amount); // returns true if the unit died
 	UnitType GetType() const;
+	void setTD(int T);
 
 
 

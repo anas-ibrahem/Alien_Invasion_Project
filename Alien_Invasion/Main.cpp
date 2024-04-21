@@ -5,7 +5,7 @@
 
 int main() {
 
-	int i = 50; // loop for 50 times as requested
+	int i = 100; // loop for 50 times as requested
 	Game MainGame;// In Constructor we call Readfile
 
 
@@ -14,7 +14,7 @@ int main() {
 
 	MainGame.GenerateUnits();
 	
-	MainGame.TestCode();
+	MainGame.Battle();
 	cout << "\n\n";
 
 	MainGame.PrintAllStats();
