@@ -28,6 +28,8 @@ public:
 	bool reduceHealth(double amount); // returns true if the unit died
 	UnitType GetType() const;
 	void setTD(int T);
+	int getTa();
+	void setTa(int T);
 
 protected:
 		int id;

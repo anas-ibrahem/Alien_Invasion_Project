@@ -64,3 +64,13 @@ void unit::setTD(int T)
 {
 	Td = T;
 }
+
+int unit::getTa()
+{
+	return Ta;
+}
+
+void unit::setTa(int T)
+{
+	Ta = T;
+}

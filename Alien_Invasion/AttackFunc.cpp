@@ -21,8 +21,11 @@ bool eSoldier::attack() {
 				temp->setTD(game->GetTS());
 				
 			}		
-			else
-			tempList.enqueue(temp);
+			else {
+				tempList.enqueue(temp);
+				if (temp->getTa() == -1)temp->setTa(game->GetTS());
+
+			}
 
 			game->AddAttacked(unit::ES, temp->getID());
 			cap--;
@@ -67,9 +70,12 @@ bool aSoldier::attack() {
 				temp->setTD(game->GetTS());
 
 			}
-			else
+			else {
 				tempList.enqueue(temp);
-
+				if (temp->getTa() == -1)temp->setTa(game->GetTS());
+			
+			}
+			
 			game->AddAttacked(unit::AS, temp->getID());
 			cap--;
 		}
