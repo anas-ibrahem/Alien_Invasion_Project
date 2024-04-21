@@ -86,6 +86,10 @@ unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 
 void AlienArmy::attack()
 {
+
+	unit* Attacker = nullptr;
+	if (Soldiers.peek(Attacker))
+		Attacker->attack();
 }
 
 void AlienArmy::PrintAttack()

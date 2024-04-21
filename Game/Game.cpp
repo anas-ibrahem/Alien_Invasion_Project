@@ -173,16 +173,33 @@ void Game::PrintKilledUnits()
 void Game::PrintFights()
 {
 	cout << "=============== Fights  ===============" << endl;
-	/*cout << " " << id << ;*/
-	int id;
-	cout << "[ ";
-	while (!ESattack.isEmpty()) {
-		ESattack.dequeue(id);
-		cout << id;
-		if (!ESattack.isEmpty())
-			cout << ", ";
+	if (!ESattack.isEmpty()) {
+		
+		int id;
+		cout << "ES"<< "  shots[";
+		while (!ESattack.isEmpty()) {
+			ESattack.dequeue(id);
+			cout << id;
+			if (!ESattack.isEmpty())
+				cout << ", ";
+		}
+		cout << "] " << endl;
 	}
-	cout << "] " << endl;
+
+	if (!ASattack.isEmpty()) {
+
+		int id;
+		cout << "AS" << "  shots[";
+		while (!ASattack.isEmpty()) {
+			ASattack.dequeue(id);
+			cout << id;
+			if (!ASattack.isEmpty())
+				cout << ", ";
+		}
+		cout << "] " << endl;
+	}
+
+	cout << "\n\n";
 }
 
 void Game::Battle()

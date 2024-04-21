@@ -10,10 +10,3 @@ aSoldier::aSoldier(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 
 
-
-
-bool aSoldier::attack()
-{
-	return false;
-}
-

@@ -23,8 +23,6 @@ private :
 	EarthArmy* E_Army;
 	char mode; // s for silent a for interactive
 
-public :
-
 	LinkedQueue<int>ESattack;
 	LinkedQueue<int>ETattack;
 	LinkedQueue<int>EGattack;
@@ -32,6 +30,10 @@ public :
 	LinkedQueue<int>ASattack;
 	LinkedQueue<int>AMattack;
 	LinkedQueue<int>ADattack;
+
+public :
+
+	
 
 
 
