@@ -208,7 +208,7 @@ bool aSoldier::attack(LinkedQueue<int>& AttackedIDs) {
 				temp->setTD(game->GetTS());
 
 			}
-			else {
+			else if (!game->checkUML(temp)) {
 				tempList.enqueue(temp);
 				if (temp->getTa() == -1)temp->setTa(game->GetTS());
 
@@ -243,7 +243,7 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 					if (tempT->getAttacked(this)) {
 						game->AddToKilled(tempT);
 					}
-					else {
+					else if (!game->checkUML(tempT)) {
 						tempList.enqueue(tempT);
 						if (tempT->getTa() == -1)tempT->setTa(game->GetTS());
 
@@ -257,7 +257,7 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 				if (tempS->getAttacked(this)) {
 					game->AddToKilled(tempS);
 				}
-				else {
+				else if (!game->checkUML(tempS)) {
 					tempList.enqueue(tempS);
 					if (tempS->getTa() == -1)tempS->setTa(game->GetTS());
 
@@ -319,7 +319,7 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 			{
 				game->AddToKilled(tempT);
 			}
-			else {
+			else if (!game->checkUML(tempT)) {
 				tempList.enqueue(tempT);
 				if (tempT->getTa() == -1)
 					tempT->setTa(game->GetTS());
