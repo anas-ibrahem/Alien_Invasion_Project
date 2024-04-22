@@ -155,6 +155,20 @@ unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 
 void AlienArmy::attack()
 {
+	unit* Attacker = nullptr;
+
+	if (Soldiers.peek(Attacker))
+	{
+		Attacker->attack(AS_Attacked);
+		AS_AttackerID = Attacker->getID();
+	}
+
+	if (Monster.PeekRand(Attacker))
+	{
+		Attacker->attack(AM_Attacked);
+		AM_AttackerID = Attacker->getID();
+	}
+
 
 
 }

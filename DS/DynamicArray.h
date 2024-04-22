@@ -92,12 +92,13 @@ public:
         return remove(randomIndex) ;
     }
 
-    T PeekRand() {
+    bool PeekRand(T& x) {
         if (isEmpty()) {
-            return nullptr;
+            return false;
         }
         int randomIndex = rand() % count; // Generate random index
-        return array[randomIndex];
+        x= array[randomIndex];
+        return x;
     }
 
 };
