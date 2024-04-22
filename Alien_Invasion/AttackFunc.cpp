@@ -54,7 +54,7 @@ bool eHeal::attack(LinkedQueue<int>& AttackedIDs) { return 1; }
 
 bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) { return 1; }
 
-bool aDrone::attack(LinkedQueue<int>& AttackedIDs) { return 1; }
+
 
 
 
@@ -192,3 +192,70 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 		}
 		return (cap<AttackCapacity);
  }
+
+
+
+bool aDrone::attack(LinkedQueue<int>& AttackedIDs) { 
+
+	LinkedQueue<unit*> tempList;
+	int cap = AttackCapacity;
+
+	while (cap) {
+
+		unit* tempG;
+		unit* tempT;
+		tempG = game->PickUnit(unit::EG);
+		tempT = game->PickUnit(unit::ET);
+
+		if (!tempT && !tempG)
+			break;		//nothing to Attack
+
+		if (tempG) // Assumption Gunnery Before Tank
+		{
+
+			if (tempG->getAttacked(this))
+			{
+				game->AddToKilled(tempG);
+			}
+			else 
+			{
+				tempList.enqueue(tempG);
+				if (tempG->getTa() == -1) 
+					tempG->setTa(game->GetTS());
+
+			}
+
+			AttackedIDs.enqueue(tempG->getID());
+			cap--;
+		}
+
+		if (tempT && cap > 0) {
+
+			if (tempT->getAttacked(this)) 
+			{
+				game->AddToKilled(tempT);
+			}
+			else {
+				tempList.enqueue(tempT);
+				if (tempT->getTa() == -1)
+					tempT->setTa(game->GetTS());
+
+			}
+
+			AttackedIDs.enqueue(tempT->getID());
+			cap--;
+		}
+
+
+	}
+	while (!tempList.isEmpty()) // return from templist to original lists
+	{
+		unit* temp;
+		tempList.dequeue(temp);
+		game->AddUnit(temp);
+	}
+
+
+	return (cap < AttackCapacity);
+
+}
