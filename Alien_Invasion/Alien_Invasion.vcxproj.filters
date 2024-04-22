@@ -102,6 +102,9 @@
     <ClInclude Include="..\ArmiesHeaders\Army.h">
       <Filter>ArmiesHeaders</Filter>
     </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\EarthArmy\eHeal.h">
+      <Filter>ArmiesHeaders\EarthHeaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -142,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="AttackFunc.cpp">
       <Filter>ArmiesSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\EarthArmy\eHeal.cpp">
+      <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

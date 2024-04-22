@@ -38,6 +38,51 @@ void EarthArmy::PrintAliveUnits()
 	UML.print();
 }
 
+void EarthArmy::PrintFights()
+{
+	
+		int id;
+		ET_Crnt_attack.dequeue(id); // Always Dequeue The Attacker
+
+		if (!ET_Crnt_attack.isEmpty())
+		{
+			cout << "ET  " << id << " shots [ ";
+			PrintAttacked(unit:: ET);
+
+		}
+}
+
+void EarthArmy::PrintAttacked(unit::UnitType type) {
+	int id;
+
+	switch (type)
+	{
+	case unit::ES:
+		break;
+	case unit::ET:
+
+		while (ET_Crnt_attack.dequeue(id))
+		{
+			cout << id;
+		if (!ET_Crnt_attack.isEmpty())
+			cout << " , ";
+		}
+		cout << " ]" << endl;
+
+		break;
+	case unit::EG:
+		break;
+	case unit::EH:
+		break;
+	default:
+		break;
+	}
+
+
+
+
+}
+
 unit* EarthArmy::PickUnit(unit::UnitType type , char dronedir)
 {
 	unit* temp = nullptr ;
@@ -87,9 +132,12 @@ bool EarthArmy::AddtoUML(unit* unit)
 void EarthArmy::attack()
 {
 	unit* Attacker = nullptr;
-	if (Soldiers.peek(Attacker))
-		Attacker->attack();
 
+	//if (Soldiers.peek(Attacker))
+	//	Attacker->attack( );
+
+	if (Tanks.peek(Attacker))
+		Attacker->attack(ET_Crnt_attack);
 
 
 }

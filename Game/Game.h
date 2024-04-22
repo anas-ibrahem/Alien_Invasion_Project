@@ -23,8 +23,8 @@ private :
 	EarthArmy* E_Army;
 	char mode; // s for silent a for interactive
 
+	// Current Attack Lists
 	LinkedQueue<int>ESattack;
-	LinkedQueue<int>ETattack;
 	LinkedQueue<int>EGattack;
 
 	LinkedQueue<int>ASattack;
@@ -43,7 +43,7 @@ public :
 	GenParameters ReadFile();
 	void PrintAllStats();
 	void PrintKilledUnits();
-	bool GenerateUnits(); // return 1 if the generation is successful and 0 if not (Prob Control)
+	void GenerateUnits(); 
 	bool AddUnit(unit* unit);
 	void SetMode(char mode);
 	bool AddToKilled(unit* U);

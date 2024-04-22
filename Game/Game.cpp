@@ -150,7 +150,7 @@ void Game::AddAttacked(unit::UnitType type,int id)
 		ESattack.enqueue(id);
 		break;
 	case unit::ET:
-		ETattack.enqueue(id);
+		//ETattack.enqueue(id);
 		break;
 	case unit::EG:
 		EGattack.enqueue(id);
@@ -182,33 +182,57 @@ void Game::PrintKilledUnits()
 void Game::PrintFights()
 {
 	cout << "=============== Fights  ===============" << endl;
-	if (!ESattack.isEmpty()) {
-		
-		int id;
-		cout << "ES"<< "  shots[";
-		while (!ESattack.isEmpty()) {
-			ESattack.dequeue(id);
-			cout << id;
-			if (!ESattack.isEmpty())
-				cout << ", ";
-		}
-		cout << "] " << endl;
-	}
 
-	if (!ASattack.isEmpty()) {
 
-		int id;
-		cout << "AS" << "  shots[";
-		while (!ASattack.isEmpty()) {
-			ASattack.dequeue(id);
-			cout << id;
-			if (!ASattack.isEmpty())
-				cout << ", ";
-		}
-		cout << "] " << endl;
-	}
+	E_Army->PrintFights();
+	
+	//int id;
+	//ETattack.dequeue(id); // Always Dequeue The Attacker
 
-	cout << "\n\n";
+
+	//if (!ETattack.isEmpty()) 
+	//{
+	//	cout << "ET  "<<  id <<" shots [ ";
+
+	//	while (ETattack.dequeue(id))
+	//	{
+	//		cout << id;
+	//		if (!ETattack.isEmpty())
+	//			cout << " , ";
+	//	}
+
+	//	cout << " ]" << endl;
+
+	//}
+ 
+ 
+	//if (!ESattack.isEmpty()) {
+	//	
+	//	int id;
+	//	cout << "ES"<< "  shots[";
+	//	while (!ESattack.isEmpty()) {
+	//		ESattack.dequeue(id);
+	//		cout << id;
+	//		if (!ESattack.isEmpty())
+	//			cout << ", ";
+	//	}
+	//	cout << "] " << endl;
+	//}
+
+	//if (!ASattack.isEmpty()) {
+
+	//	int id;
+	//	cout << "AS" << "  shots[";
+	//	while (!ASattack.isEmpty()) {
+	//		ASattack.dequeue(id);
+	//		cout << id;
+	//		if (!ASattack.isEmpty())
+	//			cout << ", ";
+	//	}
+	//	cout << "] " << endl;
+	//}
+
+	//cout << "\n\n";
 }
 
 void Game::Battle()
@@ -218,19 +242,34 @@ void Game::Battle()
 
 }
 
-bool Game::GenerateUnits()
+void Game::GenerateUnits()
 {
-	if (Generator->WillGenerate())
+	bool GenerateAlienUnits = Generator->WillGenerate();
+	bool GenerateEarthUnits = Generator->WillGenerate();
+
+	if (GenerateAlienUnits)
 		for (int i = N; i > 0; --i) // Generate if meet the prob 
 		{
-			AddUnit(Generator->GenerateUnitAlien(TimeStep, this));
+			unit* Created = Generator->GenerateUnitAlien(TimeStep, this);
+			if (!Created)
+			{
+				cout << "---------------- Can't Generate Alien IDs OUT OF RANGE ----------------"; break;
+			}
+			
+			AddUnit(Created);
 		}
-	if (Generator->WillGenerate())
+
+	if (GenerateEarthUnits)
 		for (int i = N; i > 0; --i) // Generate if meet the prob 
 		{
-			AddUnit(Generator->GenerateUnitEarth(TimeStep, this));
+			unit* Created = Generator->GenerateUnitEarth(TimeStep, this);
+			if (!Created)
+			{
+				cout << "---------------- Can't Generate Earth IDs OUT OF RANGE ----------------"; break;
+			}
+
+			AddUnit(Created);
 		}
-	return true;
 }
 
 void Game::PrintAllStats()

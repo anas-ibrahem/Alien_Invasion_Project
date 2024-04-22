@@ -19,6 +19,8 @@ bool RandGen::WillGenerate() const
 
 unit* RandGen::GenerateUnitAlien(int TimeJoin, Game* game)
 {
+	if (LastAlienID == 4000) return nullptr; // OUT of IDS
+
 
 	int ArmyGen = rand() % 100 + 1;
 	if (ArmyGen <= Data.AlienPercentage[0])
@@ -35,13 +37,18 @@ unit* RandGen::GenerateUnitAlien(int TimeJoin, Game* game)
 unit* RandGen::GenerateUnitEarth(int TimeJoin, Game* game)
 {
 
+	if (LastEarthID == 2000) return nullptr; // OUT of IDS
+
 	int ArmyGen = rand() % 100 + 1;
 	if (ArmyGen <= Data.EarthPercentage[0])
 		return Create(unit::ES, TimeJoin,  game);
 	else if (ArmyGen <= Data.EarthPercentage[0] + Data.EarthPercentage[1])
 		return Create(unit::ET, TimeJoin,game);
-	else
+	else if (ArmyGen <= Data.EarthPercentage[0] + Data.EarthPercentage[1] + Data.EarthPercentage[2] )
 		return Create(unit::EG, TimeJoin,game);
+	else 
+		return Create(unit::EH, TimeJoin, game);
+
 }
 
 int RandGen::ValueRand(int Range[])
@@ -49,7 +56,7 @@ int RandGen::ValueRand(int Range[])
 	return (rand() % (Range[1] - Range[0] + 1) + Range[0]);
 }
 
-unit* RandGen::Create(unit::UnitType T , int TimeJoin, Game* game)
+unit* RandGen::Create(unit::UnitType T, int TimeJoin, Game* game)
 {
 
 	switch (T) {
@@ -89,6 +96,13 @@ unit* RandGen::Create(unit::UnitType T , int TimeJoin, Game* game)
 			ValueRand(Data.E_Capacity_Range) , ValueRand(Data.E_Power_Range) , game);
 
 	}
+	case unit::EH:
+	{
+		return new eHeal(LastEarthID++, TimeJoin, ValueRand(Data.E_Health_Range),
+			ValueRand(Data.E_Capacity_Range), ValueRand(Data.E_Power_Range), game);
+
+	}
+
 	default :
 		return nullptr;
 
