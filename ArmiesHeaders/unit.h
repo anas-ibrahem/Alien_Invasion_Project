@@ -1,7 +1,12 @@
 #pragma once
 #include <iostream>
+
 using namespace std;
 class Game;
+
+template<typename Type>
+class LinkedQueue;
+
 
 class unit
 {
@@ -18,7 +23,13 @@ public:
 		EH = 7
 	};
 	unit(int id , UnitType type , int Tj  , double Health , int AttackCapacity , double AttackPower, Game*game);
-	virtual bool attack() = 0;
+	virtual bool attack(LinkedQueue<int>& BattleIDs) {
+		return 1;
+	}
+	virtual bool attack() {
+		return 1;
+	}
+
 	virtual bool getAttacked(unit* Attacker);
 	virtual bool isDead() const; // Implementes As it's the same for all
 	double getHealth() const;
