@@ -65,40 +65,74 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 {
 	LinkedQueue<unit*> tempList;
 	int cap = AttackCapacity;
-	while (cap) {
-		unit* temp;
-		temp = game->PickUnit(unit::AM);
+	bool AttackSoldiers = 1 ; // Should Be implemented Discuss With KIMO Related to outputfile
 
-		if (!temp) // Case Theres no Monsters To Attack
+	while (cap) {
+
+		unit* tempM;
+		unit* tempS = nullptr;
+
+		tempM = game->PickUnit(unit::AM);
+
+		if (AttackSoldiers) tempS = game->PickUnit(unit::AS);
+
+		if (!tempM && !AttackSoldiers)
+			break;
+		if (!tempM && AttackSoldiers && !tempS)
 			break;
 
-		if (temp->getAttacked(this)) {
+		if (tempM) // Assumption Gunnery Before Tank
+		{
+	
+			if (tempM->getAttacked(this))
+			{
+				game->AddToKilled(tempM);
+			}
+			else
+			{
+				tempList.enqueue(tempM);
+				if (tempM->getTa() == -1)
+					tempM->setTa(game->GetTS());
 
-			game->AddToKilled(temp);
-			temp->setTD(game->GetTS());
+			}
 
+			AttackedIDs.enqueue(tempM->getID());
+			cap--;
 		}
 
 
-		else {
-			tempList.enqueue(temp);
-			if (temp->getTa() == -1) temp->setTa(game->GetTS());
+		if (tempS && cap > 0 && AttackSoldiers) {
 
+			if (tempS->getAttacked(this))
+			{
+				game->AddToKilled(tempS);
+			}
+			else {
+				tempList.enqueue(tempS);
+				if (tempS->getTa() == -1)
+					tempS->setTa(game->GetTS());
+
+			}
+
+			AttackedIDs.enqueue(tempS->getID());
+			cap--;
+
+			AttackSoldiers = 1; // Check Condition Again
 		}
 
-		AttackedIDs.enqueue(temp->getID());
-		cap--;
+
 	}
 
 
-
-
-	while (!tempList.isEmpty()) {
+	while (!tempList.isEmpty()) // return from templist to original lists
+	{
 		unit* temp;
 		tempList.dequeue(temp);
 		game->AddUnit(temp);
 	}
-	return true;
+
+
+	return (cap < AttackCapacity);
 
 }
 
