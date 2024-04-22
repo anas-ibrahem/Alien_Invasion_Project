@@ -27,6 +27,7 @@ public:
 	unit(int id , UnitType type , int Tj  , double Health , int AttackCapacity , double AttackPower, Game*game);
 	virtual bool attack(LinkedQueue<int>& AttackedIDs) = 0; // Just To avoid Abstract Error
 	virtual bool getAttacked(unit* Attacker);
+	virtual bool getHealed(unit* Attacker);
 	virtual bool isDead() const; // Implementes As it's the same for all
 	double getHealth() const;
 	double HealthPercent() const;
@@ -35,7 +36,8 @@ public:
 	bool reduceHealth(double amount); // returns true if the unit died
 	UnitType GetType() const;
 	void setTD(int T);
-	int getTa();
+	int getTa() const;
+	int getTd() const;
 	void setTa(int T);
 
 protected:

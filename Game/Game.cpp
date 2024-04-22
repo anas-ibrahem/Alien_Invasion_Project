@@ -123,9 +123,12 @@ void Game::PrintAliveUnits()
 
 bool Game::checkUML(unit* U)
 {
-	if (U->HealthPercent() < 20)
+	if (U->HealthPercent() < 20 && U->HealthPercent() > 0)
 		if (E_Army->AddtoUML(U))
+		{
+			U->setTD(TimeStep);
 			return true;
+		}
 	return false;
 }
 
@@ -142,7 +145,10 @@ unit* Game::PickUnit(unit::UnitType type , char dronedir)
 	}
 }
 
-
+unit* Game::PickUML()
+{
+		return E_Army->PickfromUML();
+}
 
 
 void Game::PrintKilledUnits()

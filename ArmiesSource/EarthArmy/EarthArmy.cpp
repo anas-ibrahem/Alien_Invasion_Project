@@ -166,6 +166,14 @@ bool EarthArmy::AddtoUML(unit* unit)
 	return false;
 }
 
+unit* EarthArmy::PickfromUML()
+{
+	unit* temp = nullptr;
+	int I; // Dummy integer
+	UML.dequeue(temp, I);
+	return temp;
+}
+
 void EarthArmy::attack()
 {
 	unit* Attacker = nullptr;
@@ -189,7 +197,7 @@ void EarthArmy::attack()
 		EG_AttackerID = Attacker->getID();
 	}
 
-	if (Healers.peek(Attacker))
+	if (Healers.pop(Attacker))
 	{
 		Attacker->attack(EH_Attacked);
 		EH_AttackerID = Attacker->getID();

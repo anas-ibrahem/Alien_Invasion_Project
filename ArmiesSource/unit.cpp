@@ -16,7 +16,20 @@ bool unit::getAttacked(unit* Attacker)
 		return false;
 
 	return reduceHealth(Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health)));
-	
+}
+
+bool unit::getHealed(unit* Attacker)
+{
+	if (Attacker->isDead() || this->isDead()) // Won't Be Actually in use "Won't attack A dead Unit in any case "
+		return false;
+
+	double amount = Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health));
+	Health += amount;
+	if (HealthPercent()>20)
+	{
+		return true; // True if unit has done healing
+	}
+	return false;
 }
 
 bool unit::isDead() const
@@ -65,9 +78,14 @@ void unit::setTD(int T)
 	Td = T;
 }
 
-int unit::getTa()
+int unit::getTa() const
 {
 	return Ta;
+}
+
+int unit::getTd() const
+{
+	return Td;
 }
 
 void unit::setTa(int T)

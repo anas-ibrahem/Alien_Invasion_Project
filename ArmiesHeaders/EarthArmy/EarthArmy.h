@@ -34,6 +34,7 @@ public:
 
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
 	bool AddtoUML(unit* unit);
+	unit* PickfromUML();
 	void attack();
 	~EarthArmy();
 

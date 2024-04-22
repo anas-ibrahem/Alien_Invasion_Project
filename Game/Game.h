@@ -50,6 +50,7 @@ public :
 	void PrintAliveUnits();
 	bool checkUML(unit* U);
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
+	unit* PickUML();
 	void  AddAttacked(unit::UnitType type, int id);
 
 	
