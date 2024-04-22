@@ -88,3 +88,60 @@ bool aSoldier::attack() {
 	}
 
 }
+
+
+bool aMonster::attack() {
+	if (isDead()) return false;//No need
+	
+	else {
+		LinkedQueue<unit*>tempList;
+		int cap = AttackCapacity;
+		while (cap) {
+			unit* tempS;
+			unit* tempT;
+			tempS = game->PickUnit(unit::ES);
+			tempT = game->PickUnit(unit::ET);
+
+			if (!tempT && !tempS)
+				break;
+
+
+			if ( tempS) {
+				if (tempS->getAttacked(this)) {
+					game->AddToKilled(tempS);
+				}
+				else {
+					tempList.enqueue(tempS);
+					if (tempS->getTa() == -1)tempS->setTa(game->GetTS());
+
+				}
+
+				game->AddAttacked(AM, tempS->getID());
+				cap--;
+			}
+
+			if (tempT&&cap) {
+				
+					if (tempT->getAttacked(this)) {
+						game->AddToKilled(tempT);
+					}
+					else {
+						tempList.enqueue(tempT);
+						if (tempT->getTa() == -1)tempT->setTa(game->GetTS());
+
+					}
+
+					game->AddAttacked(AM, tempT->getID());
+					cap--;
+			}
+
+
+		}
+		while (!tempList.isEmpty()) {
+			unit* temp;
+			tempList.dequeue(temp);
+			game->AddUnit(temp);
+		}
+		return true;
+	}
+ }

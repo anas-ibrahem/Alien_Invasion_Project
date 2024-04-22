@@ -208,7 +208,19 @@ void Game::PrintFights()
 		cout << "] " << endl;
 	}
 
-	cout << "\n\n";
+	if (!AMattack.isEmpty()) {
+
+		int id;
+		cout << "AM" << "  shots[";
+		while (!AMattack.isEmpty()) {
+			AMattack.dequeue(id);
+			cout << id;
+			if (!AMattack.isEmpty())
+				cout << ", ";
+		}
+		cout << "] " << endl;
+	}
+
 }
 
 void Game::Battle()

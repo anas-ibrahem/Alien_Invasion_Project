@@ -13,10 +13,3 @@ int aMonster::GetId()
 	return id;
 }
 
-
-bool aMonster::attack()
-{
-
-	return 1;
-
-}

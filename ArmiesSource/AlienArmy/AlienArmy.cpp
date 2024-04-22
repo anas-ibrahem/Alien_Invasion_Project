@@ -90,6 +90,12 @@ void AlienArmy::attack()
 	unit* Attacker = nullptr;
 	if (Soldiers.peek(Attacker))
 		Attacker->attack();
+	Attacker = Monster.PickRand();
+	if (Attacker)
+	{
+		Attacker->attack();
+		Monster.insert(Attacker);
+	}
 }
 
 void AlienArmy::PrintAttack()
