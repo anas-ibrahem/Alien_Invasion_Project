@@ -41,10 +41,6 @@ bool eSoldier::attack() {
 }
 
 
-
-
-
-
 bool eTank::attack(LinkedQueue<int> & BattleIDs)
 {
 	LinkedQueue<unit*> tempList;
@@ -151,6 +147,7 @@ bool aMonster::attack() {
 			if ( tempS) {
 				if (tempS->getAttacked(this)) {
 					game->AddToKilled(tempS);
+					tempS->setTD(game->GetTS());
 				}
 				else {
 					tempList.enqueue(tempS);
@@ -166,6 +163,7 @@ bool aMonster::attack() {
 				
 					if (tempT->getAttacked(this)) {
 						game->AddToKilled(tempT);
+						tempT->setTD(game->GetTS());
 					}
 					else {
 						tempList.enqueue(tempT);
