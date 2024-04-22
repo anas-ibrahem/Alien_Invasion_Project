@@ -15,6 +15,8 @@ class Army {
 	public :
 		virtual bool AddUnit(unit* unit) = 0;
 		virtual void PrintAliveUnits() = 0 ;
+		virtual bool PrintFights() = 0;
+		virtual void PrintFight(unit::UnitType type) = 0;
 		virtual unit* PickUnit(unit::UnitType type , char dronedir = 'f') = 0 ;
 		virtual void attack() = 0;
 

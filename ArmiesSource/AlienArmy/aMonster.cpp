@@ -8,8 +8,3 @@ aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 }
 
-int aMonster::GetId() 
-{
-	return id;
-}
-

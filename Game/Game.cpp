@@ -142,32 +142,6 @@ unit* Game::PickUnit(unit::UnitType type , char dronedir)
 	}
 }
 
-void Game::AddAttacked(unit::UnitType type,int id)
-{
-	switch (type)
-	{
-	case unit::ES:
-		ESattack.enqueue(id);
-		break;
-	case unit::ET:
-		//ETattack.enqueue(id);
-		break;
-	case unit::EG:
-		EGattack.enqueue(id);
-		break;
-	case unit::AS:
-		ASattack.enqueue(id);
-		break;
-	case unit::AM:
-		AMattack.enqueue(id);
-		break;
-	case unit::AD:
-		ADattack.enqueue(id);
-		break;
-	default:
-		break;
-	}
-}
 
 
 
@@ -181,26 +155,12 @@ void Game::PrintKilledUnits()
 
 void Game::PrintFights()
 {
-	cout << "=============== Fights  ===============" << endl;
+	cout << "=============== BATTLE ROUND  ===============" << endl;
+	bool EarthBattle = E_Army->PrintFights();
+	bool ALienBattle = A_Army->PrintFights();
 
-
-	E_Army->PrintFights();
-	
-	//int id;
-	//ETattack.dequeue(id); // Always Dequeue The Attacker
-
-	if (!AMattack.isEmpty()) {
-
-		int id;
-		cout << "AM" << "  shots[";
-		while (!AMattack.isEmpty()) {
-			AMattack.dequeue(id);
-			cout << id;
-			if (!AMattack.isEmpty())
-				cout << ", ";
-		}
-		cout << "] " << endl;
-	}
+	if (! (EarthBattle || ALienBattle )) 
+		cout <<"\n\n~~~~SILENCE~ NOTHING HAPPENED ! ~SILENCE~~~~\n\n\n";
 
 }
 

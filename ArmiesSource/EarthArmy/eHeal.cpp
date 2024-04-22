@@ -8,9 +8,3 @@ eHeal::eHeal(int id ,int Tj, double Health, int AttackCapacity, double AttackPow
 
 
 }
-
-
-bool eHeal::attack()
-{
-    return false;
-}

@@ -14,14 +14,24 @@ private:
 	ArrayStack<unit*> Healers;
 	priQueue<unit*> UML;
 
-	LinkedQueue<int> ET_Crnt_attack;
+	int ET_AttackerID;
+	int ES_AttackerID;
+	int EG_AttackerID;
+	int EH_AttackerID;
+
+	LinkedQueue<int> ET_Attacked;
+	LinkedQueue<int> ES_Attacked;
+	LinkedQueue<int> EG_Attacked;
+	LinkedQueue<int> EH_Attacked;
 
 public:
 	EarthArmy();
 	bool AddUnit(unit* unit);
 	void PrintAliveUnits();
-	void PrintFights();
-	void PrintAttacked(unit::UnitType type);
+
+	bool PrintFights();
+	void PrintFight(unit::UnitType type);
+
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
 	bool AddtoUML(unit* unit);
 	void attack();

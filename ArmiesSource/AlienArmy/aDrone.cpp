@@ -6,18 +6,3 @@ aDrone::aDrone(int id , int Tj , int Health , int AttackCapacity , int AttackPow
 	
 
 }
-
-int aDrone::GetId() // For testing Purpose  // Anas
-{
-	return id;
-}
-
-
-bool aDrone::attack()
-{
-
-
-	return true;
-
-
-}

@@ -22,14 +22,10 @@ public:
 		AD = 6,
 		EH = 7
 	};
-	unit(int id , UnitType type , int Tj  , double Health , int AttackCapacity , double AttackPower, Game*game);
-	virtual bool attack(LinkedQueue<int>& BattleIDs) {
-		return 1;
-	}
-	virtual bool attack() {
-		return 1;
-	}
 
+
+	unit(int id , UnitType type , int Tj  , double Health , int AttackCapacity , double AttackPower, Game*game);
+	virtual bool attack(LinkedQueue<int>& AttackedIDs) = 0; // Just To avoid Abstract Error
 	virtual bool getAttacked(unit* Attacker);
 	virtual bool isDead() const; // Implementes As it's the same for all
 	double getHealth() const;

@@ -53,6 +53,75 @@ void AlienArmy::PrintAliveUnits()
 
 }
 
+bool AlienArmy::PrintFights()
+{
+	bool AS_Is_Attacked = !AS_Attacked.isEmpty();
+	bool AM_Is_Attacked = !AM_Attacked.isEmpty();
+	bool AD_Is_Attacked = !AD_Attacked.isEmpty();
+
+	if (AS_Is_Attacked)
+		PrintFight(unit::AS);
+
+	if (AM_Is_Attacked)
+		PrintFight(unit::AM);
+
+	if (AD_Is_Attacked)
+		PrintFight(unit::AD);
+
+
+	return (AS_Is_Attacked || AM_Is_Attacked || AD_Is_Attacked );
+}
+
+
+void AlienArmy::PrintFight(unit::UnitType type) {
+
+	int id;
+
+	switch (type) {
+
+	case unit::AS:
+		cout << "AS " << AS_AttackerID << " Attacked [ ";
+
+		while (AS_Attacked.dequeue(id))
+		{
+			cout << id;
+			if (!AS_Attacked.isEmpty()) cout << " , ";
+			else cout << " ]\n";
+		}
+		break;
+
+	case unit::AM:
+		cout << "AM " << AM_AttackerID << " Attacked [ ";
+
+		while (AM_Attacked.dequeue(id))
+		{
+			cout << id;
+			if (!AM_Attacked.isEmpty()) cout << " , ";
+			else cout << " ]\n";
+		}
+		break;
+
+
+	case unit::AD:
+		cout << "AD " << AD_AttackerID_Front << " & " << AD_AttackerID_Rear << " Attacked [ ";
+
+		while (AD_Attacked.dequeue(id))
+		{
+			cout << id;
+			if (!AD_Attacked.isEmpty()) cout << " , ";
+			else cout << " ]\n";
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	return;
+
+}
+
+
 unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 {
 	
@@ -87,22 +156,9 @@ unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 void AlienArmy::attack()
 {
 
-	unit* Attacker = nullptr;
-	if (Soldiers.peek(Attacker))
-		Attacker->attack();
-	Attacker = Monster.PickRand();
-	if (Attacker)
-	{
-		Attacker->attack();
-		Monster.insert(Attacker);
-	}
+
 }
 
-void AlienArmy::PrintAttack()
+AlienArmy::~AlienArmy()
 {
-
-
 }
-
-
-

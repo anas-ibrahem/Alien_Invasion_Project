@@ -38,48 +38,85 @@ void EarthArmy::PrintAliveUnits()
 	UML.print();
 }
 
-void EarthArmy::PrintFights()
+bool EarthArmy::PrintFights()
 {
-	
-		int id;
-		ET_Crnt_attack.dequeue(id); // Always Dequeue The Attacker
+	bool ES_Is_Attacked = !ES_Attacked.isEmpty();
+	bool ET_Is_Attacked = !ET_Attacked.isEmpty();
+	bool EG_Is_Attacked = !EG_Attacked.isEmpty();
+	bool EH_Is_Attacked = !EH_Attacked.isEmpty();
 
-		if (!ET_Crnt_attack.isEmpty())
-		{
-			cout << "ET  " << id << " shots [ ";
-			PrintAttacked(unit:: ET);
+	if (ES_Is_Attacked)
+		PrintFight(unit::ES);
 
-		}
+	if (ET_Is_Attacked)
+		PrintFight(unit::ET);
+
+	if (EG_Is_Attacked)
+		PrintFight(unit::EG);
+
+	if (EH_Is_Attacked)
+		PrintFight(unit::EH);
+
+
+	return (ES_Is_Attacked || ET_Is_Attacked || EG_Is_Attacked || EH_Is_Attacked );
 }
 
-void EarthArmy::PrintAttacked(unit::UnitType type) {
+void EarthArmy::PrintFight(unit::UnitType type) {
+
 	int id;
 
-	switch (type)
-	{
-	case unit::ES:
-		break;
-	case unit::ET:
-
-		while (ET_Crnt_attack.dequeue(id))
+	switch (type) {
+	
+	case unit::ES :
+		cout << "ES " << ES_AttackerID << " Attacked [ ";
+		
+		while (ES_Attacked.dequeue(id))
 		{
 			cout << id;
-		if (!ET_Crnt_attack.isEmpty())
-			cout << " , ";
+			if (!ES_Attacked.isEmpty()) cout << " , ";
+			else cout << " ]\n";
 		}
-		cout << " ]" << endl;
+		break;
 
+	case unit::ET:
+		cout << "ET " << ET_AttackerID << " Attacked [ ";
+
+		while (ET_Attacked.dequeue(id))
+		{
+			cout << id;
+			if (!ET_Attacked.isEmpty()) cout << " , ";
+			else cout << " ]\n";
+		}
 		break;
+
+
 	case unit::EG:
+		cout << "EG " << EG_AttackerID << " Attacked [ ";
+
+		while (EG_Attacked.dequeue(id))
+		{
+			cout << id;
+			if (!EG_Attacked.isEmpty()) cout << " , ";
+			else cout << " ]\n";
+		}
 		break;
+
 	case unit::EH:
-		break;
-	default:
+		cout << "EH " << EH_AttackerID << " Healed [ ";
+
+		while (EH_Attacked.dequeue(id))
+		{
+			cout << id;
+			if (!EH_Attacked.isEmpty()) cout << " , ";
+			else cout << " ]\n";
+		}
+	
+	
+	default :
 		break;
 	}
 
-
-
+	return;
 
 }
 
@@ -133,12 +170,30 @@ void EarthArmy::attack()
 {
 	unit* Attacker = nullptr;
 
-	//if (Soldiers.peek(Attacker))
-	//	Attacker->attack( );
+	if (Soldiers.peek(Attacker))
+	{
+		Attacker->attack(ES_Attacked);
+		ES_AttackerID = Attacker->getID();
+	}
 
 	if (Tanks.peek(Attacker))
-		Attacker->attack(ET_Crnt_attack);
+	{
+		Attacker->attack(ET_Attacked);
+		ET_AttackerID = Attacker->getID();
+	}
 
+	int I; // Dummy Int 
+	if (Gunneries.peek(Attacker , I))
+	{
+		Attacker->attack(EG_Attacked);
+		EG_AttackerID = Attacker->getID();
+	}
+
+	if (Healers.peek(Attacker))
+	{
+		Attacker->attack(EH_Attacked);
+		EH_AttackerID = Attacker->getID();
+	}
 
 }
 

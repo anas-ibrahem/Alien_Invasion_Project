@@ -8,9 +8,3 @@ eGunnery::eGunnery(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 
 }
-
-
-bool eGunnery::attack()
-{
-    return false;
-}

@@ -9,7 +9,7 @@ class eSoldier :
 public:
 
     eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game);
-    virtual bool attack();
+    bool attack(LinkedQueue<int>& AttackedIDs);
 
 };
 
