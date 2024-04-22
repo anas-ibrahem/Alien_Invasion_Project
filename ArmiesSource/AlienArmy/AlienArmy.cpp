@@ -57,7 +57,7 @@ bool AlienArmy::PrintFights()
 {
 	bool AS_Is_Attacked = !AS_Attacked.isEmpty();
 	bool AM_Is_Attacked = !AM_Attacked.isEmpty();
-	bool AD_Is_Attacked = !AD_Attacked.isEmpty();
+	bool AD_Is_Attacked = !AD_Attacked_Front.isEmpty();
 
 	if (AS_Is_Attacked)
 		PrintFight(unit::AS);
@@ -105,10 +105,19 @@ void AlienArmy::PrintFight(unit::UnitType type) {
 	case unit::AD:
 		cout << "AD " << AD_AttackerID_Front << " & " << AD_AttackerID_Rear << " Attacked [ ";
 
-		while (AD_Attacked.dequeue(id))
+		while (AD_Attacked_Front.dequeue(id))
 		{
 			cout << id;
-			if (!AD_Attacked.isEmpty()) cout << " , ";
+			if (!AD_Attacked_Front.isEmpty()) cout << " , ";
+			else cout << " ]";
+		}
+
+		cout << " & [ ";
+
+		while (AD_Attacked_Rear.dequeue(id))
+		{
+			cout << id;
+			if (!AD_Attacked_Rear.isEmpty()) cout << " , ";
 			else cout << " ]\n";
 		}
 		break;
@@ -155,7 +164,34 @@ unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 
 void AlienArmy::attack()
 {
+	unit* Attacker = nullptr;
 
+	if (Soldiers.peek(Attacker))
+	{
+		Attacker->attack(AS_Attacked);
+		AS_AttackerID = Attacker->getID();
+	}
+
+	if (Monster.PeekRand(Attacker))
+	{
+		Attacker->attack(AM_Attacked);
+		AM_AttackerID = Attacker->getID();
+	}
+
+	if (Drones.getCount() > 1)
+	{
+		unit* Attacker_Rear; // for the 2nd Drone (From Rear)
+
+		Drones.peek_front(Attacker);
+		Drones.peek_rear(Attacker_Rear);
+
+		Attacker->attack(AD_Attacked_Front);
+		Attacker_Rear->attack(AD_Attacked_Rear);
+
+		AD_AttackerID_Front = Attacker->getID();
+		AD_AttackerID_Rear = Attacker_Rear->getID();
+
+	}
 
 }
 
