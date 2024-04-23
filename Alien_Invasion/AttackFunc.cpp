@@ -107,6 +107,7 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 	int cap = AttackCapacity;
 	int capD = ceil(AttackCapacity / 2);
 	int capM = AttackCapacity - capD;
+
 	while (cap) {
 		unit* tempDf=NULL;
 		unit* tempDr=NULL;
@@ -260,6 +261,7 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 
 			AttackSoldiers = 1; // Check Condition Again
 		}
+		else if (tempS) game->AddUnit(tempS);
 
 
 	}
@@ -318,8 +320,9 @@ bool aSoldier::attack(LinkedQueue<int>& AttackedIDs) {
 
 bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 		LinkedQueue<unit*>tempList;
+		ArrayStack<unit*>tempListStack;
 		int cap = AttackCapacity;
-		while (cap) {
+		while (cap > 0) {
 			unit* tempS;
 			unit* tempT;
 			tempS = game->PickUnit(unit::ES);
@@ -334,7 +337,7 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 						game->AddToKilled(tempT);
 					}
 					else if (!game->checkUML(tempT)) {
-						tempList.enqueue(tempT);
+						tempListStack.push(tempT);
 						if (tempT->getTa() == -1)tempT->setTa(game->GetTS());
 
 					}
@@ -343,7 +346,7 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 					cap--;
 			} 
 
-			if (tempS && cap) {
+			if (tempS && cap > 0) {
 				if (tempS->getAttacked(this)) {
 					game->AddToKilled(tempS);
 				}
@@ -356,6 +359,7 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 				AttackedIDs.enqueue(tempS->getID());
 				cap--;
 			}
+			else if (tempS) game->AddUnit(tempS);
 
 
 		}
@@ -364,6 +368,13 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 			tempList.dequeue(temp);
 			game->AddUnit(temp);
 		}
+
+		while (!tempListStack.isEmpty()) {
+			unit* temp;
+			tempListStack.pop(temp);
+			game->AddUnit(temp);
+		}
+
 		return (cap<AttackCapacity);
  }
 
@@ -372,6 +383,8 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 bool aDrone::attack(LinkedQueue<int>& AttackedIDs) { 
 
 	LinkedQueue<unit*> tempList;
+	ArrayStack<unit*> tempListStack;
+
 	int cap = AttackCapacity;
 
 	while (cap) {
@@ -410,7 +423,7 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 				game->AddToKilled(tempT);
 			}
 			else if (!game->checkUML(tempT)) {
-				tempList.enqueue(tempT);
+				tempListStack.push(tempT);
 				if (tempT->getTa() == -1)
 					tempT->setTa(game->GetTS());
 
@@ -419,6 +432,8 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 			AttackedIDs.enqueue(tempT->getID());
 			cap--;
 		}
+		else if (tempT)
+			game->AddUnit(tempT);
 
 
 	}
@@ -429,6 +444,11 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 		game->AddUnit(temp);
 	}
 
+	while (!tempListStack.isEmpty()) {
+		unit* temp;
+		tempListStack.pop(temp);
+		game->AddUnit(temp);
+	}
 
 	return (cap < AttackCapacity);
 

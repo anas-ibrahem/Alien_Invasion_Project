@@ -63,7 +63,7 @@ void Game::StartMenu()
 
 bool Game::GameEnd()
 {	
-	if (TimeStep >= 40) // Condition Should Be edited After Discussing Output File
+	if (TimeStep >= 500) // Condition Should Be edited After Discussing Output File
 		return true;
 
 
@@ -403,7 +403,7 @@ void Game::TestCode()
 
 Game::~Game()
 {
-		cout << "\nClosing Game...........\n";
+		cout << "\n\nClosing Game...........";
 		cout << "\nDelete All Earth Army Units.............";
 		delete E_Army;
 		cout << "\nDelete All Alien Army Units.............";

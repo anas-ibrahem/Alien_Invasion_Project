@@ -45,6 +45,9 @@ bool EarthArmy::PrintFights()
 	bool EG_Is_Attacked = !EG_Attacked.isEmpty();
 	bool EH_Is_Attacked = !EH_Attacked.isEmpty();
 
+	if (EH_Is_Attacked)
+		PrintFight(unit::EH);
+
 	if (ES_Is_Attacked)
 		PrintFight(unit::ES);
 
@@ -54,8 +57,6 @@ bool EarthArmy::PrintFights()
 	if (EG_Is_Attacked)
 		PrintFight(unit::EG);
 
-	if (EH_Is_Attacked)
-		PrintFight(unit::EH);
 
 
 	return (ES_Is_Attacked || ET_Is_Attacked || EG_Is_Attacked || EH_Is_Attacked );
@@ -178,6 +179,12 @@ void EarthArmy::attack()
 {
 	unit* Attacker = nullptr;
 
+	if (Healers.pop(Attacker))
+	{
+		Attacker->attack(EH_Attacked);
+		EH_AttackerID = Attacker->getID();
+	}
+
 	if (Soldiers.peek(Attacker))
 	{
 		Attacker->attack(ES_Attacked);
@@ -197,11 +204,6 @@ void EarthArmy::attack()
 		EG_AttackerID = Attacker->getID();
 	}
 
-	if (Healers.pop(Attacker))
-	{
-		Attacker->attack(EH_Attacked);
-		EH_AttackerID = Attacker->getID();
-	}
 
 }
 
