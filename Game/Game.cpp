@@ -179,6 +179,8 @@ GenParameters Game::ReadFile()
 
 bool Game::AddUnit(unit* unit)
 {
+	if (!unit) return false; // Case Random Generator will send Null if Out Of IDS
+
 	if ( unit->GetType() == unit::AD || unit->GetType() == unit::AS || unit->GetType() == unit::AM)
 	{
 		if (!A_Army->AddUnit(unit))// Delete the unit if it is not added to the army
@@ -278,7 +280,7 @@ void Game::GenerateUnits()
 		for (int i = N; i > 0; --i) // Generate if meet the prob 
 		{
 			unit* Created = Generator->GenerateUnitAlien(TimeStep, this);
-			if (!Created)
+			if (!Created && mode == 'a')
 			{
 				cout << "---------------- Can't Generate Alien IDs OUT OF RANGE ----------------"; break;
 			}
@@ -290,7 +292,7 @@ void Game::GenerateUnits()
 		for (int i = N; i > 0; --i) // Generate if meet the prob 
 		{
 			unit* Created = Generator->GenerateUnitEarth(TimeStep, this);
-			if (!Created)
+			if (!Created && mode =='a')
 			{
 				cout << "---------------- Can't Generate Earth IDs OUT OF RANGE ----------------"; break;
 			}
