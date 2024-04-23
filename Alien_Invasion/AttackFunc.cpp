@@ -113,7 +113,7 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 		unit* tempM=NULL;
 		if(capD){
 			tempDf = game->PickUnit(AD, 'f');//pick drone from front
-			if(cap>=2)//make sure that capaceit at least 2 to pick from rear
+			if(capD>=2)//make sure that capaceit at least 2 to pick from rear
 			tempDr = game->PickUnit(AD, 'r');//pick drone from rear
 		}
 		if(capM){
