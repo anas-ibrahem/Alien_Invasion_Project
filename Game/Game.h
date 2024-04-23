@@ -6,7 +6,7 @@
 #include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
 #include"../ArmiesHeaders/EarthArmy/EarthArmy.h"
 #include "..\RandGen\RandGen.h"
-
+#include <conio.h>
 
 
 
@@ -24,12 +24,6 @@ private :
 	char mode; // s for silent a for interactive
 
 	// Current Attack Lists
-	LinkedQueue<int>ESattack;
-	LinkedQueue<int>EGattack;
-
-	LinkedQueue<int>ASattack;
-	LinkedQueue<int>AMattack;
-	LinkedQueue<int>ADattack;
 
 public :
 
@@ -48,10 +42,7 @@ public :
 	void SetMode(char mode);
 	bool AddToKilled(unit* U);
 	void PrintAliveUnits();
-	bool checkUML(unit* U);
 	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
-	unit* PickUML();
-	void  AddAttacked(unit::UnitType type, int id);
 
 	
 
@@ -62,9 +53,16 @@ public :
 
 
 	// Phase 2 Added Functions 
-	//bool WriteFile(); // To Be implemented
+	//void WriteFile(); // To Be implemented
 	void PrintFights();
 	void Battle();
+	bool checkUML(unit* U);
+	unit* PickUML();
+	void StartMenu();
+	bool GameEnd();
+	void Simulate(); // Main Game Loop
+	//bool WarCheck();
+
 
 	~Game();
 

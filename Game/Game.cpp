@@ -8,11 +8,102 @@ Game::Game() {
 	A_Army = new AlienArmy();
 	E_Army = new EarthArmy();
 	killedList = new LinkedQueue<unit*>();
-	Generator = new RandGen(ReadFile());
 	srand(time(NULL)); // seed the random number generator // SEED ONCE NO NEED TO SEED AGAIN
+	StartMenu();
 
 }
 
+void Game::StartMenu()
+{
+
+	std::cout << "============================SIMULATE OR SURRNEDER !!!===========================" << std::endl << std::endl;
+	std::cout << "                                               .-'\"\"p 8o\"\"   `-." << std::endl;
+	std::cout << "       .-\"\"\"\"\"-.       .-\"\"\"\"-.              .-'8888P'Y.`Y[ '      `-. " << std::endl;
+	std::cout << "      /        \\      /        \\          ,' ,88888888888[\"        Y`. " << std::endl;
+	std::cout << "     /_        _\\    /_        _\\        /   8888888888P            Y8\\" << std::endl;
+	std::cout << "    // \\      / \\\\  // \\      / \\\\      /    Y8888888P'             ]88\\" << std::endl;
+	std::cout << "    |\\__\\    /__/|  |\\__\\    /__/|     :     `Y88'   P              `888: " << std::endl;
+	std::cout << "     \\    ||    /    \\    ||    /      :       Y8.oP '- >            Y88: " << std::endl;
+	std::cout << "      \\        /      \\        /       |          `Yb  __             `'|" << std::endl;
+	std::cout << "       \\  __  /        \\  __  /        :            `'d8888bo.          : " << std::endl;
+	std::cout << "        '.__.'          '.__.'         :             d88888888ooo.      ; " << std::endl;
+	std::cout << "         |  |            |  |          \\            Y88888888888P     / " << std::endl;
+	std::cout << "         |  |            |  |           \\            `Y88888888P     / " << std::endl;
+	std::cout << "                                          `.            d88888P'    ,'    " << std::endl;
+	std::cout << "                                          `.          888PP'    ,'  " << std::endl;
+	std::cout << "                                            `-.      d8P'    ,-'" << std::endl;
+	std::cout << "                                               `-.,,_',_,.-' " << std::endl << std::endl;
+	std::cout << "============================ALIEN INVASION SIMULATOR===========================" << std::endl;;
+	Generator = new RandGen(ReadFile());
+	cout << "\nEnter Game Mode 'a' for Interactive 's' for Silent\n";
+	char c;
+	cin >> c;
+
+	while (c != 'a' && c != 's' && c != 'A' && c != 'S')
+	{
+		cout << "\nInvalid Input Enter a valid choice\n";
+		cin >> c;
+	}
+	
+	
+	cout << "\n============== Simulation Starts ===============";
+	if (c == 'a' || c == 'A')
+	{
+		mode = 'a';
+		cout << "\nInteractive Mode Watch THE WAR !!!!\n";
+	}
+	else if (c == 's' || c == 'S') 
+	{ 
+		mode = 's'; 
+		cout << "\n~~~~~~~~~Silent Mode  SHHHHHHHHHHHHHHHHH ! ~~~~~~~~~~~~~";
+
+	}
+
+}
+
+bool Game::GameEnd()
+{	
+	if (TimeStep >= 40) // Condition Should Be edited After Discussing Output File
+		return true;
+
+
+	return false;
+}
+
+void Game::Simulate()
+{
+
+	do {
+
+
+		GenerateUnits();
+		Battle();
+		if (mode == 'a')
+		{
+			cout << "\n\n";
+			PrintAllStats();
+			cout << "\n\nPress any key to continue" << endl;
+			_getch(); // wait for user to press any key to continue
+			cout << "\n\n\n\n";
+		}
+
+		
+		NextTS();
+		//CheckWarStats(); // TODO
+	} while (!GameEnd());
+
+
+	if (GameEnd())
+	{
+
+		//WriteFile(); // TODO
+		cout << "\n=============== Simulation END =================";
+
+	}
+
+
+
+}
 
 void Game::SetMode(char mode)
 {
@@ -149,6 +240,7 @@ unit* Game::PickUML()
 {
 		return E_Army->PickfromUML();
 }
+
 
 
 void Game::PrintKilledUnits()
