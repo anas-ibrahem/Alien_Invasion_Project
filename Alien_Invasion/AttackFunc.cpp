@@ -77,9 +77,8 @@ bool eHeal::attack(LinkedQueue<int>& AttackedIDs)
 			}
 
 			AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List
-		}
 		cap--;
-
+		}
 	}
 
 	while (!tempList.isEmpty()) // return units from templist to its original list
