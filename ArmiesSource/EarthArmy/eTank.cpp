@@ -12,25 +12,19 @@ eTank::eTank(int id, int Tj, int Health, int AttackCapacity, int AttackPower, Ga
 
 bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 {
-	LinkedQueue<unit*> tempList;
+	LinkedQueue<unit*> tempList; // queue temp list
 	int cap = AttackCapacity;
 	bool AttackSoldiers = 1; // Should Be implemented Discuss With KIMO Related to outputfile
 
-	while (cap) {
+	while (cap > 0) 
+	{
 
-		unit* tempM;
+		unit* tempM = nullptr;
 		unit* tempS = nullptr;
 
 		tempM = game->PickUnit(unit::AM);
 
-		if (AttackSoldiers) tempS = game->PickUnit(unit::AS);
-
-		if (!tempM && !AttackSoldiers)
-			break;
-		if (!tempM && AttackSoldiers && !tempS)
-			break;
-
-		if (tempM) // Assumption Gunnery Before Tank
+		if (tempM) // Assumption Monster Before Soldiers
 		{
 
 			if (tempM->getAttacked(this))
@@ -49,8 +43,9 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 			cap--;
 		}
 
+		if (AttackSoldiers && cap > 0) tempS = game->PickUnit(unit::AS);
 
-		if (tempS && cap > 0 && AttackSoldiers) {
+		if (tempS) {
 
 			if (tempS->getAttacked(this))
 			{
@@ -68,11 +63,11 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 
 			AttackSoldiers = 1; // Check Condition Again
 		}
-		else if (tempS) game->AddUnit(tempS);
 
 
+		if (!tempM && !tempS)
+			break;
 	}
-
 
 	while (!tempList.isEmpty()) // return from templist to original lists
 	{

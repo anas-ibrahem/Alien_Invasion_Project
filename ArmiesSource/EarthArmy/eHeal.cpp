@@ -13,34 +13,45 @@ eHeal::eHeal(int id ,int Tj, double Health, int AttackCapacity, double AttackPow
 
 bool eHeal::attack(LinkedQueue<int>& AttackedIDs)
 {
-	LinkedQueue<unit*>tempList;
+	LinkedQueue<unit*> tempList; // Queue to Store Templist
 	int cap = AttackCapacity;
 
-	while (cap) {
+	while (cap > 0) 
+	{
 
-		unit* temp;
+		unit* temp = nullptr;
 		temp = game->PickUML();
+
+
+		if (temp)
+		{
+			if (game->GetTS() - temp->getTd() >= 10)
+			{
+				game->AddToKilled(temp); //if unit spent more than Limit time it moves to killed list
+				temp->setTD(game->GetTS()); // SET TIME DESTRUCTION
+			}
+			else
+			{
+				if (temp->getHealed(this)) {
+					game->AddUnit(temp); // If Unit Already got maximum healing
+					temp->setTD(-1); // return Td to its original value
+				}
+				else {
+					tempList.enqueue(temp); // Else Move it to templist
+				}
+
+				AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List
+				cap--;
+			}
+		}
 
 		if (!temp)
 			break;
-		if (game->GetTS() - temp->getTd() >= 10)
-		{
-			game->AddToKilled(temp); //if she takes more than requierd time it moves to killed list
-			temp->setTD(game->GetTS()); // SET TIME DESTRUCTION
-		}
-		else {
-			if (temp->getHealed(this)) {
-				game->AddUnit(temp); // If Unit Already got maximum healing
-				temp->setTD(-1); // return Td to its original value
-			}
-			else {
-				tempList.enqueue(temp); // Else Move it to templist
-			}
 
-			AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List
-			cap--;
-		}
+
 	}
+
+
 
 	while (!tempList.isEmpty()) // return units from templist to its original list
 	{
@@ -60,4 +71,6 @@ bool eHeal::attack(LinkedQueue<int>& AttackedIDs)
 		game->AddUnit(this);
 		return false;
 	}
+
+
 }
