@@ -35,7 +35,7 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 			}
 
 
-		if (cap >= 1)//check if capacity can offer another one 
+		if (cap > 0)//check if capacity can offer another one 
 			tempS = game->PickUnit(unit::ES);
 
 		if (tempS) {
@@ -51,7 +51,6 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 			AttackedIDs.enqueue(tempS->getID());
 			cap--;
 		}
-		else if (tempS) game->AddUnit(tempS);
 		
 
 		if (!tempT && !tempS)

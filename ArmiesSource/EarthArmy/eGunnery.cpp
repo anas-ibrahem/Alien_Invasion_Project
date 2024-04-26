@@ -14,38 +14,35 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
-	int capD = ceil(AttackCapacity / 2);
-	int capM = AttackCapacity - capD;
+	int capD = ceil(AttackCapacity / 2.0);
 
-	while (cap) {
-		unit* tempDf = NULL;
-		unit* tempDr = NULL;
-		unit* tempM = NULL;
-		if (capD) {
+	while (cap > 0) {
+		unit* tempDf = nullptr;
+		unit* tempDr = nullptr;
+		unit* tempM = nullptr;
+
+		if (capD > 0) {
+
 			tempDf = game->PickUnit(AD, 'f');//pick drone from front
-			if (capD >= 2)//make sure that capaceit at least 2 to pick from rear
-				tempDr = game->PickUnit(AD, 'r');//pick drone from rear
-		}
-		if (capM) {
-			tempM = game->PickUnit(AM);//pick random monster
-		}
+			
+			if(tempDf)	capD--; 
 
-		if (!tempDf && !tempDr && !tempM)//If lists got empty
-			break;
+			tempDr = game->PickUnit(AD, 'r');//pick drone from rear
 
-		if (!tempDf && !tempDr)//If drone list got empty the rest of capacity will go for monster attack
-		{
-			capM += capD;
-			capD = 0;
+			if (tempDr)	capD--;
+
 		}
 
-		if (!tempM)//If Monster list got empty the rest of capacity will go for drone attack
-		{
-			capD += capM;
-			capM = 0;
-		}
+		if (capD == -1) {
 
-		if (tempDf && capD) {
+			/*game->AddUnit(tempDf,'f');*/
+
+			/*game->AddUnit(tempDr, 'r');*/
+			
+		}
+		
+
+		if(tempDf) {
 			if (tempDf->getAttacked(this)) {
 
 				game->AddToKilled(tempDf); // If Unit Died MOVE IT TO KILLED LIST
@@ -59,11 +56,11 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 
 			}
 			AttackedIDs.enqueue(tempDf->getID());
-			capD--;
+		
 			cap--;
 		}
 
-		if (tempDr && capD) {
+		if (tempDr) {
 			if (tempDr->getAttacked(this)) {
 
 				game->AddToKilled(tempDr); // If Unit Died MOVE IT TO KILLED LIST
@@ -77,26 +74,34 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 
 			}
 			AttackedIDs.enqueue(tempDr->getID());
+
 			cap--;
 		}
 
-		if (tempM && capM) {
-			if (tempM->getAttacked(this)) {
+		if (cap > 0)
+			tempM = game->PickUnit(unit::AM);
 
-				game->AddToKilled(tempM); // If Unit Died MOVE IT TO KILLED LIST
-				tempM->setTD(game->GetTS()); // SET TIME DESTRUCTION
+			if (tempM ) {
+				if (tempM->getAttacked(this)) {
 
+					game->AddToKilled(tempM); // If Unit Died MOVE IT TO KILLED LIST
+					tempM->setTD(game->GetTS()); // SET TIME DESTRUCTION
+
+				}
+				else {
+					tempList.enqueue(tempM); // Else Move it to templist
+					if (tempM->getTa() == -1) // if first time to be attacked set Ta
+						tempM->setTa(game->GetTS());
+
+				}
+				AttackedIDs.enqueue(tempM->getID());
+				cap--;
 			}
-			else {
-				tempList.enqueue(tempM); // Else Move it to templist
-				if (tempM->getTa() == -1) // if first time to be attacked set Ta
-					tempM->setTa(game->GetTS());
 
-			}
-			AttackedIDs.enqueue(tempM->getID());
-			capM--;
-			cap--;
-		}
+
+
+		if (!tempDf && !tempDr && !tempM)//If lists got empty
+			break;		
 
 
 	}
