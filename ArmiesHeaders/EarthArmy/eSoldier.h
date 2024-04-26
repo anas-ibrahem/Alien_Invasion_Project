@@ -2,6 +2,8 @@
 #include "..\unit.h"
 
 
+class Game;
+
 class eSoldier :
     public unit
 {

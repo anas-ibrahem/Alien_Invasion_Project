@@ -143,9 +143,6 @@
     <ClCompile Include="..\ArmiesSource\unit.cpp">
       <Filter>ArmiesSource</Filter>
     </ClCompile>
-    <ClCompile Include="AttackFunc.cpp">
-      <Filter>ArmiesSource</Filter>
-    </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\eHeal.cpp">
       <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
