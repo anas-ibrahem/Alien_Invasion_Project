@@ -177,13 +177,13 @@ GenParameters Game::ReadFile()
 
 
 
-bool Game::AddUnit(unit* unit)
+bool Game::AddUnit(unit* unit, char InsertDir)
 {
 	if (!unit) return false; // Case Random Generator will send Null if Out Of IDS
 
 	if ( unit->GetType() == unit::AD || unit->GetType() == unit::AS || unit->GetType() == unit::AM)
 	{
-		if (!A_Army->AddUnit(unit))// Delete the unit if it is not added to the army
+		if (!A_Army->AddUnit(unit , InsertDir))// Delete the unit if it is not added to the army
 		{
 			delete unit;
 			return false;
@@ -225,17 +225,15 @@ bool Game::checkUML(unit* U)
 	return false;
 }
 
-unit* Game::PickUnit(unit::UnitType type , char dronedir)
+unit* Game::PickUnit(unit::UnitType type , char PickDir)
 {
+	// Will return Null From the PickUnit of The armies in case not found
+
 	if (type == unit::AD || type == unit::AS || type == unit::AM)
-	{
-		return A_Army->PickUnit(type , dronedir);
-	}
+		return A_Army->PickUnit(type , PickDir);
 	else
-	{
 		return E_Army->PickUnit(type);
 
-	}
 }
 
 unit* Game::PickUML()
@@ -300,6 +298,7 @@ void Game::GenerateUnits()
 			AddUnit(Created);
 		}
 }
+
 
 void Game::PrintAllStats()
 {

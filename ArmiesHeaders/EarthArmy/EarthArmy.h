@@ -26,13 +26,13 @@ private:
 
 public:
 	EarthArmy();
-	bool AddUnit(unit* unit);
+	bool AddUnit(unit* unit, char InsertDir = 'n'); // n for nonsent f for front r for rear
 	void PrintAliveUnits();
 
 	bool PrintFights();
 	void PrintFight(unit::UnitType type);
 
-	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
+	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
 	bool AddtoUML(unit* unit);
 	unit* PickfromUML();
 	void attack();

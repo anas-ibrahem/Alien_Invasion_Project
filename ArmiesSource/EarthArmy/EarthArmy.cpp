@@ -2,7 +2,8 @@
 
 EarthArmy::EarthArmy(){}
 
-bool EarthArmy::AddUnit(unit* unit)
+
+bool EarthArmy::AddUnit(unit* unit, char InsertDir)
 {
 	switch (unit->GetType()) {
 	case unit::ET:
@@ -121,7 +122,7 @@ void EarthArmy::PrintFight(unit::UnitType type) {
 
 }
 
-unit* EarthArmy::PickUnit(unit::UnitType type , char dronedir)
+unit* EarthArmy::PickUnit(unit::UnitType type , char PickDir)
 {
 	unit* temp = nullptr ;
 	int I; // Dummy integer

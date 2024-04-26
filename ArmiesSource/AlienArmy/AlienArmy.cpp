@@ -1,41 +1,48 @@
 #include "..\..\ArmiesHeaders\AlienArmy\AlienArmy.h"
 
 AlienArmy::AlienArmy() {
+
 	LastAddedAD = 'r';
+
 }
 
-bool AlienArmy::AddUnit(unit* unit)
+bool AlienArmy::AddUnit(unit* unit , char InsertDir)
 {
 
-	switch (unit->GetType()) {
-	
-		
-
-	case unit::AD: {
-		
-		if (LastAddedAD == 'r')
-		{
-			LastAddedAD = 'f';
-			return Drones.enqueue_front(unit);
-		}
-		else if (LastAddedAD == 'f')
-		{
-			LastAddedAD = 'r';
-			return Drones.enqueue_rear(unit);
-		}
-
-	}
-	case unit::AS :
+	switch (unit->GetType()) 
 	{
+		
+
+	case unit::AD: 
+
+		if (InsertDir == 'n')
+		{
+			if (LastAddedAD == 'r')
+			{
+				LastAddedAD = 'f';
+				return Drones.enqueue_front(unit);
+			}
+			else if (LastAddedAD == 'f')
+			{
+				LastAddedAD = 'r';
+				return Drones.enqueue_rear(unit);
+			}
+
+		}
+		else if (InsertDir == 'f')
+			return Drones.enqueue_front(unit);
+		else if (InsertDir == 'r')
+			return Drones.enqueue_rear(unit);
+
+	case unit::AS :
+	
 		return Soldiers.enqueue(unit);
-	}
-	case unit::AM: {
+	
+	case unit::AM: 
 		return Monster.insert(unit);
-	}
 	
 	default :
 		return false;
-	
 	
 	}
 }
@@ -131,15 +138,18 @@ void AlienArmy::PrintFight(unit::UnitType type) {
 }
 
 
-unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
+unit* AlienArmy::PickUnit(unit::UnitType type , char PickDir)
 {
 	
-		unit* temp = nullptr ;
+	unit* temp = nullptr ;
 
-		switch (type) {
+	switch (type)
+	{
 		case unit::AS:
+
 			Soldiers.dequeue(temp);
 			break;
+
 		case unit::AM:
 
 			temp = Monster.PickRand();
@@ -148,9 +158,9 @@ unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 		case unit::AD :
 
 
-			if (dronedir == 'f') // Front dequeue
+			if (PickDir == 'f') // Front dequeue
 				Drones.dequeue_front(temp);
-			else if (dronedir == 'r') // Rear Dequeue
+			else if (PickDir == 'r') // Rear Dequeue
 				Drones.dequeue_rear(temp);
 
 			break;
@@ -158,8 +168,9 @@ unit* AlienArmy::PickUnit(unit::UnitType type , char dronedir )
 		default:
 			break;
 
-		}
-		return temp;
+	}
+
+	return temp;
 }
 
 void AlienArmy::attack()

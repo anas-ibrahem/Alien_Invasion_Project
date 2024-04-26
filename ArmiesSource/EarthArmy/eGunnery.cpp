@@ -33,12 +33,12 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 
 		}
 
-		if (capD == -1) {
-
-			/*game->AddUnit(tempDf,'f');*/
-
-			/*game->AddUnit(tempDr, 'r');*/
-			
+		if (capD == -1)  // return drones in case of picking no pair and no single drone was left
+		{
+			game->AddUnit(tempDf,'f');
+			tempDf = nullptr;
+			game->AddUnit(tempDr, 'r');
+			tempDr = nullptr;
 		}
 		
 
@@ -81,22 +81,22 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 		if (cap > 0)
 			tempM = game->PickUnit(unit::AM);
 
-			if (tempM ) {
-				if (tempM->getAttacked(this)) {
-
-					game->AddToKilled(tempM); // If Unit Died MOVE IT TO KILLED LIST
-					tempM->setTD(game->GetTS()); // SET TIME DESTRUCTION
-
-				}
-				else {
-					tempList.enqueue(tempM); // Else Move it to templist
-					if (tempM->getTa() == -1) // if first time to be attacked set Ta
-						tempM->setTa(game->GetTS());
-
-				}
-				AttackedIDs.enqueue(tempM->getID());
-				cap--;
+		if (tempM) {
+			if (tempM->getAttacked(this)) 
+			{
+				game->AddToKilled(tempM); // If Unit Died MOVE IT TO KILLED LIST
+				tempM->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
+			else 
+			{
+				tempList.enqueue(tempM); // Else Move it to templist
+				if (tempM->getTa() == -1) // if first time to be attacked set Ta
+					tempM->setTa(game->GetTS());
+
+			}
+			AttackedIDs.enqueue(tempM->getID());
+			cap--;
+		}
 
 
 
@@ -105,6 +105,8 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 
 
 	}
+
+
 	while (!tempList.isEmpty()) // return units from templist to its original list
 	{
 		unit* temp;
