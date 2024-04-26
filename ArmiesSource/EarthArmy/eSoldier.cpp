@@ -12,29 +12,35 @@ bool eSoldier::attack(LinkedQueue<int>& AttackedIDs) {
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
 
-	while (cap) {
+	while (cap > 0) {
 
-		unit* temp;
+		unit* temp=nullptr;
+
 		temp = game->PickUnit(unit::AS);
+
+		
+
+		if (temp) {
+			if (temp->getAttacked(this)) {
+
+				game->AddToKilled(temp); // If Unit Died MOVE IT TO KILLED LIST
+				temp->setTD(game->GetTS()); // SET TIME DESTRUCTION
+
+			}
+			else {
+				tempList.enqueue(temp); // Else Move it to templist
+				if (temp->getTa() == -1) // if first time to be attacked set Ta
+					temp->setTa(game->GetTS());
+
+			}
+
+			AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List
+			cap--;
+		}
 
 		if (!temp)
 			break;
-
-		if (temp->getAttacked(this)) {
-
-			game->AddToKilled(temp); // If Unit Died MOVE IT TO KILLED LIST
-			temp->setTD(game->GetTS()); // SET TIME DESTRUCTION
-
-		}
-		else {
-			tempList.enqueue(temp); // Else Move it to templist
-			if (temp->getTa() == -1) // if first time to be attacked set Ta
-				temp->setTa(game->GetTS());
-
-		}
-
-		AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List
-		cap--;
+		//nothing to Attack // Break the Loop
 
 	}
 

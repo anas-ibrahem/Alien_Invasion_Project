@@ -13,31 +13,30 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 	LinkedQueue<unit*>tempList;
 	ArrayStack<unit*>tempListStack;
 	int cap = AttackCapacity;
-	while (cap) {
-		unit* tempS = NULL;
-		unit* tempT = NULL;
+	while (cap > 0) {
+		unit* tempS = nullptr;
+		unit* tempT = nullptr;
 
-		tempS = game->PickUnit(unit::ES);
-		if (cap >= 2)//check if capacity can offer another one 
-			tempT = game->PickUnit(unit::ET);
+		    tempT = game->PickUnit(unit::ET);
 
-		if (!tempT && !tempS)
-			break;
+			if (tempT) {
 
-		if (tempT) {
+				if (tempT->getAttacked(this)) {
+					game->AddToKilled(tempT);
+				}
+				else if (!game->checkUML(tempT)) {
+					tempListStack.push(tempT);
+					if (tempT->getTa() == -1)tempT->setTa(game->GetTS());
 
-			if (tempT->getAttacked(this)) {
-				game->AddToKilled(tempT);
+				}
+
+				AttackedIDs.enqueue(tempT->getID());
+				cap--;
 			}
-			else if (!game->checkUML(tempT)) {
-				tempListStack.push(tempT);
-				if (tempT->getTa() == -1)tempT->setTa(game->GetTS());
 
-			}
 
-			AttackedIDs.enqueue(tempT->getID());
-			cap--;
-		}
+		if (cap >= 1)//check if capacity can offer another one 
+			tempS = game->PickUnit(unit::ES);
 
 		if (tempS) {
 			if (tempS->getAttacked(this)) {
@@ -53,8 +52,11 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 			cap--;
 		}
 		else if (tempS) game->AddUnit(tempS);
+		
 
-
+		if (!tempT && !tempS)
+			break; 
+				//nothing to Attack // Break the Loop
 	}
 	while (!tempList.isEmpty()) {
 		unit* temp;
