@@ -96,7 +96,7 @@ void Game::Simulate()
 	if (GameEnd())
 	{
 
-		//WriteFile(); // TODO
+		WriteFile(); // TODO
 		cout << "\n=============== Simulation END =================";
 
 	}
@@ -249,6 +249,55 @@ void Game::PrintKilledUnits()
 
 	cout << killedList->getCount() << " units ";
 	killedList->print();
+}
+
+void Game::WriteFile()
+{
+	int N_ES = 0, N_ET = 0, N_EG = 0, N_EH = 0;
+	int N_AS = 0, N_AD = 0, N_AM = 0;
+	ofstream OutFile("../OutputFiles/output.txt");
+	OutFile << "Td \t ID \t Tj \t Df \t Dd \t Db" << endl;
+	LinkedQueue<unit*> temp;
+	unit* tem;
+	while (killedList->dequeue(tem))
+	{
+		temp.enqueue(tem);
+
+		int Td = tem->getTd();
+		int Tj = tem->getTj();
+		int Ta = tem->getTa();
+		OutFile << Td << " \t " << tem->getID() << " \t " << Tj << " \t " << Ta - Tj << " \t " << Td - Ta << " \t " << Td - Tj << endl;
+		switch (tem->GetType())
+		{
+		case unit::ES:
+			N_ES++;
+			break;
+		case unit::ET:
+			N_ET++;
+			break;
+		case unit::EG:
+			N_EG++;
+			break;
+		case unit::EH:
+			N_EH++;
+			break;
+		case unit::AS:
+			N_AS++;
+			break;
+		case unit::AD:
+			N_AD++;
+			break;
+		case unit::AM:
+			N_AM++;
+			break;
+		default:
+			break;
+		}
+	}
+	while (temp.dequeue(tem))
+	{
+		killedList->enqueue(tem);
+	}
 }
 
 void Game::PrintFights()

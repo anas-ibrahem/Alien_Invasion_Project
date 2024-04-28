@@ -30,6 +30,7 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 			if (tempM->getAttacked(this))
 			{
 				game->AddToKilled(tempM);
+				tempM->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
 			else
 			{
@@ -50,6 +51,7 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 			if (tempS->getAttacked(this))
 			{
 				game->AddToKilled(tempS);
+				tempS->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
 			else {
 				tempList.enqueue(tempS);

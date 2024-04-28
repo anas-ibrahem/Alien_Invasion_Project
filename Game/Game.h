@@ -53,7 +53,7 @@ public :
 
 
 	// Phase 2 Added Functions 
-	//void WriteFile(); // To Be implemented
+	void WriteFile(); // To Be implemented
 	void PrintFights();
 	void Battle();
 	bool checkUML(unit* U);

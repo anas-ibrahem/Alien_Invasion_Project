@@ -33,6 +33,7 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 			if (tempG->getAttacked(this))
 			{
 				game->AddToKilled(tempG);
+				tempG->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
 			else
 			{
@@ -54,6 +55,7 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 			if (tempT->getAttacked(this))
 			{
 				game->AddToKilled(tempT);
+				tempT->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
 			else if (!game->checkUML(tempT)) {
 				tempListStack.push(tempT);

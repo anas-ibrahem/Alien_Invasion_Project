@@ -88,6 +88,11 @@ int unit::getTd() const
 	return Td;
 }
 
+int unit::getTj() const
+{
+	return Tj;
+}
+
 void unit::setTa(int T)
 {
 	Ta = T;

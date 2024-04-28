@@ -38,6 +38,7 @@ public:
 	void setTD(int T);
 	int getTa() const;
 	int getTd() const;
+	int getTj() const;
 	void setTa(int T);
 
 protected:
