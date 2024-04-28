@@ -12,9 +12,10 @@ eGunnery::eGunnery(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 
+	// Assume Priority for AD always
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
-	int capD = ceil(AttackCapacity / 2.0);
+	int capD = (cap != 2) ? ceil(AttackCapacity / 2.0) : 2; // Ternary to Handle the case of attackcapacity 2 (Make him pick 2 drones not 2 monsters)
 
 	while (cap > 0) {
 		unit* tempDf = nullptr;
@@ -106,12 +107,23 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 
 	}
 
+	char ADInsertdir = 'f'; // Start Inserting from front as we started picking from front
 
 	while (!tempList.isEmpty()) // return units from templist to its original list
 	{
 		unit* temp;
 		tempList.dequeue(temp);
-		game->AddUnit(temp);
+		
+		if (temp->GetType() == unit::AD) 
+		{
+			game->AddUnit(temp, ADInsertdir);
+			(ADInsertdir == 'f' ? ADInsertdir = 'r' : ADInsertdir = 'f');
+			
+		}
+		else 
+			game->AddUnit(temp); // Actually it would ignore the direction in case of AM but just for readability
+		
+	
 	}
 
 
