@@ -206,6 +206,25 @@ void AlienArmy::attack()
 
 }
 
+int AlienArmy::GetUnitCount(unit::UnitType type)
+{
+
+
+	switch (type)
+	{
+
+	case unit::AS:
+		return Soldiers.getCount();
+	case unit::AD:
+		return Drones.getCount();
+	case unit::AM:
+		return Monster.getCount();
+
+	default:
+		return 0;
+	}
+}
+
 AlienArmy::~AlienArmy()
 {
 }

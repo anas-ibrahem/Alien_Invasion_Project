@@ -209,6 +209,27 @@ void EarthArmy::attack()
 }
 
 
+int EarthArmy::GetUnitCount(unit::UnitType type)
+{
+
+
+	switch (type)
+	{
+
+	case unit::ES:
+		return Soldiers.getCount();
+	case unit::EG:
+		return Gunneries.getCount();
+	case unit::ET:
+		return Tanks.getCount();
+	case unit::EH:
+		return Healers.getCount();
+
+	default:
+		return 0;
+	}
+}
+
 EarthArmy::~EarthArmy()
 {
 }
