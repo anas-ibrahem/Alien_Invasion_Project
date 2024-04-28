@@ -236,6 +236,14 @@ unit* Game::PickUnit(unit::UnitType type , char PickDir)
 
 }
 
+int Game::GetUnitCount(unit::UnitType type)
+{
+	if (type == unit::AD || type == unit::AS || type == unit::AM)
+		return A_Army->GetUnitCount(type);
+	else
+		return E_Army->GetUnitCount(type);
+}
+
 unit* Game::PickUML()
 {
 		return E_Army->PickfromUML();
@@ -253,7 +261,7 @@ void Game::PrintKilledUnits()
 
 void Game::WriteFile()
 {
-	int N_ES = 0, N_ET = 0, N_EG = 0, N_EH = 0;
+	int N_ES = 0, N_ET = 0, N_EG = 0, N_EH = 0; //N for each type killed
 	int N_AS = 0, N_AD = 0, N_AM = 0;
 	ofstream OutFile("../OutputFiles/output.txt");
 	OutFile << "Td \t ID \t Tj \t Df \t Dd \t Db" << endl;
@@ -266,7 +274,10 @@ void Game::WriteFile()
 		int Td = tem->getTd();
 		int Tj = tem->getTj();
 		int Ta = tem->getTa();
-		OutFile << Td << " \t " << tem->getID() << " \t " << Tj << " \t " << Ta - Tj << " \t " << Td - Ta << " \t " << Td - Tj << endl;
+
+		OutFile << Td << " \t " << tem->getID() << " \t " << Tj << " \t " << Ta - Tj 
+			<< " \t " << Td - Ta << " \t " << Td - Tj << endl;
+
 		switch (tem->GetType())
 		{
 		case unit::ES:
