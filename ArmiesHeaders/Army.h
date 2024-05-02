@@ -20,6 +20,8 @@ class Army {
 		virtual void PrintFight(unit::UnitType type) = 0;
 		virtual unit* PickUnit(unit::UnitType type , char PickDir = 'n') = 0 ; // n for nonsent f for front r for rear
 		virtual void attack() = 0;
+		virtual int GetUnitCount(unit::UnitType type) = 0;
+
 
 
 };

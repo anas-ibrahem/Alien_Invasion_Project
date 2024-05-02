@@ -43,6 +43,8 @@ public :
 	bool AddToKilled(unit* U);
 	void PrintAliveUnits();
 	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
+	int GetUnitCount(unit::UnitType type);
+
 
 	
 
@@ -53,7 +55,7 @@ public :
 
 
 	// Phase 2 Added Functions 
-	//void WriteFile(); // To Be implemented
+	void WriteFile(); // To Be implemented
 	void PrintFights();
 	void Battle();
 	bool checkUML(unit* U);

@@ -36,6 +36,8 @@ public:
 	bool AddtoUML(unit* unit);
 	unit* PickfromUML();
 	void attack();
+	int GetUnitCount(unit::UnitType type);
+
 	~EarthArmy();
 
 };

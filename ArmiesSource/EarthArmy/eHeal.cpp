@@ -53,7 +53,7 @@ bool eHeal::attack(LinkedQueue<int>& AttackedIDs)
 
 
 
-	while (!tempList.isEmpty()) // return units from templist to its original list
+	while (!tempList.isEmpty()) // return units from templist to uml list again
 	{
 		unit* temp;
 		tempList.dequeue(temp);
@@ -63,12 +63,14 @@ bool eHeal::attack(LinkedQueue<int>& AttackedIDs)
 	if (cap != AttackCapacity)
 	{
 		Health = 0;
-		game->AddToKilled(this);
+		Ta = game->GetTS(); //SET TIME ATTACKED WHEN SHE HEALS ANY UNIT AND GET KILLED
+		Td = Ta; //SET DESTRUCTION TIME , USING Ta TO NOT CALL THE FUNCTION AGAIN
+		game->AddToKilled(this); //AFTER HEALING ... HEALER MOVED TO KILLED LIST
 		return true;
 	}
 	else
 	{
-		game->AddUnit(this);
+		game->AddUnit(this); //IF SHE DOESNT HEAL ANY UNIT MOVE BACK TO THE GAME
 		return false;
 	}
 

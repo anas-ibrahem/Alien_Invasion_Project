@@ -28,14 +28,9 @@ bool aSoldier::attack(LinkedQueue<int>& AttackedIDs) {
 			if (temp->getAttacked(this)) {
 
 				game->AddToKilled(temp); // If Unit Died MOVE IT TO KILLED LIST
-				temp->setTD(game->GetTS()); // SET TIME DESTRUCTION
-
 			}
 			else {
 				tempList.enqueue(temp); // Else Move it to templist
-				if (temp->getTa() == -1) // if first time to be attacked set Ta
-					temp->setTa(game->GetTS());
-
 			}
 
 			AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List

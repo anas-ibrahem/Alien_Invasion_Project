@@ -37,8 +37,6 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 			else
 			{
 				tempList.enqueue(tempG);
-				if (tempG->getTa() == -1)
-					tempG->setTa(game->GetTS());
 
 			}
 
@@ -57,9 +55,6 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 			}
 			else if (!game->checkUML(tempT)) {
 				tempListStack.push(tempT);
-				if (tempT->getTa() == -1)
-					tempT->setTa(game->GetTS());
-
 			}
 
 			AttackedIDs.enqueue(tempT->getID());
