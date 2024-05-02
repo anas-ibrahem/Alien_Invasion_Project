@@ -40,14 +40,10 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 			if (tempM->getAttacked(this))
 			{
 				game->AddToKilled(tempM);
-				tempM->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
 			else
 			{
 				tempList.enqueue(tempM);
-				if (tempM->getTa() == -1)
-					tempM->setTa(game->GetTS());
-
 			}
 
 			AttackedIDs.enqueue(tempM->getID());
@@ -62,13 +58,9 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 			{
 				AS_C--;// Reduce Count of AS if unit AS died
 				game->AddToKilled(tempS);
-				tempS->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
 			else {
 				tempList.enqueue(tempS);
-				if (tempS->getTa() == -1)
-					tempS->setTa(game->GetTS());
-
 			}
 
 			AttackedIDs.enqueue(tempS->getID());

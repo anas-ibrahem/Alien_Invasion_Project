@@ -253,7 +253,7 @@ unit* Game::PickUML()
 
 void Game::PrintKilledUnits()
 {
-	cout << "=============== Killed Units ===============" << endl;
+	cout << "\n=============== Killed Units ===============" << endl;
 
 	cout << killedList->getCount() << " units ";
 	killedList->print();

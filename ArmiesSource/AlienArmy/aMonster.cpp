@@ -23,12 +23,9 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 
 				if (tempT->getAttacked(this)) {
 					game->AddToKilled(tempT);
-					tempT->setTD(game->GetTS()); // SET TIME DESTRUCTION
 				}
 				else if (!game->checkUML(tempT)) {
 					tempListStack.push(tempT);
-					if (tempT->getTa() == -1)tempT->setTa(game->GetTS());
-
 				}
 
 				AttackedIDs.enqueue(tempT->getID());
@@ -42,12 +39,9 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 		if (tempS) {
 			if (tempS->getAttacked(this)) {
 				game->AddToKilled(tempS);
-				tempS->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
 			else if (!game->checkUML(tempS)) {
 				tempList.enqueue(tempS);
-				if (tempS->getTa() == -1)tempS->setTa(game->GetTS());
-
 			}
 
 			AttackedIDs.enqueue(tempS->getID());

@@ -47,13 +47,9 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 			if (tempDf->getAttacked(this)) {
 
 				game->AddToKilled(tempDf); // If Unit Died MOVE IT TO KILLED LIST
-				tempDf->setTD(game->GetTS()); // SET TIME DESTRUCTION
-
 			}
 			else {
 				tempList.enqueue(tempDf); // Else Move it to templist
-				if (tempDf->getTa() == -1) // if first time to be attacked set Ta
-					tempDf->setTa(game->GetTS());
 
 			}
 			AttackedIDs.enqueue(tempDf->getID());
@@ -65,13 +61,9 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 			if (tempDr->getAttacked(this)) {
 
 				game->AddToKilled(tempDr); // If Unit Died MOVE IT TO KILLED LIST
-				tempDr->setTD(game->GetTS()); // SET TIME DESTRUCTION
-
 			}
 			else {
 				tempList.enqueue(tempDr); // Else Move it to templist
-				if (tempDr->getTa() == -1) // if first time to be attacked set Ta
-					tempDr->setTa(game->GetTS());
 
 			}
 			AttackedIDs.enqueue(tempDr->getID());
@@ -86,13 +78,10 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 			if (tempM->getAttacked(this)) 
 			{
 				game->AddToKilled(tempM); // If Unit Died MOVE IT TO KILLED LIST
-				tempM->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
 			else 
 			{
 				tempList.enqueue(tempM); // Else Move it to templist
-				if (tempM->getTa() == -1) // if first time to be attacked set Ta
-					tempM->setTa(game->GetTS());
 
 			}
 			AttackedIDs.enqueue(tempM->getID());

@@ -15,7 +15,13 @@ bool unit::getAttacked(unit* Attacker)
 	if (Attacker->isDead() || this->isDead()) // Won't Be Actually in use "Won't attack A dead Unit in any case "
 		return false;
 
-	return reduceHealth(Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health)));
+	if (reduceHealth(Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health)))) {
+		Td = game->GetTS();
+	 }
+	if (Ta == -1) {
+		Ta = game->GetTS();
+	}
+	return isDead();
 }
 
 bool unit::getHealed(unit* Attacker)
