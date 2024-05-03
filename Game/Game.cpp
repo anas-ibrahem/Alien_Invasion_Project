@@ -4,7 +4,8 @@ using namespace std;
 Game::Game() {
 
 	mode = 'a'; // default mode is 'a' // 's' for silent mode	// 'a' for interactive mode
-	TimeStep = 1;
+	winner = 'n'; // none 
+	TimeStep = 0;
 	A_Army = new AlienArmy();
 	E_Army = new EarthArmy();
 	killedList = new LinkedQueue<unit*>();
@@ -61,14 +62,6 @@ void Game::StartMenu()
 
 }
 
-bool Game::GameEnd()
-{	
-	if (TimeStep >= 500) // Condition Should Be edited After Discussing Output File
-		return true;
-
-
-	return false;
-}
 
 void Game::Simulate()
 {
@@ -76,6 +69,7 @@ void Game::Simulate()
 	do {
 
 
+		NextTS();
 		GenerateUnits();
 		Battle();
 		if (mode == 'a')
@@ -87,21 +81,46 @@ void Game::Simulate()
 			cout << "\n\n\n\n";
 		}
 
-		
-		NextTS();
-		//CheckWarStats(); // TODO
-	} while (!GameEnd());
+		if (TimeStep >= 40) // Wait at least 40 timesteps 
+			winner = WL_Check();
+
+	} while (winner == 'n');
 
 
-	if (GameEnd())
-	{
-
-		WriteFile(); // TODO
-		cout << "\n=============== Simulation END =================";
-
-	}
+	WriteFile();
+	cout << "\n=============== Simulation END =================";
 
 
+}
+
+char Game::WL_Check()
+{
+
+	long int E_Total = GetUnitCount(unit::ET) + GetUnitCount(unit::ES) + GetUnitCount(unit::EG) + GetUnitCount(unit::EH);
+	// Assume EH is Considered // As UML May change the Winner
+	long int A_Total = GetUnitCount(unit::AD) + GetUnitCount(unit::AS) + GetUnitCount(unit::AM);
+
+	// Tie Check
+	// if both total = 0 or the Left units are not able to attack each other (following cases)
+	// ES and AD only
+	// EG and AS only
+	int ESC = GetUnitCount(unit::ES);
+	int EGC = GetUnitCount(unit::EG);
+	int ASC = GetUnitCount(unit::AS);
+	int ADC = GetUnitCount(unit::AD); // Leave these variables for debugging
+
+	if ((GetUnitCount(unit::ES) == E_Total && GetUnitCount(unit::AD) == A_Total) ||
+		(GetUnitCount(unit::EG) == E_Total && GetUnitCount(unit::AS) == A_Total)
+		|| (E_Total == 0 && A_Total == 0)) 
+		return 't';
+
+
+	else if (E_Total > 0 && A_Total == 0) 
+		return 'e';
+	else if (A_Total > 0 && E_Total == 0) 
+		return 'a';
+	else 
+		return 'n';
 
 }
 
