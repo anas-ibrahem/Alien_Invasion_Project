@@ -64,6 +64,7 @@ public :
 	void StartMenu();
 	void Simulate(); // Main Game Loop
 	char WL_Check(); // Win Lose Check Function Return e for Earth Winner , a for Alien , t for tie , n for none
+	void Print_ASCII_ART();
 
 
 	~Game();

@@ -16,25 +16,8 @@ Game::Game() {
 
 void Game::StartMenu()
 {
+	Print_ASCII_ART();
 
-	std::cout << "============================SIMULATE OR SURRNEDER !!!===========================" << std::endl << std::endl;
-	std::cout << "                                               .-'\"\"p 8o\"\"   `-." << std::endl;
-	std::cout << "       .-\"\"\"\"\"-.       .-\"\"\"\"-.              .-'8888P'Y.`Y[ '      `-. " << std::endl;
-	std::cout << "      /        \\      /        \\          ,' ,88888888888[\"        Y`. " << std::endl;
-	std::cout << "     /_        _\\    /_        _\\        /   8888888888P            Y8\\" << std::endl;
-	std::cout << "    // \\      / \\\\  // \\      / \\\\      /    Y8888888P'             ]88\\" << std::endl;
-	std::cout << "    |\\__\\    /__/|  |\\__\\    /__/|     :     `Y88'   P              `888: " << std::endl;
-	std::cout << "     \\    ||    /    \\    ||    /      :       Y8.oP '- >            Y88: " << std::endl;
-	std::cout << "      \\        /      \\        /       |          `Yb  __             `'|" << std::endl;
-	std::cout << "       \\  __  /        \\  __  /        :            `'d8888bo.          : " << std::endl;
-	std::cout << "        '.__.'          '.__.'         :             d88888888ooo.      ; " << std::endl;
-	std::cout << "         |  |            |  |          \\            Y88888888888P     / " << std::endl;
-	std::cout << "         |  |            |  |           \\            `Y88888888P     / " << std::endl;
-	std::cout << "                                          `.            d88888P'    ,'    " << std::endl;
-	std::cout << "                                          `.          888PP'    ,'  " << std::endl;
-	std::cout << "                                            `-.      d8P'    ,-'" << std::endl;
-	std::cout << "                                               `-.,,_',_,.-' " << std::endl << std::endl;
-	std::cout << "============================ALIEN INVASION SIMULATOR===========================" << std::endl;;
 	Generator = new RandGen(ReadFile());
 	cout << "\nEnter Game Mode 'a' for Interactive 's' for Silent\n";
 	char c;
@@ -122,6 +105,28 @@ char Game::WL_Check()
 	else 
 		return 'n';
 
+}
+
+void Game::Print_ASCII_ART()
+{
+	std::cout << "============================SIMULATE OR SURRNEDER !!!===========================" << std::endl << std::endl;
+	std::cout << "                                               .-'\"\"p 8o\"\"   `-." << std::endl;
+	std::cout << "       .-\"\"\"\"\"-.       .-\"\"\"\"-.              .-'8888P'Y.`Y[ '      `-. " << std::endl;
+	std::cout << "      /        \\      /        \\          ,' ,88888888888[\"        Y`. " << std::endl;
+	std::cout << "     /_        _\\    /_        _\\        /   8888888888P            Y8\\" << std::endl;
+	std::cout << "    // \\      / \\\\  // \\      / \\\\      /    Y8888888P'             ]88\\" << std::endl;
+	std::cout << "    |\\__\\    /__/|  |\\__\\    /__/|     :     `Y88'   P              `888: " << std::endl;
+	std::cout << "     \\    ||    /    \\    ||    /      :       Y8.oP '- >            Y88: " << std::endl;
+	std::cout << "      \\        /      \\        /       |          `Yb  __             `'|" << std::endl;
+	std::cout << "       \\  __  /        \\  __  /        :            `'d8888bo.          : " << std::endl;
+	std::cout << "        '.__.'          '.__.'         :             d88888888ooo.      ; " << std::endl;
+	std::cout << "         |  |            |  |          \\            Y88888888888P     / " << std::endl;
+	std::cout << "         |  |            |  |           \\            `Y88888888P     / " << std::endl;
+	std::cout << "                                          `.            d88888P'    ,'    " << std::endl;
+	std::cout << "                                          `.          888PP'    ,'  " << std::endl;
+	std::cout << "                                            `-.      d8P'    ,-'" << std::endl;
+	std::cout << "                                               `-.,,_',_,.-' " << std::endl << std::endl;
+	std::cout << "============================ALIEN INVASION SIMULATOR===========================" << std::endl;;
 }
 
 void Game::SetMode(char mode)
