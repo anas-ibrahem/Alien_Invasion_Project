@@ -92,17 +92,20 @@ char Game::WL_Check()
 	int ASC = GetUnitCount(unit::AS);
 	int ADC = GetUnitCount(unit::AD); // Leave these variables for debugging
 
-	if ((GetUnitCount(unit::ES) == E_Total && GetUnitCount(unit::AD) == A_Total) ||
+
+	if (E_Total > 0 && A_Total == 0)
+		return 'e';
+
+	else if (A_Total > 0 && E_Total == 0)
+		return 'a';
+
+	else if ((GetUnitCount(unit::ES) == E_Total && GetUnitCount(unit::AD) == A_Total) ||
 		(GetUnitCount(unit::EG) == E_Total && GetUnitCount(unit::AS) == A_Total)
 		|| (E_Total == 0 && A_Total == 0)) 
+
 		return 't';
+	else
 
-
-	else if (E_Total > 0 && A_Total == 0) 
-		return 'e';
-	else if (A_Total > 0 && E_Total == 0) 
-		return 'a';
-	else 
 		return 'n';
 
 }
