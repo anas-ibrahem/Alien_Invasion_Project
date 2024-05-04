@@ -4,15 +4,130 @@ using namespace std;
 Game::Game() {
 
 	mode = 'a'; // default mode is 'a' // 's' for silent mode	// 'a' for interactive mode
-	TimeStep = 1;
+	winner = 'n'; // none 
+	TimeStep = 0;
 	A_Army = new AlienArmy();
 	E_Army = new EarthArmy();
 	killedList = new LinkedQueue<unit*>();
-	Generator = new RandGen(ReadFile());
 	srand(time(NULL)); // seed the random number generator // SEED ONCE NO NEED TO SEED AGAIN
+	StartMenu();
 
 }
 
+void Game::StartMenu()
+{
+	Print_ASCII_ART();
+
+	Generator = new RandGen(ReadFile());
+	cout << "\nEnter Game Mode 'a' for Interactive 's' for Silent\n";
+	char c;
+	cin >> c;
+
+	while (c != 'a' && c != 's' && c != 'A' && c != 'S')
+	{
+		cout << "\nInvalid Input Enter a valid choice\n";
+		cin >> c;
+	}
+	
+	
+	cout << "\n============== Simulation Starts ===============";
+	if (c == 'a' || c == 'A')
+	{
+		mode = 'a';
+		cout << "\nInteractive Mode Watch THE WAR !!!!\n";
+	}
+	else if (c == 's' || c == 'S') 
+	{ 
+		mode = 's'; 
+		cout << "\n~~~~~~~~~Silent Mode  SHHHHHHHHHHHHHHHHH ! ~~~~~~~~~~~~~";
+
+	}
+
+}
+
+
+void Game::Simulate()
+{
+
+	do {
+
+
+		NextTS();
+		GenerateUnits();
+		Battle();
+		if (mode == 'a')
+		{
+			cout << "\n\n";
+			PrintAllStats();
+			cout << "\n\nPress any key to continue" << endl;
+			_getch(); // wait for user to press any key to continue
+			cout << "\n\n\n\n";
+		}
+
+		if (TimeStep >= 40) // Wait at least 40 timesteps 
+			winner = WL_Check();
+
+	} while (winner == 'n');
+
+
+	WriteFile();
+	cout << "\n=============== Simulation END =================";
+
+
+}
+
+char Game::WL_Check()
+{
+
+	long int E_Total = GetUnitCount(unit::ET) + GetUnitCount(unit::ES) + GetUnitCount(unit::EG) + GetUnitCount(unit::EH);
+	// Assume EH is Considered // As UML May change the Winner
+	long int A_Total = GetUnitCount(unit::AD) + GetUnitCount(unit::AS) + GetUnitCount(unit::AM);
+
+	// Tie Check
+	// if both total = 0 or the Left units are not able to attack each other (following cases)
+	// ES and AD only
+	// EG and AS only
+	int ESC = GetUnitCount(unit::ES);
+	int EGC = GetUnitCount(unit::EG);
+	int ASC = GetUnitCount(unit::AS);
+	int ADC = GetUnitCount(unit::AD); // Leave these variables for debugging
+
+	if ((GetUnitCount(unit::ES) == E_Total && GetUnitCount(unit::AD) == A_Total) ||
+		(GetUnitCount(unit::EG) == E_Total && GetUnitCount(unit::AS) == A_Total)
+		|| (E_Total == 0 && A_Total == 0)) 
+		return 't';
+
+
+	else if (E_Total > 0 && A_Total == 0) 
+		return 'e';
+	else if (A_Total > 0 && E_Total == 0) 
+		return 'a';
+	else 
+		return 'n';
+
+}
+
+void Game::Print_ASCII_ART()
+{
+	std::cout << "============================SIMULATE OR SURRNEDER !!!===========================" << std::endl << std::endl;
+	std::cout << "                                               .-'\"\"p 8o\"\"   `-." << std::endl;
+	std::cout << "       .-\"\"\"\"\"-.       .-\"\"\"\"-.              .-'8888P'Y.`Y[ '      `-. " << std::endl;
+	std::cout << "      /        \\      /        \\          ,' ,88888888888[\"        Y`. " << std::endl;
+	std::cout << "     /_        _\\    /_        _\\        /   8888888888P            Y8\\" << std::endl;
+	std::cout << "    // \\      / \\\\  // \\      / \\\\      /    Y8888888P'             ]88\\" << std::endl;
+	std::cout << "    |\\__\\    /__/|  |\\__\\    /__/|     :     `Y88'   P              `888: " << std::endl;
+	std::cout << "     \\    ||    /    \\    ||    /      :       Y8.oP '- >            Y88: " << std::endl;
+	std::cout << "      \\        /      \\        /       |          `Yb  __             `'|" << std::endl;
+	std::cout << "       \\  __  /        \\  __  /        :            `'d8888bo.          : " << std::endl;
+	std::cout << "        '.__.'          '.__.'         :             d88888888ooo.      ; " << std::endl;
+	std::cout << "         |  |            |  |          \\            Y88888888888P     / " << std::endl;
+	std::cout << "         |  |            |  |           \\            `Y88888888P     / " << std::endl;
+	std::cout << "                                          `.            d88888P'    ,'    " << std::endl;
+	std::cout << "                                          `.          888PP'    ,'  " << std::endl;
+	std::cout << "                                            `-.      d8P'    ,-'" << std::endl;
+	std::cout << "                                               `-.,,_',_,.-' " << std::endl << std::endl;
+	std::cout << "============================ALIEN INVASION SIMULATOR===========================" << std::endl;;
+}
 
 void Game::SetMode(char mode)
 {
@@ -55,7 +170,8 @@ GenParameters Game::ReadFile()
 	GenParameters P;
 	inFile >> N;
 
-	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] ;
+	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] >>P.EarthPercentage[3];
+	if (P.EarthPercentage[3] > 5) P.EarthPercentage[3] = 5;
 	inFile >> P.AlienPercentage[0] >> P.AlienPercentage[1] >> P.AlienPercentage[2];
 
 
@@ -85,11 +201,13 @@ GenParameters Game::ReadFile()
 
 
 
-bool Game::AddUnit(unit* unit)
+bool Game::AddUnit(unit* unit, char InsertDir)
 {
+	if (!unit) return false; // Case Random Generator will send Null if Out Of IDS
+
 	if ( unit->GetType() == unit::AD || unit->GetType() == unit::AS || unit->GetType() == unit::AM)
 	{
-		if (!A_Army->AddUnit(unit))// Delete the unit if it is not added to the army
+		if (!A_Army->AddUnit(unit , InsertDir))// Delete the unit if it is not added to the army
 		{
 			delete unit;
 			return false;
@@ -120,48 +238,148 @@ void Game::PrintAliveUnits()
 
 }
 
-unit* Game::PickUnit(unit::UnitType type , char dronedir)
+bool Game::checkUML(unit* U)
 {
+	if (U->HealthPercent() < 20 && U->HealthPercent() > 0)
+		if (E_Army->AddtoUML(U))
+		{
+			U->setTD(TimeStep);
+			return true;
+		}
+	return false;
+}
+
+unit* Game::PickUnit(unit::UnitType type , char PickDir)
+{
+	// Will return Null From the PickUnit of The armies in case not found
+
 	if (type == unit::AD || type == unit::AS || type == unit::AM)
-	{
-		return A_Army->PickUnit(type , dronedir);
-	}
+		return A_Army->PickUnit(type , PickDir);
 	else
-	{
 		return E_Army->PickUnit(type);
 
-	}
+}
+
+int Game::GetUnitCount(unit::UnitType type)
+{
+	if (type == unit::AD || type == unit::AS || type == unit::AM)
+		return A_Army->GetUnitCount(type);
+	else
+		return E_Army->GetUnitCount(type);
+}
+
+unit* Game::PickUML()
+{
+		return E_Army->PickfromUML();
 }
 
 
 
 void Game::PrintKilledUnits()
 {
-	cout << "=============== Killed Units ===============" << endl;
+	cout << "\n=============== Killed Units ===============" << endl;
 
 	cout << killedList->getCount() << " units ";
 	killedList->print();
 }
 
+void Game::WriteFile()
+{
+	int N_ES = 0, N_ET = 0, N_EG = 0, N_EH = 0; //N for each type killed
+	int N_AS = 0, N_AD = 0, N_AM = 0;
+	ofstream OutFile("../OutputFiles/output.txt");
+	OutFile << "Td  \tID  \tTj  \tDf  \tDd  \tDb" << endl;
+	LinkedQueue<unit*> temp;
+	unit* tem;
+	while (killedList->dequeue(tem))
+	{
+		temp.enqueue(tem);
+
+		int Td = tem->getTd();
+		int Tj = tem->getTj();
+		int Ta = tem->getTa();
+		OutFile << Td << "   \t" << tem->getID() << "   \t" << Tj << "   \t" << Ta - Tj << "   \t" << Td - Ta << "   \t" << Td - Tj << endl;
+		switch (tem->GetType())
+		{
+		case unit::ES:
+			N_ES++;
+			break;
+		case unit::ET:
+			N_ET++;
+			break;
+		case unit::EG:
+			N_EG++;
+			break;
+		case unit::EH:
+			N_EH++;
+			break;
+		case unit::AS:
+			N_AS++;
+			break;
+		case unit::AD:
+			N_AD++;
+			break;
+		case unit::AM:
+			N_AM++;
+			break;
+		default:
+			break;
+		}
+	}
+	while (temp.dequeue(tem))
+	{
+		killedList->enqueue(tem);
+	}
+}
+
 void Game::PrintFights()
 {
+	cout << "=============== BATTLE ROUND  ===============" << endl;
+	bool EarthBattle = E_Army->PrintFights();
+	bool ALienBattle = A_Army->PrintFights();
+
+	if (! (EarthBattle || ALienBattle )) 
+		cout <<"\n\n~~~~SILENCE~ NOTHING HAPPENED ! ~SILENCE~~~~\n\n\n";
+
 }
 
-bool Game::GenerateUnits()
+void Game::Battle()
 {
-	if (!Generator->WillGenerate()) return false; // if didn't meet the prob
+	E_Army->attack();
+	A_Army->attack();
 
-
-	for (int i = N; i > 0; --i) // Generate if meet the prob 
-	{
-		AddUnit(Generator->GenerateUnitEarth(TimeStep,this));
-		AddUnit(Generator->GenerateUnitAlien(TimeStep,this));
-
-	}
-
-
-	return true;
 }
+
+void Game::GenerateUnits()
+{
+	bool GenerateAlienUnits = Generator->WillGenerate();
+	bool GenerateEarthUnits = Generator->WillGenerate();
+
+	if (GenerateAlienUnits)
+		for (int i = N; i > 0; --i) // Generate if meet the prob 
+		{
+			unit* Created = Generator->GenerateUnitAlien(TimeStep, this);
+			if (!Created && mode == 'a')
+			{
+				cout << "---------------- Can't Generate Alien IDs OUT OF RANGE ----------------"; break;
+			}
+			
+			AddUnit(Created);
+		}
+
+	if (GenerateEarthUnits)
+		for (int i = N; i > 0; --i) // Generate if meet the prob 
+		{
+			unit* Created = Generator->GenerateUnitEarth(TimeStep, this);
+			if (!Created && mode =='a')
+			{
+				cout << "---------------- Can't Generate Earth IDs OUT OF RANGE ----------------"; break;
+			}
+
+			AddUnit(Created);
+		}
+}
+
 
 void Game::PrintAllStats()
 {
@@ -183,7 +401,13 @@ void Game::TestCode()
 
 	if (X <= 10) {
 		unit* ESDummy = PickUnit(unit::ES);
-		if (ESDummy) AddUnit(ESDummy);
+		if (ESDummy) {
+			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
+			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
+			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
+			if (!checkUML(ESDummy))
+				AddUnit(ESDummy);
+		}
 	}  
 	else if (X <= 20) {
 		unit* ETdummy = PickUnit(unit::ET);
@@ -261,7 +485,7 @@ void Game::TestCode()
 
 Game::~Game()
 {
-		cout << "\nClosing Game...........\n";
+		cout << "\n\nClosing Game...........";
 		cout << "\nDelete All Earth Army Units.............";
 		delete E_Army;
 		cout << "\nDelete All Alien Army Units.............";

@@ -2,13 +2,13 @@
 #include "..\unit.h"
 
 
-class eGunnery :
+class eHeal :
     public unit
 {
     
 public:
 
-    eGunnery(int id ,int Tj, int Health, int AttackCapacity, int AttackPower, Game* game);
+    eHeal(int id ,int Tj, double Health, int AttackCapacity, double AttackPower, Game* game);
     bool attack(LinkedQueue<int>& AttackedIDs);
 };
 

@@ -10,7 +10,7 @@ class Game;
 struct GenParameters {
 
 	int prob;
-	int EarthPercentage[3];
+	int EarthPercentage[4];
 	int AlienPercentage[3];
 	int A_Health_Range[2];
 	int A_Capacity_Range[2];
@@ -38,7 +38,7 @@ private :
 public:
 
 	RandGen(GenParameters P);
-	bool WillGenerate();
+	bool WillGenerate() const;
 	unit* GenerateUnitAlien(int TimeJoin, Game* game);
 	unit* GenerateUnitEarth(int TimeJoin,Game*game);
 	unit* Create(unit::UnitType T, int TimeJoin, Game* game);

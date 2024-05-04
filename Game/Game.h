@@ -6,7 +6,7 @@
 #include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
 #include"../ArmiesHeaders/EarthArmy/EarthArmy.h"
 #include "..\RandGen\RandGen.h"
-
+#include <conio.h>
 
 
 
@@ -22,8 +22,14 @@ private :
 	AlienArmy* A_Army;
 	EarthArmy* E_Army;
 	char mode; // s for silent a for interactive
+	char winner; // a for alien e for earth t for tie
+
+	// Current Attack Lists
 
 public :
+
+	
+
 
 
 	Game();
@@ -32,20 +38,33 @@ public :
 	GenParameters ReadFile();
 	void PrintAllStats();
 	void PrintKilledUnits();
-	void PrintFights();
-	bool GenerateUnits(); // return 1 if the generation is successful and 0 if not (Prob Control)
-	bool AddUnit(unit* unit);
+	void GenerateUnits(); 
+	bool AddUnit(unit* unit , char InsertDir = 'n'); // n for nonsent f for front r for rear
 	void SetMode(char mode);
 	bool AddToKilled(unit* U);
 	void PrintAliveUnits();
-	unit* PickUnit(unit::UnitType type , char dronedir = 'f');
+	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
+	int GetUnitCount(unit::UnitType type);
 
 
+	
 
 
 
 	void TestCode();
-	//bool WriteFile(); // To Be implemented
+
+
+
+	// Phase 2 Added Functions 
+	void WriteFile(); // To Be implemented
+	void PrintFights();
+	void Battle();
+	bool checkUML(unit* U);
+	unit* PickUML();
+	void StartMenu();
+	void Simulate(); // Main Game Loop
+	char WL_Check(); // Win Lose Check Function Return e for Earth Winner , a for Alien , t for tie , n for none
+	void Print_ASCII_ART();
 
 
 	~Game();
