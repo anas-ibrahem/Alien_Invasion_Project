@@ -25,6 +25,7 @@ bool EarthArmy::AddUnit(unit* unit, char InsertDir)
 
 void EarthArmy::PrintAliveUnits()
 {
+	cout << "\033[32m";
 	cout << "=============== Earth Army Alive Units ===============" << endl;
 	cout << Soldiers.getCount() << " ES: ";
 	Soldiers.print();
@@ -37,6 +38,7 @@ void EarthArmy::PrintAliveUnits()
 	cout << endl << endl << "=============== Unit Maintenance Units ===============" << endl;
 	cout << UML.getCount() << " UML: ";
 	UML.print();
+	cout <<"\033[0m" ;
 }
 
 bool EarthArmy::PrintFights()

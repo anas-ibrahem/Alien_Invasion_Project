@@ -15,7 +15,7 @@ Game::Game() {
 
 void Game::StartMenu()
 {
-
+	cout << "\033[1m\033[36m";
 	std::cout << "============================SIMULATE OR SURRNEDER !!!===========================" << std::endl << std::endl;
 	std::cout << "                                               .-'\"\"p 8o\"\"   `-." << std::endl;
 	std::cout << "       .-\"\"\"\"\"-.       .-\"\"\"\"-.              .-'8888P'Y.`Y[ '      `-. " << std::endl;
@@ -34,6 +34,7 @@ void Game::StartMenu()
 	std::cout << "                                            `-.      d8P'    ,-'" << std::endl;
 	std::cout << "                                               `-.,,_',_,.-' " << std::endl << std::endl;
 	std::cout << "============================ALIEN INVASION SIMULATOR===========================" << std::endl;;
+	cout << "\033[0m";
 	Generator = new RandGen(ReadFile());
 	cout << "\nEnter Game Mode 'a' for Interactive 's' for Silent\n";
 	char c;
@@ -419,9 +420,11 @@ void Game::WriteFile()
 
 void Game::PrintFights()
 {
+	cout << "\033[34m";
 	cout << "=============== BATTLE ROUND  ===============" << endl;
 	bool EarthBattle = E_Army->PrintFights();
 	bool ALienBattle = A_Army->PrintFights();
+	cout << "\033[0m";
 
 	if (! (EarthBattle || ALienBattle )) 
 		cout <<"\n\n~~~~SILENCE~ NOTHING HAPPENED ! ~SILENCE~~~~\n\n\n";
