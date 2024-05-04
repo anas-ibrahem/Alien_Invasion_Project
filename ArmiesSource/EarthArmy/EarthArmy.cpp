@@ -230,6 +230,11 @@ int EarthArmy::GetUnitCount(unit::UnitType type)
 	}
 }
 
+int EarthArmy::GetUMLCount()
+{
+	return UML.getCount();
+}
+
 EarthArmy::~EarthArmy()
 {
 }
