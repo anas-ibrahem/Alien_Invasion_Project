@@ -6,6 +6,7 @@ int unit::Num_Healed = 0;
 unit::unit(int id, UnitType type, int Tj, double Health, int AttackCapacity, double AttackPower, Game* game)
 	: type(type), id(id), Tj(Tj), Health(Health), AttackCapacity(AttackCapacity), AttackPower(AttackPower), game(game)
 {
+	Healed = false;
 	intialHealth = Health;
 	Ta = -1;
 	Td = -1;
