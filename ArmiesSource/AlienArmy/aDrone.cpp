@@ -53,7 +53,7 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 			{
 				game->AddToKilled(tempT);
 			}
-			else if (!game->checkUML(tempT)) {
+			else if (!game->AddUML(tempT)) {
 				tempListStack.push(tempT);
 			}
 

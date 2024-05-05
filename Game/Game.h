@@ -59,7 +59,7 @@ public :
 	void WriteFile(); // To Be implemented
 	void PrintFights();
 	void Battle();
-	bool checkUML(unit* U);
+	bool AddUML(unit* U);
 	unit* PickUML();
 	void StartMenu();
 	void Simulate(); // Main Game Loop
