@@ -410,7 +410,7 @@ void Game::WriteFile()
 	OutFile << "            EG%: " << ((N_EG_alive + N_EG) ? (double)N_EG / (N_EG_alive + N_EG) * 100 : 0) << "%";
 	OutFile << "            EH%: " << ((N_EH_alive + N_EH) ? (double)N_EH / (N_EH_alive + N_EH) * 100 : 0) << "%";
 	OutFile << endl;
-	OutFile << "Total Healed Percentage: " << ((ASum_Total) ? unit::NumOfHealed() * 100 / ASum_Total : 0) << "%";
+	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::NumOfHealed() * 100 / ESum_Total : 0) << "%";
 	OutFile << endl;
 	OutFile << "Total Destructed Percentage: " << ((ESum_Total) ? ESum_killed * 100 / ESum_Total : 0) << "%";
 	OutFile << endl;
