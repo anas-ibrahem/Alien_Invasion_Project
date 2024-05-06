@@ -506,8 +506,8 @@ void Game::GenerateUnits()
 			{
 				cout << "---------------- Can't Generate Alien IDs OUT OF RANGE ----------------"; break;
 			}
-			
-			AddUnit(Created);
+			else if (Created)
+				AddUnit(Created);
 		}
 
 	if (GenerateEarthUnits)
@@ -518,8 +518,8 @@ void Game::GenerateUnits()
 			{
 				cout << "---------------- Can't Generate Earth IDs OUT OF RANGE ----------------"; break;
 			}
-
-			AddUnit(Created);
+			else if (Created)
+				AddUnit(Created);
 		}
 }
 
