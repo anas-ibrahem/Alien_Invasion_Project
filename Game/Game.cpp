@@ -79,14 +79,14 @@ void Game::Simulate()
 
 char Game::WL_Check()
 {
-	int ESC = GetUnitCount(unit::ES);
-	int EGC = GetUnitCount(unit::EG);
-	int ASC = GetUnitCount(unit::AS);
-	int ADC = GetUnitCount(unit::AD); // Leave these variables for debugging
-	int EHC = GetUnitCount(unit::EH);
-	int UMLC = E_Army->GetUMLCount();
+	//int ESC = GetUnitCount(unit::ES);
+	//int EGC = GetUnitCount(unit::EG);
+	//int ASC = GetUnitCount(unit::AS);
+	//int ADC = GetUnitCount(unit::AD); // Leave these variables for debugging
+	//int EHC = GetUnitCount(unit::EH);
 
-	long int E_Total = GetUnitCount(unit::ET) + GetUnitCount(unit::ES) + GetUnitCount(unit::EG) + GetUnitCount(unit::EH) + E_Army->GetUMLCount();
+	int UMLC = E_Army->GetUMLCount();
+	long int E_Total = GetUnitCount(unit::ET) + GetUnitCount(unit::ES) + GetUnitCount(unit::EG) + GetUnitCount(unit::EH) + UMLC;
 	long int A_Total = GetUnitCount(unit::AD) + GetUnitCount(unit::AS) + GetUnitCount(unit::AM);
 
 	// Tie Check
@@ -102,8 +102,8 @@ char Game::WL_Check()
 	else if (A_Total > 0 && ( E_Total == 0 || E_Total == GetUnitCount(unit::EH) || E_Total == E_Army->GetUMLCount() ) )
 		return 'a';
 
-	else if ((GetUnitCount(unit::ES) == E_Total && GetUnitCount(unit::AD) == A_Total) ||
-		(GetUnitCount(unit::EG) == E_Total && GetUnitCount(unit::AS) == A_Total)
+	else if ((GetUnitCount(unit::ES) == E_Total - UMLC && GetUnitCount(unit::AD) == A_Total) ||
+		(GetUnitCount(unit::EG) == E_Total - UMLC && GetUnitCount(unit::AS) == A_Total)
 		|| (E_Total == 0 && A_Total == 0)) 
 
 		return 't';
@@ -395,7 +395,7 @@ void Game::WriteFile()
 	ASum_killed = N_AS + N_AD + N_AM;
 	ASum_Total = ASum_alive + ASum_killed;
 
-	switch (WL_Check())
+	switch (winner)
 	{
 	case 'a':
 		OutFile << "      A   L   I   E   N    W   I   N   S\n";
@@ -404,7 +404,7 @@ void Game::WriteFile()
 		OutFile << "      E   A   R   T   H    W   I   N   S\n";
 		break;
 	case 't':
-		OutFile << "      D   E   A   D    L   O   C   K\n";
+		OutFile << "      D   R   A   W   /    T   I   E\n";
 		break;
 	case 'n':
 		OutFile << "      N   O    B   O   D   Y    W   I   N   S\n";
@@ -502,9 +502,12 @@ void Game::GenerateUnits()
 		for (int i = N; i > 0; --i) // Generate if meet the prob 
 		{
 			unit* Created = Generator->GenerateUnitAlien(TimeStep, this);
-			if (!Created && mode == 'a')
+			if (!Created)
 			{
-				cout << "---------------- Can't Generate Alien IDs OUT OF RANGE ----------------"; break;
+				if (mode =='a')
+					cout << "---------------- Can't Generate Alien IDs OUT OF RANGE ----------------"; 
+
+				break;
 			}
 			else if (Created)
 				AddUnit(Created);
@@ -514,9 +517,12 @@ void Game::GenerateUnits()
 		for (int i = N; i > 0; --i) // Generate if meet the prob 
 		{
 			unit* Created = Generator->GenerateUnitEarth(TimeStep, this);
-			if (!Created && mode =='a')
+			if (!Created)
 			{
-				cout << "---------------- Can't Generate Earth IDs OUT OF RANGE ----------------"; break;
+				if (mode == 'a')
+					cout << "---------------- Can't Generate Earth IDs OUT OF RANGE ----------------";
+
+				break;
 			}
 			else if (Created)
 				AddUnit(Created);
