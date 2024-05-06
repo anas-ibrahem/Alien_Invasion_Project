@@ -147,6 +147,8 @@ void Game::SetMode(char mode)
 
 bool Game::AddToKilled(unit*U)
 {
+	if (U->GetType() == unit::ES && U->isInfected())
+		eSoldier::ReduceInfectedCount();
 	return killedList->enqueue(U);
 }
 
