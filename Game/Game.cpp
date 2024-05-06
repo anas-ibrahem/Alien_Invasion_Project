@@ -70,7 +70,7 @@ void Game::Simulate()
 
 	} while (winner == 'n');
 
-
+	ClearUML(); // Clear UML and move it's units to KilledList
 	WriteFile();
 	cout << "\n=============== Simulation END =================";
 
@@ -127,6 +127,13 @@ void Game::Print_ASCII_ART()
 	std::cout << "                                            `-.      d8P'    ,-'" << std::endl;
 	std::cout << "                                               `-.,,_',_,.-' " << std::endl << std::endl;
 	std::cout << "============================ALIEN INVASION SIMULATOR===========================" << std::endl;;
+}
+
+void Game::ClearUML()
+{
+	unit* temp = nullptr;
+	while (temp = PickUML())
+		AddToKilled(temp);
 }
 
 int Game::GetInfectProb() const
