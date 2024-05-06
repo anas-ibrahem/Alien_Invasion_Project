@@ -1,6 +1,8 @@
 #include "..\..\ArmiesHeaders\EarthArmy\EarthArmy.h"
 
-EarthArmy::EarthArmy(){}
+EarthArmy::EarthArmy()
+{
+}
 
 
 bool EarthArmy::AddUnit(unit* unit, char InsertDir)
@@ -26,7 +28,8 @@ bool EarthArmy::AddUnit(unit* unit, char InsertDir)
 void EarthArmy::PrintAliveUnits()
 {
 	cout << "\033[32m";
-	cout << "=============== Earth Army Alive Units ===============" << endl;
+	cout << "=============== Earth Army Alive Units ===============" << endl << endl;
+	cout << "Infection Percentage : " << eSoldier::getInfected_Count() * 100.0 / Soldiers.getCount() << "%" << endl << endl;
 	cout << Soldiers.getCount() << " ES: ";
 	Soldiers.print();
 	cout << endl << endl << Tanks.getCount() << " ET: ";
@@ -223,6 +226,11 @@ int EarthArmy::GetUnitCount(unit::UnitType type)
 int EarthArmy::GetUMLCount()
 {
 	return UML.getCount();
+}
+
+int EarthArmy::GetInfectedCount()
+{
+	return eSoldier::getInfected_Count();
 }
 
 EarthArmy::~EarthArmy()

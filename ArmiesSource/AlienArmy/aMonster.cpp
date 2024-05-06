@@ -40,18 +40,22 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 
 		if (tempS) 
 		{
-			if (WillInfect())
+			// Don't infect if already infected or immuned
+			if (WillInfect() && !tempS->isInfected() && !tempS->isImmuned()) 
 			{
 				tempS->setInfected(true);
 				tempList.enqueue(tempS);
 			} 
+
 			else if (tempS->getAttacked(this)) 
 					game->AddToKilled(tempS);
 
 			else if (!game->AddUML(tempS)) 
 					tempList.enqueue(tempS);
+
 			if (game->getMode() == 'a')
 				AttackedUnits.enqueue(tempS);
+
 			cap--;
 		}
 		

@@ -2,6 +2,9 @@
 #include "..\..\Game\Game.h"
 
 
+int eSoldier::Infected_Count = 0;
+
+
 eSoldier::eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
 	unit(id , ES, Tj, Health, AttackCapacity, AttackPower,game)
 {
@@ -76,9 +79,17 @@ bool eSoldier::isInfected()
 void eSoldier::setInfected(bool Infect)
 {
 	infected = Infect;
+	if (Infect) Infected_Count++;
+	else Infected_Count--;
+
 }
 
 void eSoldier::setImmuned(bool Immune)
 {
 	immuned = Immune;
+}
+
+int eSoldier::getInfected_Count()
+{
+	return Infected_Count;
 }

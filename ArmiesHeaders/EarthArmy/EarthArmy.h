@@ -38,6 +38,8 @@ public:
 	void attack();
 	int GetUnitCount(unit::UnitType type);
 	int GetUMLCount();
+	int GetInfectedCount();
+
 	~EarthArmy();
 
 };
