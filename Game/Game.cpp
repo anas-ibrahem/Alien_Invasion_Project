@@ -16,8 +16,8 @@ Game::Game() {
 
 void Game::StartMenu()
 {
-	Print_ASCII_ART();
 
+	Print_ASCII_ART();
 	Generator = new RandGen(ReadFile());
 	cout << "\nEnter Game Mode 'a' for Interactive 's' for Silent\n";
 	char c;
@@ -462,9 +462,11 @@ void Game::WriteFile()
 
 void Game::PrintFights()
 {
+	cout << "\033[34m";
 	cout << "=============== BATTLE ROUND  ===============" << endl;
 	bool EarthBattle = E_Army->PrintFights();
 	bool ALienBattle = A_Army->PrintFights();
+	cout << "\033[0m";
 
 	if (! (EarthBattle || ALienBattle )) 
 		cout <<"\n\n~~~~SILENCE~ NOTHING HAPPENED ! ~SILENCE~~~~\n\n\n";
