@@ -79,31 +79,25 @@ void Game::Simulate()
 
 char Game::WL_Check()
 {
-	//int ESC = GetUnitCount(unit::ES);
-	//int EGC = GetUnitCount(unit::EG);
-	//int ASC = GetUnitCount(unit::AS);
-	//int ADC = GetUnitCount(unit::AD); // Leave these variables for debugging
-	//int EHC = GetUnitCount(unit::EH);
-
-	int UMLC = E_Army->GetUMLCount();
-	long int E_Total = GetUnitCount(unit::ET) + GetUnitCount(unit::ES) + GetUnitCount(unit::EG) + GetUnitCount(unit::EH) + UMLC;
+	int UML_C = E_Army->GetUMLCount();
+	int EH_C = GetUnitCount(unit::EH);
+	long int E_Total = GetUnitCount(unit::ET) + GetUnitCount(unit::ES) + GetUnitCount(unit::EG) + EH_C + UML_C;
 	long int A_Total = GetUnitCount(unit::AD) + GetUnitCount(unit::AS) + GetUnitCount(unit::AM);
-
-	// Tie Check
-	// if both total = 0 or the Left units are not able to attack each other (following cases)
-	// ES and AD only
-	// EG and AS only
 
 
 	if (E_Total > 0 && A_Total == 0)
 		return 'e';
 
 	// Assume if only EH or if only UML then earth lost
-	else if (A_Total > 0 && ( E_Total == 0 || E_Total == GetUnitCount(unit::EH) || E_Total == E_Army->GetUMLCount() ) )
+	else if (A_Total > 0 && ( E_Total == 0 || E_Total == EH_C || E_Total == UML_C) )
 		return 'a';
 
-	else if ((GetUnitCount(unit::ES) == E_Total - UMLC && GetUnitCount(unit::AD) == A_Total) ||
-		(GetUnitCount(unit::EG) == E_Total - UMLC && GetUnitCount(unit::AS) == A_Total)
+	// Tie Check
+	// if both total = 0 or the Left units are not able to attack each other (following cases) ( Regardless of UML in case of no EH they are not considered )
+	// ES and AD only
+	// EG and AS only
+	else if ((GetUnitCount(unit::ES) == E_Total - UML_C && GetUnitCount(unit::AD) == A_Total) ||
+		(GetUnitCount(unit::EG) == E_Total - UML_C && GetUnitCount(unit::AS) == A_Total)
 		|| (E_Total == 0 && A_Total == 0)) 
 
 		return 't';
