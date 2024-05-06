@@ -104,7 +104,7 @@ void AlienArmy::PrintFight(unit::UnitType type) {
 
 		if (!AM_Attacked.isEmpty())
 		{
-			cout << "AM " << AM_AttackerID << " Attacked [ ";
+			cout << "AM " << AM_AttackerID << " Attacked & infected* [ ";
 
 			while (AM_Attacked.dequeue(id))
 			{
@@ -114,17 +114,6 @@ void AlienArmy::PrintFight(unit::UnitType type) {
 			}
 		}
 
-		if (!AM_Infected.isEmpty())
-		{
-			cout << "AM " << AM_AttackerID << " Infected [ ";
-
-			while (AM_Infected.dequeue(id))
-			{
-				cout << id;
-				if (!AM_Infected.isEmpty()) cout << " , ";
-				else cout << " ]\n";
-			}
-		}
 		break;
 
 
@@ -195,18 +184,16 @@ unit* AlienArmy::PickUnit(unit::UnitType type , char PickDir)
 void AlienArmy::attack()
 {
 	unit* Attacker = nullptr;
-	// Sending a dummy Infected List (except Monster)
-	LinkedQueue<int> Infected;
 
 	if (Soldiers.peek(Attacker))
 	{
-		Attacker->attack(AS_Attacked, Infected );
+		Attacker->attack(AS_Attacked);
 		AS_AttackerID = Attacker->getID();
 	}
 
 	if (Monster.PeekRand(Attacker))
 	{
-		Attacker->attack(AM_Attacked, AM_Infected);
+		Attacker->attack(AM_Attacked);
 		AM_AttackerID = Attacker->getID();
 	}
 
@@ -217,8 +204,8 @@ void AlienArmy::attack()
 		Drones.peek_front(Attacker);
 		Drones.peek_rear(Attacker_Rear);
 
-		Attacker->attack(AD_Attacked_Front, Infected );
-		Attacker_Rear->attack(AD_Attacked_Rear, Infected);
+		Attacker->attack(AD_Attacked_Front);
+		Attacker_Rear->attack(AD_Attacked_Rear);
 
 		AD_AttackerID_Front = Attacker->getID();
 		AD_AttackerID_Rear = Attacker_Rear->getID();

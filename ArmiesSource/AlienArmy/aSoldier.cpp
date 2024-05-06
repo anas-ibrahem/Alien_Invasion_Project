@@ -11,7 +11,7 @@ aSoldier::aSoldier(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 
 
-bool aSoldier::attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS)
+bool aSoldier::attack(LinkedQueue<int>& AttackedIDs)
 {
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;

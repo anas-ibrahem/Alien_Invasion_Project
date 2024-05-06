@@ -10,7 +10,7 @@ eSoldier::eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPo
 }
 
 
-bool eSoldier::attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS)
+bool eSoldier::attack(LinkedQueue<int>& AttackedIDs)
 {
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;

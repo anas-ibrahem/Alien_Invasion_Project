@@ -11,7 +11,7 @@ eTank::eTank(int id, int Tj, int Health, int AttackCapacity, int AttackPower, Ga
 
 }
 
-bool eTank::attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS)
+bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 {
 	LinkedQueue<unit*> tempList; // queue temp list
 	int cap = AttackCapacity;

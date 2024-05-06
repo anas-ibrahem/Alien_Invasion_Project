@@ -9,7 +9,7 @@ aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 }
 
-bool aMonster::attack(LinkedQueue<int>& AttackedIDs , LinkedQueue<int>& InfectedIDS) {
+bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 	LinkedQueue<unit*>tempList;
 	ArrayStack<unit*>tempListStack;
 	int cap = AttackCapacity;
@@ -37,23 +37,20 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs , LinkedQueue<int>& Infected
 		if (cap > 0)//check if capacity can offer another one 
 			tempS = game->PickUnit(unit::ES);
 
-		if (tempS) {
+		if (tempS) 
+		{
 			if (WillInfect())
 			{
 				tempS->setInfected(true);
 				tempList.enqueue(tempS);
-				InfectedIDS.enqueue(tempS->getID());
-
-			} else {
-				if (tempS->getAttacked(this)) 
+			} 
+			else if (tempS->getAttacked(this)) 
 					game->AddToKilled(tempS);
 
-				else if (!game->AddUML(tempS)) 
+			else if (!game->AddUML(tempS)) 
 					tempList.enqueue(tempS);
 
-				AttackedIDs.enqueue(tempS->getID());
-			}
-
+			AttackedIDs.enqueue(tempS->getID());
 			cap--;
 		}
 		
