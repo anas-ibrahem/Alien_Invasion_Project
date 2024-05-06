@@ -5,20 +5,27 @@
 eSoldier::eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
 	unit(id , ES, Tj, Health, AttackCapacity, AttackPower,game)
 {
+	infected = false;
+	immuned = false;
 }
 
-bool eSoldier::attack(LinkedQueue<int>& AttackedIDs) {
 
+bool eSoldier::attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS)
+{
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
+	unit* Attacker = nullptr; // Used in Case of Infection no need for it in No infected
+
+	if (infected)
+		Attacker = game->PickUnit(unit::ES);
 
 	while (cap > 0) {
 
-		unit* temp=nullptr;
-
-		temp = game->PickUnit(unit::AS);
-
-		
+		unit* temp = nullptr;
+		if(!infected)
+			temp = game->PickUnit(unit::AS);
+		else
+			temp = game->PickUnit(unit::ES);
 
 		if (temp) {
 			if (temp->getAttacked(this)) {
@@ -39,6 +46,9 @@ bool eSoldier::attack(LinkedQueue<int>& AttackedIDs) {
 
 	}
 
+	if (Attacker) // Return Attacker In First (Assumption)
+		game->AddUnit(Attacker);
+
 	while (!tempList.isEmpty()) // return units from templist to its original list
 	{
 		unit* temp;
@@ -47,6 +57,27 @@ bool eSoldier::attack(LinkedQueue<int>& AttackedIDs) {
 	}
 
 
+
 	return (cap < AttackCapacity);
 
+}
+
+bool eSoldier::isImmuned()
+{
+	return immuned;
+}
+
+bool eSoldier::isInfected()
+{
+	return infected;
+}
+
+void eSoldier::setInfected(bool Infect)
+{
+	infected = Infect;
+}
+
+void eSoldier::setImmuned(bool Immune)
+{
+	immuned = Immune;
 }

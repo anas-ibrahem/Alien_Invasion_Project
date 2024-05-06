@@ -34,6 +34,12 @@
     <Filter Include="ArmiesSource\EarthSource">
       <UniqueIdentifier>{b2e29cf1-bc12-416a-b6d8-6b4c1ead7518}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ArmiesHeaders\AlliedHeaders">
+      <UniqueIdentifier>{9d2e38f5-f059-4788-bd1f-56b7eba889f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ArmiesSource\AlliedSource">
+      <UniqueIdentifier>{fc343ca2-e08e-469e-846e-051d6c62ec10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ArmiesHeaders\unit.h">
@@ -105,6 +111,9 @@
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\eHeal.h">
       <Filter>ArmiesHeaders\EarthHeaders</Filter>
     </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\AlliedArmy\alSaver.h">
+      <Filter>ArmiesHeaders\AlliedHeaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -145,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\EarthArmy\eHeal.cpp">
       <Filter>ArmiesSource\EarthSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\AlliedArmy\alSaver.cpp">
+      <Filter>ArmiesSource\AlliedSource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,8 +10,8 @@ aDrone::aDrone(int id , int Tj , int Health , int AttackCapacity , int AttackPow
 
 
 
-bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
-
+bool aDrone::attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS)
+{
 	LinkedQueue<unit*> tempList; // queue for the rest (Gunnery)
 	ArrayStack<unit*> tempListStack; // Stack For Tanks
 

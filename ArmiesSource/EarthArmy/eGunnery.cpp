@@ -10,8 +10,9 @@ eGunnery::eGunnery(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 }
 
-bool eGunnery::attack(LinkedQueue<int>& AttackedIDs) {
 
+bool eGunnery::attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS)
+{
 	// Assume Priority for AD always
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;

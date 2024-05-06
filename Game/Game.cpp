@@ -5,6 +5,7 @@ Game::Game() {
 
 	mode = 'a'; // default mode is 'a' // 's' for silent mode	// 'a' for interactive mode
 	winner = 'n'; // none 
+	InfectProb = 20; // FOR TEST
 	TimeStep = 0;
 	A_Army = new AlienArmy();
 	E_Army = new EarthArmy();
@@ -134,6 +135,11 @@ void Game::Print_ASCII_ART()
 	std::cout << "============================ALIEN INVASION SIMULATOR===========================" << std::endl;;
 }
 
+int Game::GetInfectProb() const
+{
+	return InfectProb;
+}
+
 void Game::SetMode(char mode)
 {
 	this->mode = mode;
@@ -174,7 +180,7 @@ GenParameters Game::ReadFile()
 	}
 	GenParameters P;
 	inFile >> N;
-
+	
 	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] >>P.EarthPercentage[3];
 	if (P.EarthPercentage[3] > 5) P.EarthPercentage[3] = 5;
 	inFile >> P.AlienPercentage[0] >> P.AlienPercentage[1] >> P.AlienPercentage[2];

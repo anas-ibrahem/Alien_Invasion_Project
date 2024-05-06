@@ -23,6 +23,7 @@
     <ClInclude Include="..\ArmiesHeaders\AlienArmy\AlienArmy.h" />
     <ClInclude Include="..\ArmiesHeaders\AlienArmy\aMonster.h" />
     <ClInclude Include="..\ArmiesHeaders\AlienArmy\aSoldier.h" />
+    <ClInclude Include="..\ArmiesHeaders\AlliedArmy\alSaver.h" />
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\EarthArmy.h" />
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\eGunnery.h" />
     <ClInclude Include="..\ArmiesHeaders\EarthArmy\eHeal.h" />
@@ -48,6 +49,7 @@
     <ClCompile Include="..\ArmiesSource\AlienArmy\AlienArmy.cpp" />
     <ClCompile Include="..\ArmiesSource\AlienArmy\aMonster.cpp" />
     <ClCompile Include="..\ArmiesSource\AlienArmy\aSoldier.cpp" />
+    <ClCompile Include="..\ArmiesSource\AlliedArmy\alSaver.cpp" />
     <ClCompile Include="..\ArmiesSource\EarthArmy\EarthArmy.cpp" />
     <ClCompile Include="..\ArmiesSource\EarthArmy\eGunnery.cpp" />
     <ClCompile Include="..\ArmiesSource\EarthArmy\eHeal.cpp" />

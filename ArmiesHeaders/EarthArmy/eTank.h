@@ -11,7 +11,7 @@ private:
 
 public:
     eTank(int id ,int Tj, int Health, int AttackCapacity, int AttackPower, Game* game);
-    bool attack(LinkedQueue<int>& AttackedIDs);
+    bool attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS);
 
 };
 

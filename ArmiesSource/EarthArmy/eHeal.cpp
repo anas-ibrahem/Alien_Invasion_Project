@@ -11,7 +11,8 @@ eHeal::eHeal(int id ,int Tj, double Health, int AttackCapacity, double AttackPow
 }
 
 
-bool eHeal::attack(LinkedQueue<int>& AttackedIDs)
+
+bool eHeal::attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS)
 {
 	LinkedQueue<unit*> tempList; // Queue to Store Templist
 	int cap = AttackCapacity;

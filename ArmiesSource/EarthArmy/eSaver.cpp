@@ -1,28 +1,24 @@
-#include "..\..\ArmiesHeaders\AlienArmy\aSoldier.h"
+#include "..\..\ArmiesHeaders\EarthArmy\eSoldier.h"
 #include "..\..\Game\Game.h"
 
 
-aSoldier::aSoldier(int id ,int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
-	unit(id , AS, Tj, Health, AttackCapacity, AttackPower,game)
+eSoldier::eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
+	unit(id , ES, Tj, Health, AttackCapacity, AttackPower,game)
 {
-
-
 }
 
+bool eSoldier::attack(LinkedQueue<int>& AttackedIDs) {
 
-
-bool aSoldier::attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS)
-{
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
 
 	while (cap > 0) {
 
-		unit* temp = nullptr;
+		unit* temp=nullptr;
 
-		temp = game->PickUnit(unit::ES);
+		temp = game->PickUnit(unit::AS);
 
-
+		
 
 		if (temp) {
 			if (temp->getAttacked(this)) {

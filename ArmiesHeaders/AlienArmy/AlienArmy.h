@@ -22,6 +22,7 @@ private:
 	LinkedQueue<int> AM_Attacked;
 	LinkedQueue<int> AD_Attacked_Front;
 	LinkedQueue<int> AD_Attacked_Rear;
+	LinkedQueue<int> AM_Infected;
 
 public :
 	AlienArmy();

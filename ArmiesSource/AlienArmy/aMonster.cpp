@@ -9,7 +9,7 @@ aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 }
 
-bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
+bool aMonster::attack(LinkedQueue<int>& AttackedIDs , LinkedQueue<int>& InfectedIDS) {
 	LinkedQueue<unit*>tempList;
 	ArrayStack<unit*>tempListStack;
 	int cap = AttackCapacity;
@@ -17,34 +17,43 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 		unit* tempS = nullptr;
 		unit* tempT = nullptr;
 
-		    tempT = game->PickUnit(unit::ET);
+		tempT = game->PickUnit(unit::ET);
 
-			if (tempT) {
+		if (tempT) 
+		{
 
-				if (tempT->getAttacked(this)) {
-					game->AddToKilled(tempT);
-				}
-				else if (!game->AddUML(tempT)) {
-					tempListStack.push(tempT);
-				}
-
-				AttackedIDs.enqueue(tempT->getID());
-				cap--;
+			if (tempT->getAttacked(this)) {
+				game->AddToKilled(tempT);
 			}
+			else if (!game->AddUML(tempT)) {
+				tempListStack.push(tempT);
+			}
+
+			AttackedIDs.enqueue(tempT->getID());
+			cap--;
+		}
 
 
 		if (cap > 0)//check if capacity can offer another one 
 			tempS = game->PickUnit(unit::ES);
 
 		if (tempS) {
-			if (tempS->getAttacked(this)) {
-				game->AddToKilled(tempS);
-			}
-			else if (!game->AddUML(tempS)) {
+			if (WillInfect())
+			{
+				tempS->setInfected(true);
 				tempList.enqueue(tempS);
+				InfectedIDS.enqueue(tempS->getID());
+
+			} else {
+				if (tempS->getAttacked(this)) 
+					game->AddToKilled(tempS);
+
+				else if (!game->AddUML(tempS)) 
+					tempList.enqueue(tempS);
+
+				AttackedIDs.enqueue(tempS->getID());
 			}
 
-			AttackedIDs.enqueue(tempS->getID());
 			cap--;
 		}
 		
@@ -53,6 +62,7 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 			break; 
 				//nothing to Attack // Break the Loop
 	}
+
 	while (!tempList.isEmpty()) {
 		unit* temp;
 		tempList.dequeue(temp);
@@ -68,3 +78,9 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 	return (cap < AttackCapacity);
 }
 
+
+bool aMonster::WillInfect() const
+{
+	int ProbGen = rand() % 100 + 1;
+	return (ProbGen <= game->GetInfectProb());
+}

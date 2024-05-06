@@ -181,29 +181,31 @@ unit* EarthArmy::PickfromUML()
 void EarthArmy::attack()
 {
 	unit* Attacker = nullptr;
+	// Sending a dummy Infected List
+	LinkedQueue<int> Infected;
 
 	if (Healers.pop(Attacker))
 	{
-		Attacker->attack(EH_Attacked);
+		Attacker->attack(EH_Attacked, Infected);
 		EH_AttackerID = Attacker->getID();
 	}
 
 	if (Soldiers.peek(Attacker))
 	{
-		Attacker->attack(ES_Attacked);
+		Attacker->attack(ES_Attacked, Infected);
 		ES_AttackerID = Attacker->getID();
 	}
 
 	if (Tanks.peek(Attacker))
 	{
-		Attacker->attack(ET_Attacked);
+		Attacker->attack(ET_Attacked, Infected);
 		ET_AttackerID = Attacker->getID();
 	}
 
 	int I; // Dummy Int 
 	if (Gunneries.peek(Attacker , I))
 	{
-		Attacker->attack(EG_Attacked);
+		Attacker->attack(EG_Attacked, Infected);
 		EG_AttackerID = Attacker->getID();
 	}
 

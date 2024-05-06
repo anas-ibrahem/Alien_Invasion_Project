@@ -120,3 +120,21 @@ int unit::NumOfHealed()
 {
 	return Num_Healed;
 }
+
+bool unit::isInfected()
+{
+	return false;
+}
+
+bool unit::isImmuned()
+{
+	return false;
+}
+
+void unit::setInfected(bool Infect)
+{
+}
+
+void unit::setImmuned(bool Immune)
+{
+}

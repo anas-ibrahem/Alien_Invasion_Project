@@ -9,6 +9,6 @@ class eHeal :
 public:
 
     eHeal(int id ,int Tj, double Health, int AttackCapacity, double AttackPower, Game* game);
-    bool attack(LinkedQueue<int>& AttackedIDs);
+    bool attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS);
 };
 

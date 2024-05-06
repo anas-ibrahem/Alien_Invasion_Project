@@ -25,7 +25,7 @@ public:
 
 
 	unit(int id , UnitType type , int Tj  , double Health , int AttackCapacity , double AttackPower, Game*game);
-	virtual bool attack(LinkedQueue<int>& AttackedIDs) = 0; // Just To avoid Abstract Error
+	virtual bool attack(LinkedQueue<int>& AttackedIDs, LinkedQueue<int>& InfectedIDS ) = 0;
 	virtual bool getAttacked(unit* Attacker);
 	virtual bool getHealed(unit* Attacker);
 	virtual bool isDead() const; // Implementes As it's the same for all
@@ -42,6 +42,11 @@ public:
 	void setTa(int T);
 	bool isHealed() const;
 	static int NumOfHealed();
+
+	virtual bool isInfected();
+	virtual bool isImmuned();
+	virtual void setInfected(bool Infect);
+	virtual void setImmuned(bool Immune);
 
 protected:
 		int id;

@@ -168,7 +168,12 @@ inline bool LinkedQueue<unit*>::print() const
 	cout << "[ ";
 	while (ptr)
 	{
-		cout << ptr->getItem()->getID() << " ";
+		if (ptr->getItem()->GetType() == unit::ES && ptr->getItem()->isInfected())
+			cout << ptr->getItem()->getID() << "* ";
+		else 
+			cout << ptr->getItem()->getID() << " ";
+
+
 		ptr = ptr->getNext();
 		if (!ptr) cout << "]"; // Last Element
 		else cout << ", "; // Not Last Element
