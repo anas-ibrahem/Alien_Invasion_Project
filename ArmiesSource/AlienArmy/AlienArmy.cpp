@@ -65,12 +65,13 @@ bool AlienArmy::PrintFights()
 {
 	bool AS_Is_Attacked = !AS_Attacked.isEmpty();
 	bool AM_Is_Attacked = !AM_Attacked.isEmpty();
+	bool AM_Is_Infected = !AM_Infected.isEmpty();
 	bool AD_Is_Attacked = !AD_Attacked_Front.isEmpty();
 
 	if (AS_Is_Attacked)
 		PrintFight(unit::AS);
 
-	if (AM_Is_Attacked)
+	if (AM_Is_Attacked || AM_Is_Infected)
 		PrintFight(unit::AM);
 
 	if (AD_Is_Attacked)
@@ -99,13 +100,18 @@ void AlienArmy::PrintFight(unit::UnitType type) {
 		break;
 
 	case unit::AM:
-		cout << "AM " << AM_AttackerID << " Attacked [ ";
 
-		while (AM_Attacked.dequeue(id))
+
+		if (!AM_Attacked.isEmpty())
 		{
-			cout << id;
-			if (!AM_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
+			cout << "AM " << AM_AttackerID << " Attacked [ ";
+
+			while (AM_Attacked.dequeue(id))
+			{
+				cout << id;
+				if (!AM_Attacked.isEmpty()) cout << " , ";
+				else cout << " ]\n";
+			}
 		}
 
 		if (!AM_Infected.isEmpty())
