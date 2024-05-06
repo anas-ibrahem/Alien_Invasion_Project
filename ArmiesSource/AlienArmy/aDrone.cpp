@@ -10,7 +10,7 @@ aDrone::aDrone(int id , int Tj , int Health , int AttackCapacity , int AttackPow
 
 
 
-bool aDrone::attack(LinkedQueue<int>& AttackedIDs)
+bool aDrone::attack(LinkedQueue<unit*>& AttackedUnits)
 {
 	LinkedQueue<unit*> tempList; // queue for the rest (Gunnery)
 	ArrayStack<unit*> tempListStack; // Stack For Tanks
@@ -39,8 +39,8 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs)
 				tempList.enqueue(tempG);
 
 			}
-
-			AttackedIDs.enqueue(tempG->getID());
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(tempG);
 			cap--;
 		}
 
@@ -56,8 +56,8 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs)
 			else if (!game->AddUML(tempT)) {
 				tempListStack.push(tempT);
 			}
-
-			AttackedIDs.enqueue(tempT->getID());
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(tempT);
 			cap--;
 		}
 

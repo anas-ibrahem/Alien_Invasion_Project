@@ -19,10 +19,10 @@ private:
 	int EG_AttackerID;
 	int EH_AttackerID;
 
-	LinkedQueue<int> ET_Attacked;
-	LinkedQueue<int> ES_Attacked;
-	LinkedQueue<int> EG_Attacked;
-	LinkedQueue<int> EH_Attacked;
+	LinkedQueue<unit*> ET_Attacked;
+	LinkedQueue<unit*> ES_Attacked;
+	LinkedQueue<unit*> EG_Attacked;
+	LinkedQueue<unit*> EH_Attacked;
 
 public:
 	EarthArmy();

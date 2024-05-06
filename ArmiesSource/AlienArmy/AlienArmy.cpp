@@ -65,13 +65,12 @@ bool AlienArmy::PrintFights()
 {
 	bool AS_Is_Attacked = !AS_Attacked.isEmpty();
 	bool AM_Is_Attacked = !AM_Attacked.isEmpty();
-	bool AM_Is_Infected = !AM_Infected.isEmpty();
 	bool AD_Is_Attacked = !AD_Attacked_Front.isEmpty();
 
 	if (AS_Is_Attacked)
 		PrintFight(unit::AS);
 
-	if (AM_Is_Attacked || AM_Is_Infected)
+	if (AM_Is_Attacked)
 		PrintFight(unit::AM);
 
 	if (AD_Is_Attacked)
@@ -84,57 +83,38 @@ bool AlienArmy::PrintFights()
 
 void AlienArmy::PrintFight(unit::UnitType type) {
 
-	int id;
 
 	switch (type) {
 
 	case unit::AS:
-		cout << "AS " << AS_AttackerID << " Attacked [ ";
-
-		while (AS_Attacked.dequeue(id))
-		{
-			cout << id;
-			if (!AS_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
+		cout << "AS " << AS_AttackerID << " Attacked ";
+		AS_Attacked.print();
+		cout << "\n";
+		AS_Attacked.clear();
 		break;
 
 	case unit::AM:
 
-
-		if (!AM_Attacked.isEmpty())
-		{
-			cout << "AM " << AM_AttackerID << " Attacked & infected* [ ";
-
-			while (AM_Attacked.dequeue(id))
-			{
-				cout << id;
-				if (!AM_Attacked.isEmpty()) cout << " , ";
-				else cout << " ]\n";
-			}
-		}
+		cout << "AM " << AM_AttackerID << " Attacked & infected* ";
+		AM_Attacked.print();
+		cout << "\n";
+		AM_Attacked.clear();
 
 		break;
 
 
 	case unit::AD:
-		cout << "AD " << AD_AttackerID_Front << " & " << AD_AttackerID_Rear << " Attacked [ ";
+		cout << "AD " << AD_AttackerID_Front << " & " << AD_AttackerID_Rear << " Attacked ";
 
-		while (AD_Attacked_Front.dequeue(id))
-		{
-			cout << id;
-			if (!AD_Attacked_Front.isEmpty()) cout << " , ";
-			else cout << " ]";
-		}
+		AD_Attacked_Front.print();
+		AD_Attacked_Front.clear();
 
-		cout << " & [ ";
+		cout << " &  ";
 
-		while (AD_Attacked_Rear.dequeue(id))
-		{
-			cout << id;
-			if (!AD_Attacked_Rear.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
+		AD_Attacked_Rear.print();
+		cout << "\n";
+		AD_Attacked_Rear.clear();
+
 		break;
 
 	default:

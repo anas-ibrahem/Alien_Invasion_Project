@@ -21,7 +21,7 @@ public :
 	bool peek(T& frntEntry)  const;	
 	int getCount() const;
 	~LinkedQueue();
-
+	void clear();
 	bool print() const; // Specialized for unit* type // returns false if empty
 
 };
@@ -149,11 +149,17 @@ LinkedQueue<T>::~LinkedQueue()
 	//cout<<"\nFreeing all nodes in the queue...";
 
 	//Free all nodes in the queue
-	T temp;
-	while(dequeue(temp));
+	clear();
 	
 	//cout<<"\n Is LinkedQueue Empty now?? ==> "<<boolalpha<<isEmpty();
 	//cout<<"\nEnding LinkedQueue destructor..."<<endl;
+}
+
+template<typename T>
+inline void LinkedQueue<T>::clear()
+{
+	T temp;
+	while (dequeue(temp));
 }
 
 

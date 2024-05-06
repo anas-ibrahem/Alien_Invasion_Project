@@ -45,7 +45,7 @@ public :
 	void PrintAliveUnits();
 	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
 	int GetUnitCount(unit::UnitType type);
-
+	char getMode() const ;
 
 	
 

@@ -9,7 +9,8 @@ aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 }
 
-bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
+bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
+
 	LinkedQueue<unit*>tempList;
 	ArrayStack<unit*>tempListStack;
 	int cap = AttackCapacity;
@@ -28,8 +29,8 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 			else if (!game->AddUML(tempT)) {
 				tempListStack.push(tempT);
 			}
-
-			AttackedIDs.enqueue(tempT->getID());
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(tempT);
 			cap--;
 		}
 
@@ -49,8 +50,8 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 
 			else if (!game->AddUML(tempS)) 
 					tempList.enqueue(tempS);
-
-			AttackedIDs.enqueue(tempS->getID());
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(tempS);
 			cap--;
 		}
 		

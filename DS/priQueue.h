@@ -84,7 +84,11 @@ inline bool priQueue<unit*>::print()const {
     while (ptr)
     {
         int pri;
-        cout << ptr->getItem(pri)->getID() << " ";
+        if (ptr->getItem(pri)->GetType() == unit::ES && ptr->getItem(pri)->isInfected())
+            cout << ptr->getItem(pri)->getID() << "* ";
+        else
+            cout << ptr->getItem(pri)->getID() << " ";
+
         ptr = ptr->getNext();
         if (!ptr) cout << "]"; // Last Element
         else cout << ", "; // Not Last Element

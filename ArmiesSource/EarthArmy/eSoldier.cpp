@@ -10,7 +10,7 @@ eSoldier::eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPo
 }
 
 
-bool eSoldier::attack(LinkedQueue<int>& AttackedIDs)
+bool eSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 {
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
@@ -36,7 +36,8 @@ bool eSoldier::attack(LinkedQueue<int>& AttackedIDs)
 				tempList.enqueue(temp); // Else Move it to templist
 			}
 
-			AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(temp); // ADD ID to Print List
 			cap--;
 		}
 

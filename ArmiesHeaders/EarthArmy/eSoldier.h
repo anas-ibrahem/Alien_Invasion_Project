@@ -14,7 +14,7 @@ private:
 public:
 
     eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game);
-    bool attack(LinkedQueue<int>& AttackedIDs);
+    bool attack(LinkedQueue<unit*>& AttackedUnits);
     bool isInfected();
     bool isImmuned();
     void setInfected(bool Infect);

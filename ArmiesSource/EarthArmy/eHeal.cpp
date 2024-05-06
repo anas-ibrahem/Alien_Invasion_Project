@@ -12,7 +12,7 @@ eHeal::eHeal(int id ,int Tj, double Health, int AttackCapacity, double AttackPow
 
 
 
-bool eHeal::attack(LinkedQueue<int>& AttackedIDs)
+bool eHeal::attack(LinkedQueue<unit*>& AttackedUnits)
 {
 	LinkedQueue<unit*> tempList; // Queue to Store Templist
 	int cap = AttackCapacity;
@@ -41,7 +41,8 @@ bool eHeal::attack(LinkedQueue<int>& AttackedIDs)
 					tempList.enqueue(temp); // Else Move it to templist
 				}
 
-				AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List
+				if (game->getMode() == 'a')
+					AttackedUnits.enqueue(temp); // ADD ID to Print List
 				cap--;
 			}
 		}

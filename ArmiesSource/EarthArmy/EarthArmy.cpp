@@ -67,53 +67,41 @@ bool EarthArmy::PrintFights()
 
 void EarthArmy::PrintFight(unit::UnitType type) {
 
-	int id;
 
 	switch (type) {
 	
 	case unit::ES :
-		cout << "ES " << ES_AttackerID << " Attacked [ ";
+		cout << "ES " << ES_AttackerID << " Attacked ";
+		ES_Attacked.print();
+		cout << "\n";
+		ES_Attacked.clear();
 		
-		while (ES_Attacked.dequeue(id))
-		{
-			cout << id;
-			if (!ES_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
 		break;
 
 	case unit::ET:
-		cout << "ET " << ET_AttackerID << " Attacked [ ";
+		cout << "ET " << ET_AttackerID << " Attacked ";
 
-		while (ET_Attacked.dequeue(id))
-		{
-			cout << id;
-			if (!ET_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
+		ET_Attacked.print();
+		cout << "\n";
+		ET_Attacked.clear();
 		break;
 
 
 	case unit::EG:
-		cout << "EG " << EG_AttackerID << " Attacked [ ";
+		cout << "EG " << EG_AttackerID << " Attacked ";
 
-		while (EG_Attacked.dequeue(id))
-		{
-			cout << id;
-			if (!EG_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
+		EG_Attacked.print();
+		cout << "\n";
+		EG_Attacked.clear();
+
 		break;
 
 	case unit::EH:
-		cout << "EH " << EH_AttackerID << " Healed [ ";
+		cout << "EH " << EH_AttackerID << " Healed ";
 
-		while (EH_Attacked.dequeue(id))
-		{
-			cout << id;
-			if (!EH_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
+		EH_Attacked.print();
+		cout << "\n";
+		EH_Attacked.clear();
 	
 	
 	default :

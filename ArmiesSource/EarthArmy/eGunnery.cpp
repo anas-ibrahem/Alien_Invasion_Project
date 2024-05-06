@@ -11,7 +11,7 @@ eGunnery::eGunnery(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 }
 
 
-bool eGunnery::attack(LinkedQueue<int>& AttackedIDs)
+bool eGunnery::attack(LinkedQueue<unit*>& AttackedUnits)
 {
 	// Assume Priority for AD always
 	LinkedQueue<unit*>tempList;
@@ -53,7 +53,9 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs)
 				tempList.enqueue(tempDf); // Else Move it to templist
 
 			}
-			AttackedIDs.enqueue(tempDf->getID());
+
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(tempDf);
 		
 			cap--;
 		}
@@ -67,7 +69,9 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs)
 				tempList.enqueue(tempDr); // Else Move it to templist
 
 			}
-			AttackedIDs.enqueue(tempDr->getID());
+
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(tempDr);
 
 			cap--;
 		}
@@ -84,8 +88,9 @@ bool eGunnery::attack(LinkedQueue<int>& AttackedIDs)
 			{
 				tempList.enqueue(tempM); // Else Move it to templist
 
-			}
-			AttackedIDs.enqueue(tempM->getID());
+			}			
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(tempM);
 			cap--;
 		}
 

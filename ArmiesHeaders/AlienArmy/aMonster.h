@@ -9,7 +9,7 @@ class aMonster :public unit
 public:
 
 	aMonster(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game);
-	bool attack(LinkedQueue<int>& AttackedIDs);
+	bool attack(LinkedQueue<unit*>& AttackedUnits);
 
 	bool WillInfect() const;
 

@@ -279,6 +279,11 @@ int Game::GetUnitCount(unit::UnitType type)
 		return E_Army->GetUnitCount(type);
 }
 
+char Game::getMode() const
+{
+	return mode;
+}
+
 unit* Game::PickUML()
 {
 		return E_Army->PickfromUML();

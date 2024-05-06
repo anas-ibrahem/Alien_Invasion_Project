@@ -25,7 +25,7 @@ public:
 
 
 	unit(int id , UnitType type , int Tj  , double Health , int AttackCapacity , double AttackPower, Game*game);
-	virtual bool attack(LinkedQueue<int>& AttackedIDs) = 0;
+	virtual bool attack(LinkedQueue<unit*>& AttackedUnits) = 0;
 	virtual bool getAttacked(unit* Attacker);
 	virtual bool getHealed(unit* Attacker);
 	virtual bool isDead() const; // Implementes As it's the same for all
