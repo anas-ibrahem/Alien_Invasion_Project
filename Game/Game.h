@@ -22,6 +22,7 @@ private :
 	AlienArmy* A_Army;
 	EarthArmy* E_Army;
 	char mode; // s for silent a for interactive
+	char winner; // a for alien e for earth t for tie
 
 	// Current Attack Lists
 
@@ -58,12 +59,12 @@ public :
 	void WriteFile(); // To Be implemented
 	void PrintFights();
 	void Battle();
-	bool checkUML(unit* U);
+	bool AddUML(unit* U);
 	unit* PickUML();
 	void StartMenu();
-	bool GameEnd();
 	void Simulate(); // Main Game Loop
-	//bool WarCheck();
+	char WL_Check(); // Win Lose Check Function Return e for Earth Winner , a for Alien , t for tie , n for none
+	void Print_ASCII_ART();
 
 
 	~Game();
