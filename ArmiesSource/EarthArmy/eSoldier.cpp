@@ -93,3 +93,8 @@ int eSoldier::getInfected_Count()
 {
 	return Infected_Count;
 }
+
+int eSoldier::ReduceInfectedCount()
+{
+	return Infected_Count--;
+}

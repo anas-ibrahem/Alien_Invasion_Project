@@ -21,6 +21,6 @@ public:
     void setInfected(bool Infect);
     void setImmuned(bool Immune);
     static int getInfected_Count() ;
-
+    static int ReduceInfectedCount();
 };
 
