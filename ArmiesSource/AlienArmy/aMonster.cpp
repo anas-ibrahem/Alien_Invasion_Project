@@ -24,7 +24,7 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 				if (tempT->getAttacked(this)) {
 					game->AddToKilled(tempT);
 				}
-				else if (!game->checkUML(tempT)) {
+				else if (!game->AddUML(tempT)) {
 					tempListStack.push(tempT);
 				}
 
@@ -40,7 +40,7 @@ bool aMonster::attack(LinkedQueue<int>& AttackedIDs) {
 			if (tempS->getAttacked(this)) {
 				game->AddToKilled(tempS);
 			}
-			else if (!game->checkUML(tempS)) {
+			else if (!game->AddUML(tempS)) {
 				tempList.enqueue(tempS);
 			}
 

@@ -57,7 +57,7 @@ bool eHeal::attack(LinkedQueue<int>& AttackedIDs)
 	{
 		unit* temp;
 		tempList.dequeue(temp);
-		game->checkUML(temp);
+		game->AddUML(temp);
 	}
 
 	if (cap != AttackCapacity)

@@ -40,6 +40,8 @@ public:
 	int getTd() const;
 	int getTj() const;
 	void setTa(int T);
+	bool isHealed() const;
+	static int NumOfHealed();
 
 protected:
 		int id;
@@ -48,9 +50,11 @@ protected:
 		int Ta;
 		int Td;
 		double Health;
+		bool Healed;
 		double intialHealth;
 		int AttackCapacity;
 		double AttackPower;
+		static int Num_Healed;
 		Game* game;
 };
 

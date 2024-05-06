@@ -1,9 +1,12 @@
 #include "..\ArmiesHeaders\unit.h"
 #include "..\Game\Game.h"
 
+int unit::Num_Healed = 0;
+
 unit::unit(int id, UnitType type, int Tj, double Health, int AttackCapacity, double AttackPower, Game* game)
 	: type(type), id(id), Tj(Tj), Health(Health), AttackCapacity(AttackCapacity), AttackPower(AttackPower), game(game)
 {
+	Healed = false;
 	intialHealth = Health;
 	Ta = -1;
 	Td = -1;
@@ -31,6 +34,10 @@ bool unit::getHealed(unit* Attacker)
 
 	double amount = Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health));
 	Health += amount;
+	if (!isHealed()) {
+		Num_Healed++;
+		Healed = true;
+	}
 	if (HealthPercent()>20)
 	{
 		return true; // True if unit has done healing
@@ -102,4 +109,14 @@ int unit::getTj() const
 void unit::setTa(int T)
 {
 	Ta = T;
+}
+
+bool unit::isHealed() const
+{
+	return Healed;
+}
+
+int unit::NumOfHealed()
+{
+	return Num_Healed;
 }
