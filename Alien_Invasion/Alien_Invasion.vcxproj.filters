@@ -114,6 +114,9 @@
     <ClInclude Include="..\ArmiesHeaders\AlliedArmy\alSaver.h">
       <Filter>ArmiesHeaders\AlliedHeaders</Filter>
     </ClInclude>
+    <ClInclude Include="..\ArmiesHeaders\AlliedArmy\AlliedArmy.h">
+      <Filter>ArmiesHeaders\AlliedHeaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -156,6 +159,9 @@
       <Filter>ArmiesSource\EarthSource</Filter>
     </ClCompile>
     <ClCompile Include="..\ArmiesSource\AlliedArmy\alSaver.cpp">
+      <Filter>ArmiesSource\AlliedSource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ArmiesSource\AlliedArmy\AlliedArmy.cpp">
       <Filter>ArmiesSource\AlliedSource</Filter>
     </ClCompile>
   </ItemGroup>

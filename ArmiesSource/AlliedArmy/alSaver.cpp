@@ -3,11 +3,11 @@
 
 
 alSaver::alSaver(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
-	unit(id , ES, Tj, Health, AttackCapacity, AttackPower,game)
+	unit(id , SU, Tj, Health, AttackCapacity, AttackPower,game)
 {
 }
 
-bool alSaver::attack(LinkedQueue<int>& AttackedIDs) {
+bool alSaver::attack(LinkedQueue<unit*>& AttackedUnits) {
 
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
@@ -29,7 +29,8 @@ bool alSaver::attack(LinkedQueue<int>& AttackedIDs) {
 				tempList.enqueue(temp); // Else Move it to templist
 			}
 
-			AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(temp); // ADD ID to Print List
 			cap--;
 		}
 

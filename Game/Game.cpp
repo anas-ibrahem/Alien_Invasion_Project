@@ -9,6 +9,7 @@ Game::Game() {
 	TimeStep = 0;
 	A_Army = new AlienArmy();
 	E_Army = new EarthArmy();
+	AL_Army = new AlliedArmy();
 	killedList = new LinkedQueue<unit*>();
 	srand(time(NULL)); // seed the random number generator // SEED ONCE NO NEED TO SEED AGAIN
 	StartMenu();
@@ -56,6 +57,8 @@ void Game::Simulate()
 		NextTS();
 		GenerateUnits();
 		Battle();
+
+
 		if (mode == 'a')
 		{
 			cout << "\n\n";
@@ -219,7 +222,16 @@ bool Game::AddUnit(unit* unit, char InsertDir)
 {
 	if (!unit) return false; // Case Random Generator will send Null if Out Of IDS
 
-	if ( unit->GetType() == unit::AD || unit->GetType() == unit::AS || unit->GetType() == unit::AM)
+	if (unit->GetType() == unit::SU) 
+	{
+		if (!AL_Army->AddUnit(unit, InsertDir))// Delete the unit if it is not added to the army
+		{
+			delete unit;
+			return false;
+		}
+	
+	}
+	else if ( unit->GetType() == unit::AD || unit->GetType() == unit::AS || unit->GetType() == unit::AM)
 	{
 		if (!A_Army->AddUnit(unit , InsertDir))// Delete the unit if it is not added to the army
 		{
@@ -246,6 +258,10 @@ void Game::PrintAliveUnits()
 
 	E_Army->PrintAliveUnits();
 
+	cout << "\n\n";
+
+	AL_Army->PrintAliveUnits();
+	
 	cout << "\n\n";
 
 	A_Army->PrintAliveUnits();
@@ -480,10 +496,16 @@ void Game::PrintFights()
 	cout << "=============== BATTLE ROUND  ===============" << endl;
 	bool EarthBattle = E_Army->PrintFights();
 	bool ALienBattle = A_Army->PrintFights();
-	cout << "\033[0m";
+	bool AlliedBattle = AL_Army->PrintFights();
 
-	if (! (EarthBattle || ALienBattle )) 
+
+	if (!(EarthBattle || ALienBattle || AlliedBattle))
+	{
+		cout << "\033[34m";
 		cout <<"\n\n~~~~SILENCE~ NOTHING HAPPENED ! ~SILENCE~~~~\n\n\n";
+		cout << "\033[0m";
+
+	}
 
 }
 
@@ -491,6 +513,8 @@ void Game::Battle()
 {
 	E_Army->attack();
 	A_Army->attack();
+	AL_Army->attack();
+	E_Army->CalcInfPercentage();
 
 }
 
@@ -498,6 +522,7 @@ void Game::GenerateUnits()
 {
 	bool GenerateAlienUnits = Generator->WillGenerate();
 	bool GenerateEarthUnits = Generator->WillGenerate();
+	bool GenerateAlliedUnits = E_Army ->CallAllied() && Generator->WillGenerate();
 
 	if (GenerateAlienUnits)
 		for (int i = N; i > 0; --i) // Generate if meet the prob 
@@ -522,6 +547,21 @@ void Game::GenerateUnits()
 			{
 				if (mode == 'a')
 					cout << "---------------- Can't Generate Earth IDs OUT OF RANGE ----------------";
+
+				break;
+			}
+			else if (Created)
+				AddUnit(Created);
+		}
+
+	if (GenerateAlliedUnits)
+		for (int i = N; i > 0; --i) // Generate if meet the prob 
+		{
+			unit* Created = Generator->GenerateUnitAllied(TimeStep, this);
+			if (!Created)
+			{
+				if (mode == 'a')
+					cout << "---------------- Can't Generate Allied IDs OUT OF RANGE ----------------";
 
 				break;
 			}
@@ -640,6 +680,8 @@ Game::~Game()
 		delete E_Army;
 		cout << "\nDelete All Alien Army Units.............";
 		delete A_Army;
+		cout << "\nDelete All Allied Army Units.............";
+		delete AL_Army;
 		cout << "\nDelete All Dead Units.............";
 		delete killedList;
 

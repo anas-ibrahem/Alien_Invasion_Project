@@ -20,7 +20,8 @@ public:
 		EG = 4,
 		AM = 5,
 		AD = 6,
-		EH = 7
+		EH = 7,
+		SU = 8
 	};
 
 

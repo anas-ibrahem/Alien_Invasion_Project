@@ -5,6 +5,7 @@
 #include <string>
 #include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
 #include"../ArmiesHeaders/EarthArmy/EarthArmy.h"
+#include"../ArmiesHeaders/AlliedArmy/AlliedArmy.h"
 #include "..\RandGen\RandGen.h"
 #include <conio.h>
 
@@ -21,6 +22,7 @@ private :
 	RandGen* Generator;
 	AlienArmy* A_Army;
 	EarthArmy* E_Army;
+	AlliedArmy* AL_Army;
 	char mode; // s for silent a for interactive
 	char winner; // a for alien e for earth t for tie
 	int InfectProb;

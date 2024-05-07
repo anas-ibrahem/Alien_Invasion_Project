@@ -2,6 +2,7 @@
 
 EarthArmy::EarthArmy()
 {
+	InfPercentage = 0;
 }
 
 
@@ -29,7 +30,7 @@ void EarthArmy::PrintAliveUnits()
 {
 	cout << "\033[32m";
 	cout << "=============== Earth Army Alive Units ===============" << endl << endl;
-	cout << "Infection Percentage : " << eSoldier::getInfected_Count() * 100.0 / Soldiers.getCount() << "%" << endl << endl;
+	cout << "Infection Percentage : " << InfPercentage << "%" << endl << endl;
 	cout << Soldiers.getCount() << " ES: ";
 	Soldiers.print();
 	cout << endl << endl << Tanks.getCount() << " ET: ";
@@ -228,10 +229,21 @@ int EarthArmy::GetUMLCount()
 	return UML.getCount();
 }
 
-int EarthArmy::GetInfectedCount()
+void EarthArmy::CalcInfPercentage()
 {
-	return eSoldier::getInfected_Count();
+	InfPercentage = eSoldier::getInfected_Count() * 100.0 / Soldiers.getCount();
 }
+
+double EarthArmy::GetInfPercentage() const
+{
+	return InfPercentage;
+}
+
+bool EarthArmy::CallAllied()
+{
+	return InfPercentage > 5 ; // TODO EDIT
+}
+
 
 EarthArmy::~EarthArmy()
 {

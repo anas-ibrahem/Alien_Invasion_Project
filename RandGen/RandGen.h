@@ -4,6 +4,8 @@
 #include "../ArmiesHeaders/unit.h"
 #include "../ArmiesHeaders/AlienArmy/AlienArmy.h"
 #include "../ArmiesHeaders/EarthArmy/EarthArmy.h"
+#include "../ArmiesHeaders/AlliedArmy/AlliedArmy.h"
+
 
 class Game;
 
@@ -33,7 +35,7 @@ private :
 	GenParameters Data;
 	int LastAlienID;
 	int LastEarthID;
-
+	int LastAlliedID;
 
 public:
 
@@ -41,6 +43,7 @@ public:
 	bool WillGenerate() const;
 	unit* GenerateUnitAlien(int TimeJoin, Game* game);
 	unit* GenerateUnitEarth(int TimeJoin,Game*game);
+	unit* GenerateUnitAllied(int TimeJoin, Game* game);
 	unit* Create(unit::UnitType T, int TimeJoin, Game* game);
 	int ValueRand(int Range[]);
 

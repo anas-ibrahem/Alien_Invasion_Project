@@ -18,6 +18,7 @@ private:
 	int ES_AttackerID;
 	int EG_AttackerID;
 	int EH_AttackerID;
+	double InfPercentage;
 
 	LinkedQueue<unit*> ET_Attacked;
 	LinkedQueue<unit*> ES_Attacked;
@@ -28,17 +29,17 @@ public:
 	EarthArmy();
 	bool AddUnit(unit* unit, char InsertDir = 'n'); // n for nonsent f for front r for rear
 	void PrintAliveUnits();
-
 	bool PrintFights();
 	void PrintFight(unit::UnitType type);
-
 	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
 	bool AddtoUML(unit* unit);
 	unit* PickfromUML();
 	void attack();
 	int GetUnitCount(unit::UnitType type);
 	int GetUMLCount();
-	int GetInfectedCount();
+	void CalcInfPercentage();
+	double GetInfPercentage() const;
+	bool CallAllied();
 
 	~EarthArmy();
 

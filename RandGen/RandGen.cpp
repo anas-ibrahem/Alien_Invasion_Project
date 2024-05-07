@@ -4,7 +4,7 @@ RandGen::RandGen(GenParameters P) : Data(P)
 {
 	LastAlienID = 2000;
 	LastEarthID = 1;
-
+	LastAlliedID = 4000;
 
 }
 
@@ -31,6 +31,7 @@ unit* RandGen::GenerateUnitAlien(int TimeJoin, Game* game)
 		return Create(unit::AD, TimeJoin,game);
 
 
+	return nullptr;
 }
 
 
@@ -48,6 +49,21 @@ unit* RandGen::GenerateUnitEarth(int TimeJoin, Game* game)
 		return Create(unit::EG, TimeJoin,game);
 	else 
 		return Create(unit::EH, TimeJoin, game);
+
+	
+	return nullptr;
+}
+
+unit* RandGen::GenerateUnitAllied(int TimeJoin, Game* game)
+{
+
+	if (LastAlliedID == 6000) return nullptr; // OUT of IDS
+
+	int ArmyGen = rand() % 100 + 1;
+	if (ArmyGen <= Data.EarthPercentage[0]) //TODO to Be edited with Input File
+		return Create(unit::SU, TimeJoin, game);
+	else
+		return nullptr;
 
 }
 
@@ -100,6 +116,13 @@ unit* RandGen::Create(unit::UnitType T, int TimeJoin, Game* game)
 	{
 		return new eHeal(LastEarthID++, TimeJoin, ValueRand(Data.E_Health_Range),
 			ValueRand(Data.E_Capacity_Range), ValueRand(Data.E_Power_Range), game);
+
+	}
+
+	case unit::SU:
+	{
+		return new alSaver(LastAlliedID++, TimeJoin, ValueRand(Data.E_Health_Range),
+			ValueRand(Data.E_Capacity_Range), ValueRand(Data.E_Power_Range), game); // TODO be edited
 
 	}
 
