@@ -121,8 +121,8 @@ unit* RandGen::Create(unit::UnitType T, int TimeJoin, Game* game)
 
 	case unit::SU:
 	{
-		return new alSaver(LastAlliedID++, TimeJoin, ValueRand(Data.E_Health_Range),
-			ValueRand(Data.E_Capacity_Range), ValueRand(Data.E_Power_Range), game); // TODO be edited
+		return new alSaver(LastAlliedID++, TimeJoin, ValueRand(Data.AL_Health_Range),
+			ValueRand(Data.AL_Capacity_Range), ValueRand(Data.AL_Power_Range), game); 
 
 	}
 
