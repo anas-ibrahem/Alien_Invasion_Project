@@ -22,6 +22,7 @@ public :
 	int getCount() const;
 	~LinkedQueue();
 	void clear();
+	void del() {}
 	bool print() const; // Specialized for unit* type // returns false if empty
 
 };
@@ -165,7 +166,7 @@ inline void LinkedQueue<T>::clear()
 
 
 template<>
-inline void LinkedQueue<unit*>::clear()
+inline void LinkedQueue<unit*>::del()
 {
 	unit* temp;
 	while (dequeue(temp))

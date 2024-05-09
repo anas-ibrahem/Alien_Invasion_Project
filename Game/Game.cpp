@@ -57,7 +57,7 @@ void Game::Simulate()
 		NextTS();
 
 		if (!E_Army->CallAllied())
-			AL_Army->clearArmy(); // Delete Saver Units if Call Allied is false
+			 AL_Army->clearArmy(); // Delete Saver Units if Call Allied is false
 
 		GenerateUnits();
 		Battle();
@@ -155,6 +155,8 @@ void Game::SetMode(char mode)
 
 bool Game::AddToKilled(unit*U)
 {
+	if (U->GetType() == unit::ES && U->isInfected())
+		eSoldier::ReduceInfectedCount();
 	return killedList->enqueue(U);
 }
 

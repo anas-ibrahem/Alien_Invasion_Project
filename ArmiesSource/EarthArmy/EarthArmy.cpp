@@ -232,6 +232,8 @@ int EarthArmy::GetUMLCount()
 
 void EarthArmy::CalcInfPercentage()
 {
+	if (Soldiers.getCount() == 0) InfPercentage = 0;
+	else
 	InfPercentage = eSoldier::getInfected_Count() * 100.0 / Soldiers.getCount();
 }
 
@@ -242,7 +244,7 @@ double EarthArmy::GetInfPercentage() const
 
 bool EarthArmy::CallAllied()
 {
-	return InfPercentage > InfThersholdPercentage; // TODO EDIT
+	return InfPercentage > InfThersholdPercentage;
 }
 
 void EarthArmy::SetInfThershold(double perc)
