@@ -40,7 +40,7 @@ public:
 	void CalcInfPercentage();
 	double GetInfPercentage() const;
 	bool CallAllied();
-
+	void setInfPercentage(double perc);
 	~EarthArmy();
 
 };

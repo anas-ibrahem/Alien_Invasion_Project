@@ -244,6 +244,11 @@ bool EarthArmy::CallAllied()
 	return InfPercentage > 5 ; // TODO EDIT
 }
 
+void EarthArmy::setInfPercentage(double perc)
+{
+	InfPercentage = perc;
+}
+
 
 EarthArmy::~EarthArmy()
 {

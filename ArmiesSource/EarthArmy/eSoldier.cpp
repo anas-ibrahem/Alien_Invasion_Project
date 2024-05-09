@@ -5,8 +5,8 @@
 int eSoldier::Infected_Count = 0;
 
 
-eSoldier::eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
-	unit(id , ES, Tj, Health, AttackCapacity, AttackPower,game)
+eSoldier::eSoldier(int id, int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
+	unit(id, ES, Tj, Health, AttackCapacity, AttackPower, game)
 {
 	infected = false;
 	immuned = false;
@@ -25,7 +25,7 @@ bool eSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 	while (cap > 0) {
 
 		unit* temp = nullptr;
-		if(!infected)
+		if (!infected)
 			temp = game->PickUnit(unit::AS);
 		else
 			temp = game->PickUnit(unit::ES);
@@ -78,9 +78,10 @@ bool eSoldier::isInfected()
 
 void eSoldier::setInfected(bool Infect)
 {
+	if (Infect && !infected) Infected_Count++;
+	else if (!Infect && infected) Infected_Count--;
+
 	infected = Infect;
-	if (Infect) Infected_Count++;
-	else Infected_Count--;
 
 }
 
@@ -92,9 +93,4 @@ void eSoldier::setImmuned(bool Immune)
 int eSoldier::getInfected_Count()
 {
 	return Infected_Count;
-}
-
-int eSoldier::ReduceInfectedCount()
-{
-	return Infected_Count--;
 }

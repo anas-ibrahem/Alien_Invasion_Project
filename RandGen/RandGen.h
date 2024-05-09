@@ -20,6 +20,9 @@ struct GenParameters {
 	int E_Health_Range[2];
 	int E_Capacity_Range[2];
 	int E_Power_Range[2];
+	int AL_Health_Range[2];
+	int AL_Capacity_Range[2];
+	int AL_Power_Range[2];
 	
 
 };
