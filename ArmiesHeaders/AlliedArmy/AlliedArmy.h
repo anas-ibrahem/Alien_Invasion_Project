@@ -23,7 +23,7 @@ public:
 	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
 	void attack();
 	int GetUnitCount(unit::UnitType type);
-
+	void clearArmy();
 	~AlliedArmy();
 
 };

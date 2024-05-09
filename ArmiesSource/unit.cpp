@@ -34,7 +34,7 @@ bool unit::getHealed(unit* Attacker)
 
 	double amount = Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health));
 	Health += amount;
-	if (type == ES && isInfected)
+	if (type == ES && isInfected())
 	{
 		setImmuned(true);
 		setInfected(false);

@@ -3,6 +3,7 @@
 EarthArmy::EarthArmy()
 {
 	InfPercentage = 0;
+	InfThersholdPercentage = 0;
 }
 
 
@@ -241,12 +242,12 @@ double EarthArmy::GetInfPercentage() const
 
 bool EarthArmy::CallAllied()
 {
-	return InfPercentage > 5 ; // TODO EDIT
+	return InfPercentage > InfThersholdPercentage; // TODO EDIT
 }
 
-void EarthArmy::setInfPercentage(double perc)
+void EarthArmy::SetInfThershold(double perc)
 {
-	InfPercentage = perc;
+	InfThersholdPercentage = perc;
 }
 
 

@@ -109,6 +109,11 @@ int AlliedArmy::GetUnitCount(unit::UnitType type)
 	}
 }
 
+void AlliedArmy::clearArmy()
+{
+	Savers.clear();
+}
+
 
 
 AlliedArmy::~AlliedArmy()

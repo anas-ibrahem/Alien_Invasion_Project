@@ -163,6 +163,17 @@ inline void LinkedQueue<T>::clear()
 }
 
 
+
+template<>
+inline void LinkedQueue<unit*>::clear()
+{
+	unit* temp;
+	while (dequeue(temp))
+		delete temp;
+}
+
+
+
 template<>
 inline bool LinkedQueue<unit*>::print() const
 {

@@ -19,6 +19,7 @@ private:
 	int EG_AttackerID;
 	int EH_AttackerID;
 	double InfPercentage;
+	double InfThersholdPercentage;
 
 	LinkedQueue<unit*> ET_Attacked;
 	LinkedQueue<unit*> ES_Attacked;
@@ -40,7 +41,7 @@ public:
 	void CalcInfPercentage();
 	double GetInfPercentage() const;
 	bool CallAllied();
-	void setInfPercentage(double perc);
+	void SetInfThershold(double perc);
 	~EarthArmy();
 
 };

@@ -55,6 +55,10 @@ void Game::Simulate()
 
 
 		NextTS();
+
+		if (!E_Army->CallAllied())
+			AL_Army->clearArmy(); // Delete Saver Units if Call Allied is false
+
 		GenerateUnits();
 		Battle();
 
@@ -189,7 +193,6 @@ GenParameters Game::ReadFile()
 	if (P.EarthPercentage[3] > 5) P.EarthPercentage[3] = 5;
 	inFile >> P.AlienPercentage[0] >> P.AlienPercentage[1] >> P.AlienPercentage[2];
 
-
 	inFile >> P.prob;
 	inFile >> P.E_Power_Range[0];
 	inFile >> P.E_Power_Range[1];
@@ -209,6 +212,23 @@ GenParameters Game::ReadFile()
 	inFile >> P.A_Capacity_Range[0];
 	inFile >> P.A_Capacity_Range[1];
 	P.A_Capacity_Range[1] *= -1;
+
+
+
+	inFile >> P.AL_Power_Range[0];
+	inFile >> P.AL_Power_Range[1];
+	P.AL_Power_Range[1] *= -1;
+	inFile >> P.AL_Health_Range[0];
+	inFile >> P.AL_Health_Range[1];
+	P.AL_Health_Range[1] *= -1;
+	inFile >> P.AL_Capacity_Range[0];
+	inFile >> P.AL_Capacity_Range[1];
+	P.AL_Capacity_Range[1] *= -1;
+
+	double InfectThershold = 0;
+	inFile >> InfectThershold;
+	E_Army->SetInfThershold(InfectThershold);
+
 	inFile.close();
 
 	return P;
