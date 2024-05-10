@@ -5,7 +5,6 @@ Game::Game() {
 
 	mode = 'a'; // default mode is 'a' // 's' for silent mode	// 'a' for interactive mode
 	winner = 'n'; // none 
-	InfectProb = 20; // FOR TEST
 	TimeStep = 0;
 	A_Army = new AlienArmy();
 	E_Army = new EarthArmy();
@@ -100,7 +99,10 @@ char Game::WL_Check()
 		return 'a';
 
 	// Tie Check
-	// if both total = 0 or the Left units are not able to attack each other (following cases) ( Regardless of UML in case of no EH they are not considered )
+	// 
+	// if both total = 0 or the Left units are not able to attack each other
+	// (following cases) ( Regardless of UML in case of no EH they are not considered )
+	// 
 	// ES and AD only
 	// EG and AS only
 	else if ((GetUnitCount(unit::ES) == E_Total - UML_C && GetUnitCount(unit::AD) == A_Total) ||
@@ -143,10 +145,6 @@ void Game::ClearUML()
 		AddToKilled(temp);
 }
 
-int Game::GetInfectProb() const
-{
-	return InfectProb;
-}
 
 void Game::SetMode(char mode)
 {
@@ -226,6 +224,11 @@ GenParameters Game::ReadFile()
 	inFile >> P.AL_Capacity_Range[0];
 	inFile >> P.AL_Capacity_Range[1];
 	P.AL_Capacity_Range[1] *= -1;
+
+	int AM_Infect_prob;
+	inFile >> AM_Infect_prob;
+	aMonster::set_AM_Infect_Prob(AM_Infect_prob);
+
 
 	double InfectThershold = 0;
 	inFile >> InfectThershold;
@@ -451,7 +454,7 @@ void Game::WriteFile()
 	}
 
 	OutFile << "////////////////// E A R T H  A R M Y /////////////////////\n";
-	OutFile <<			   "ES: " << N_ES_alive + N_ES 
+	OutFile << "ES: " << N_ES_alive + N_ES
 			<< "            ET: " << N_ET_alive + N_ET 
 			<< "            EG: " << N_EG_alive + N_EG 
 			<< "            EH: " << N_EH_alive + N_EH << endl;
@@ -460,6 +463,7 @@ void Game::WriteFile()
 	OutFile << "            EG%: " << ((N_EG_alive + N_EG) ? (double)N_EG / (N_EG_alive + N_EG) * 100 : 0) << "%";
 	OutFile << "            EH%: " << ((N_EH_alive + N_EH) ? (double)N_EH / (N_EH_alive + N_EH) * 100 : 0) << "%";
 	OutFile << endl;
+	OutFile << "Total Infected Percentage : " << eSoldier::get_Total_Infected_Count() * 100.0 / (N_ES_alive + N_ES) << "%\n";
 	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::NumOfHealed() * 100 / ESum_Total : 0) << "%";
 	OutFile << endl;
 	OutFile << "Total Destructed Percentage: " << ((ESum_Total) ? ESum_killed * 100 / ESum_Total : 0) << "%";

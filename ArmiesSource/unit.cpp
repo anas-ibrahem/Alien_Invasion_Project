@@ -33,18 +33,19 @@ bool unit::getHealed(unit* Attacker)
 		return false;
 
 	double amount = Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health));
-	Health += amount;
-	if (type == ES && isInfected())
-	{
-		setImmuned(true);
-		setInfected(false);
-	}
+	(isInfected() && type == ES ) ? Health += amount/2 : Health += amount;
+
 	if (!isHealed()) {
 		Num_Healed++;
 		Healed = true;
 	}
-	if (HealthPercent()>20)
+	if (HealthPercent() > 20)
 	{
+		if (type == ES && isInfected())
+		{
+			setImmuned(true);
+			setInfected(false);
+		}
 		return true; // True if unit has done healing
 	}
 	return false;

@@ -59,11 +59,7 @@ unit* RandGen::GenerateUnitAllied(int TimeJoin, Game* game)
 
 	if (LastAlliedID == 6000) return nullptr; // OUT of IDS
 
-	int ArmyGen = rand() % 100 + 1;
-	if (ArmyGen <= Data.EarthPercentage[0]) //TODO to Be edited with Input File
-		return Create(unit::SU, TimeJoin, game);
-	else
-		return nullptr;
+	return Create(unit::SU, TimeJoin, game);
 
 }
 

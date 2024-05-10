@@ -2,6 +2,8 @@
 #include "..\..\Game\Game.h"
 
 
+int aMonster::AM_Infect_Prob = 0;
+
 aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
 	unit(id  , AM , Tj, Health, AttackCapacity, AttackPower,game)
 {
@@ -105,9 +107,14 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 	return (cap < AttackCapacity);
 }
 
+void aMonster::set_AM_Infect_Prob(int prob)
+{
+	AM_Infect_Prob = prob;
+}
+
 
 bool aMonster::WillInfect() const
 {
 	int ProbGen = rand() % 100 + 1;
-	return (ProbGen <= game->GetInfectProb());
+	return (ProbGen <= AM_Infect_Prob);
 }

@@ -3,7 +3,7 @@
 
 
 int eSoldier::Infected_Count = 0;
-
+int eSoldier::Infected_Count_Total = 0;
 
 eSoldier::eSoldier(int id, int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
 	unit(id, ES, Tj, Health, AttackCapacity, AttackPower, game)
@@ -78,7 +78,10 @@ bool eSoldier::isInfected()
 
 void eSoldier::setInfected(bool Infect)
 {
-	if (Infect && !infected) Infected_Count++;
+	if (Infect && !infected)
+	{
+		Infected_Count++; Infected_Count_Total++;
+	}
 	else if (!Infect && infected) Infected_Count--;
 
 	infected = Infect;
@@ -93,6 +96,11 @@ void eSoldier::setImmuned(bool Immune)
 int eSoldier::getInfected_Count()
 {
 	return Infected_Count;
+}
+
+int eSoldier::get_Total_Infected_Count()
+{
+	return Infected_Count_Total;
 }
 
 void eSoldier::ReduceInfectedCount()
