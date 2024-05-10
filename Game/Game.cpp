@@ -454,7 +454,7 @@ void Game::WriteFile()
 	}
 
 	OutFile << "////////////////// E A R T H  A R M Y /////////////////////\n";
-	OutFile <<			   "ES: " << N_ES_alive + N_ES 
+	OutFile << "ES: " << N_ES_alive + N_ES
 			<< "            ET: " << N_ET_alive + N_ET 
 			<< "            EG: " << N_EG_alive + N_EG 
 			<< "            EH: " << N_EH_alive + N_EH << endl;
@@ -463,6 +463,7 @@ void Game::WriteFile()
 	OutFile << "            EG%: " << ((N_EG_alive + N_EG) ? (double)N_EG / (N_EG_alive + N_EG) * 100 : 0) << "%";
 	OutFile << "            EH%: " << ((N_EH_alive + N_EH) ? (double)N_EH / (N_EH_alive + N_EH) * 100 : 0) << "%";
 	OutFile << endl;
+	OutFile << "Total Infected Percentage : " << eSoldier::get_Total_Infected_Count() * 100.0 / (N_ES_alive + N_ES) << "%\n";
 	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::NumOfHealed() * 100 / ESum_Total : 0) << "%";
 	OutFile << endl;
 	OutFile << "Total Destructed Percentage: " << ((ESum_Total) ? ESum_killed * 100 / ESum_Total : 0) << "%";
