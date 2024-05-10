@@ -12,17 +12,18 @@ aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 
 	LinkedQueue<unit*>tempList;
+	LinkedQueue<unit*>tempListSU;
 	ArrayStack<unit*>tempListStack;
 	int cap = AttackCapacity;
 	while (cap > 0) {
 		unit* tempS = nullptr;
+		unit* tempSU = nullptr;
 		unit* tempT = nullptr;
 
 		tempT = game->PickUnit(unit::ET);
 
 		if (tempT) 
 		{
-
 			if (tempT->getAttacked(this)) {
 				game->AddToKilled(tempT);
 			}
@@ -58,9 +59,27 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 
 			cap--;
 		}
+
+		if (cap > 0)//check if capacity can offer another one 
+			tempSU = game->PickUnit(unit::SU);
+
+		if (tempSU)
+		{
+
+			 if (tempSU->getAttacked(this))
+				game->AddToKilled(tempS);
+
+			else if (!game->AddUML(tempSU))
+				tempListSU.enqueue(tempSU);
+
+			if (game->getMode() == 'a')
+				AttackedUnits.enqueue(tempSU);
+
+			cap--;
+		}
 		
 
-		if (!tempT && !tempS)
+		if (!tempT && !tempS&&!tempSU)
 			break; 
 				//nothing to Attack // Break the Loop
 	}
@@ -68,6 +87,12 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 	while (!tempList.isEmpty()) {
 		unit* temp;
 		tempList.dequeue(temp);
+		game->AddUnit(temp);
+	}
+
+	while (!tempListSU.isEmpty()) {
+		unit* temp;
+		tempListSU.dequeue(temp);
 		game->AddUnit(temp);
 	}
 
