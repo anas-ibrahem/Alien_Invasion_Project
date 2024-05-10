@@ -5,7 +5,6 @@ Game::Game() {
 
 	mode = 'a'; // default mode is 'a' // 's' for silent mode	// 'a' for interactive mode
 	winner = 'n'; // none 
-	InfectProb = 20; // FOR TEST
 	TimeStep = 0;
 	A_Army = new AlienArmy();
 	E_Army = new EarthArmy();
@@ -100,7 +99,10 @@ char Game::WL_Check()
 		return 'a';
 
 	// Tie Check
-	// if both total = 0 or the Left units are not able to attack each other (following cases) ( Regardless of UML in case of no EH they are not considered )
+	// 
+	// if both total = 0 or the Left units are not able to attack each other
+	// (following cases) ( Regardless of UML in case of no EH they are not considered )
+	// 
 	// ES and AD only
 	// EG and AS only
 	else if ((GetUnitCount(unit::ES) == E_Total - UML_C && GetUnitCount(unit::AD) == A_Total) ||
@@ -143,10 +145,6 @@ void Game::ClearUML()
 		AddToKilled(temp);
 }
 
-int Game::GetInfectProb() const
-{
-	return InfectProb;
-}
 
 void Game::SetMode(char mode)
 {
@@ -226,6 +224,11 @@ GenParameters Game::ReadFile()
 	inFile >> P.AL_Capacity_Range[0];
 	inFile >> P.AL_Capacity_Range[1];
 	P.AL_Capacity_Range[1] *= -1;
+
+	int AM_Infect_prob;
+	inFile >> AM_Infect_prob;
+	aMonster::set_AM_Infect_Prob(AM_Infect_prob);
+
 
 	double InfectThershold = 0;
 	inFile >> InfectThershold;

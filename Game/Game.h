@@ -25,7 +25,6 @@ private :
 	AlliedArmy* AL_Army;
 	char mode; // s for silent a for interactive
 	char winner; // a for alien e for earth t for tie
-	int InfectProb;
 	// Current Attack Lists
 
 public :
@@ -68,7 +67,6 @@ public :
 	char WL_Check(); // Win Lose Check Function Return e for Earth Winner , a for Alien , t for tie , n for none
 	void Print_ASCII_ART();
 	void ClearUML();
-	int GetInfectProb() const;
 
 	~Game();
 
