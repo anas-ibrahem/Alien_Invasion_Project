@@ -38,6 +38,8 @@ public :
 	bool PrintFights();
 	void PrintFight(unit::UnitType type);
 
+	//Getters
+	int GetUnitCount(unit::UnitType type);
 
 	//Army Functions
 	void attack();
