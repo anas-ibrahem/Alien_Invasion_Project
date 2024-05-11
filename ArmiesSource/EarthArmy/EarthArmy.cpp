@@ -155,7 +155,8 @@ bool EarthArmy::AddtoUML(unit* unit)
 
 		case unit::ES: 
 			if (unit -> isInfected())
-				eSoldier::ReduceInfectedCount();
+				eSoldier::ReduceInfectedCount(); // Assumption Count should discard the joining infected to UML
+												 // As they Considered Dead or Immuned
 
 			if (UML.enqueue(unit, INT_MAX / unit->getHealth())) // Adds Soldiers so that lowest health has largest Pri
 				return true;
