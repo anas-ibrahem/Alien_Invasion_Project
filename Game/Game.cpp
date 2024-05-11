@@ -55,7 +55,7 @@ void Game::Simulate()
 
 		NextTS();
 
-		if (!E_Army->CallAllied())
+		if (E_Army->GetInfPercentage() == 0)
 			 AL_Army->clearArmy(); // Delete Saver Units if Call Allied is false
 
 		GenerateUnits();
