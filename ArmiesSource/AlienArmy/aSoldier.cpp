@@ -21,7 +21,7 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 
 		unit* tempES = nullptr;
 
-		unit* tempS = nullptr;
+		unit* tempSU = nullptr;
 
 		tempES = game->PickUnit(unit::ES);
 
@@ -44,26 +44,26 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 
 
 		if (cap > 0)//check if capacity can offer another one 
-			tempS = game->PickUnit(unit::SU);
+			tempSU = game->PickUnit(unit::SU);
 
-		if (tempS)
+		if (tempSU)
 		{
-			 if (tempS->getAttacked(this))
-				game->AddToKilled(tempS);
+			 if (tempSU->getAttacked(this))
+				game->AddToKilled(tempSU);
 			 // If Unit Died MOVE IT TO KILLED LIST
 
 			else 
-				 tempList.enqueue(tempS); // Else Move it to templist
+				 tempList.enqueue(tempSU); // Else Move it to templist
 
 			if (game->getMode() == 'a')
 
-				AttackedUnits.enqueue(tempS); // ADD ID to Print List
+				AttackedUnits.enqueue(tempSU); // ADD ID to Print List
 
 			cap--;
 		}
 
 
-		if (!tempES && !tempS)
+		if (!tempES && !tempSU)
 			break;
 		//nothing to Attack // Break the Loop
 

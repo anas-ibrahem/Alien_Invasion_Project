@@ -322,7 +322,7 @@ unit* Game::PickUnit(unit::UnitType type , char PickDir)
 	// Will return Null From the PickUnit of The armies in case not found
 	if(type == unit::SU)
 		return AL_Army->PickUnit(type);
-	else if (type == unit::AD || type == unit::AS || type == unit::AM)
+	 else if (type == unit::AD || type == unit::AS || type == unit::AM)
 		return A_Army->PickUnit(type , PickDir);
 	else
 		return E_Army->PickUnit(type);
@@ -378,64 +378,67 @@ void Game::WriteFile()
 	OutFile << "Td  \tID  \tTj  \tDf  \tDd  \tDb" << endl;
 
 	LinkedQueue<unit*> temp; //temp list to stre and return to killed list
-	unit* U; // temp pointer for unit
+	unit* U = nullptr; // temp pointer for unit
 
 	while (killedList->dequeue(U))
 	{
 		temp.enqueue(U);
 
-		int Td = U->getTd(); //Get All Times
-		int Tj = U->getTj();
-		int Ta = U->getTa();
-
-		OutFile << Td << "   \t" << U->getID() << "   \t" << Tj << "   \t" << Ta - Tj << "   \t" << Td - Ta << "   \t" << Td - Tj << endl;
-		
-		switch (U->GetType())
+		if (!U->GetType() == unit::SU) // Exclude SU from Stats
 		{
-		case unit::ES:
-			N_ES_Killed++;
-			ESumDF += Ta - Tj;
-			ESumDD += Td - Ta;
-			ESumDB += Td - Tj;
-			break;
-		case unit::ET:
-			N_ET_Killed++;
-			ESumDF += Ta - Tj;
-			ESumDD += Td - Ta;
-			ESumDB += Td - Tj;
-			break;
-		case unit::EG:
-			N_EG_Killed++;
-			ESumDF += Ta - Tj;
-			ESumDD += Td - Ta;
-			ESumDB += Td - Tj;
-			break;
-		case unit::EH:
-			N_EH_Killed++;
-			ESumDF += Ta - Tj;
-			ESumDD += Td - Ta;
-			ESumDB += Td - Tj;
-			break;
-		case unit::AS:
-			N_AS_Killed++;
-			ASumDF += Ta - Tj;
-			ASumDD += Td - Ta;
-			ASumDB += Td - Tj;
-			break;
-		case unit::AD:
-			N_AD_Killed++;
-			ASumDF += Ta - Tj;
-			ASumDD += Td - Ta;
-			ASumDB += Td - Tj;
-			break;
-		case unit::AM:
-			N_AM_Killed++;
-			ASumDF += Ta - Tj;
-			ASumDD += Td - Ta;
-			ASumDB += Td - Tj;
-			break;
-		default:
-			break;
+			int Td = U->getTd(); //Get All Times
+			int Tj = U->getTj();
+			int Ta = U->getTa();
+
+			OutFile << Td << "   \t" << U->getID() << "   \t" << Tj << "   \t" << Ta - Tj << "   \t" << Td - Ta << "   \t" << Td - Tj << endl;
+
+			switch (U->GetType())
+			{
+			case unit::ES:
+				N_ES_Killed++;
+				ESumDF += Ta - Tj;
+				ESumDD += Td - Ta;
+				ESumDB += Td - Tj;
+				break;
+			case unit::ET:
+				N_ET_Killed++;
+				ESumDF += Ta - Tj;
+				ESumDD += Td - Ta;
+				ESumDB += Td - Tj;
+				break;
+			case unit::EG:
+				N_EG_Killed++;
+				ESumDF += Ta - Tj;
+				ESumDD += Td - Ta;
+				ESumDB += Td - Tj;
+				break;
+			case unit::EH:
+				N_EH_Killed++;
+				ESumDF += Ta - Tj;
+				ESumDD += Td - Ta;
+				ESumDB += Td - Tj;
+				break;
+			case unit::AS:
+				N_AS_Killed++;
+				ASumDF += Ta - Tj;
+				ASumDD += Td - Ta;
+				ASumDB += Td - Tj;
+				break;
+			case unit::AD:
+				N_AD_Killed++;
+				ASumDF += Ta - Tj;
+				ASumDD += Td - Ta;
+				ASumDB += Td - Tj;
+				break;
+			case unit::AM:
+				N_AM_Killed++;
+				ASumDF += Ta - Tj;
+				ASumDD += Td - Ta;
+				ASumDB += Td - Tj;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
