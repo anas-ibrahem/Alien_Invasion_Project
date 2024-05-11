@@ -267,7 +267,7 @@ bool EarthArmy::CallAllied()
 
 void EarthArmy::SpreadInfection()
 {
-	int InfectionCount = eSoldier::getInfected_Count();
+	int InfectionCount = ( eSoldier::getInfected_Count() ? 1 : 0 );
 
 	for (; InfectionCount > 0; InfectionCount--) 
 	{
