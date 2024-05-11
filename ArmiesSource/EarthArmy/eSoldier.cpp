@@ -92,7 +92,8 @@ void eSoldier::setInfected(bool Infect)
 	{
 		Infected_Count++; Infected_Count_Total++;
 	}
-	else if (!Infect && infected) Infected_Count--;
+	
+	//Reducing Count is Handeld Inside AddtoUML & AddtoKilledList & getHealed
 
 	infected = Infect;
 
@@ -116,4 +117,9 @@ int eSoldier::get_Total_Infected_Count()
 void eSoldier::ReduceInfectedCount()
 {
 	Infected_Count--;
+}
+
+void eSoldier::IncreaseInfectedCount() 
+{
+	Infected_Count++;
 }

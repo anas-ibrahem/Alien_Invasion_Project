@@ -179,6 +179,10 @@ unit* EarthArmy::PickfromUML()
 	unit* temp = nullptr;
 	int I; // Dummy integer
 	UML.dequeue(temp, I);
+
+	if (temp && temp->GetType() == unit::ES && temp->isInfected())
+		eSoldier::IncreaseInfectedCount(); // Increase Infected Count ( Will be Decreased In case Healed or Adding to Killed)
+
 	return temp;
 }
 

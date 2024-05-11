@@ -31,6 +31,7 @@ public:
 
     //Control Infection
     static void ReduceInfectedCount();
+    static void IncreaseInfectedCount();
 
 };
 
