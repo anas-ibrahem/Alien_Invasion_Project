@@ -3,14 +3,14 @@
 
 class aMonster :public unit
 {
-	static int AM_Infect_Prob;
+	static double AM_Infect_Prob;
 
 
 public:
 
 	aMonster(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game);
 	bool attack(LinkedQueue<unit*>& AttackedUnits);
-	static void set_AM_Infect_Prob(int prob);
+	static void set_AM_Infect_Prob(double prob);
 	bool WillInfect() const;
 
 };

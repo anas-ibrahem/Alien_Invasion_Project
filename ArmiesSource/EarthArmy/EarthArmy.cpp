@@ -274,13 +274,14 @@ void EarthArmy::SpreadInfection()
 		int ProbGen = rand() % 100 + 1;
 		unit* tempES = nullptr;
 
-		if (ProbGen <= 2) // 2% Prob of Spread for each soldier
+		if (ProbGen <= 1) // 2% Prob of Spread for each soldier
 		{
 			LinkedQueue<unit*> templist;
 			int RandESPick = rand() % Soldiers.getCount() + 1;
 			
 			while (Soldiers.dequeue(tempES))
 			{
+				RandESPick--;
 				if (RandESPick == 0)
 				{
 					if (!tempES->isInfected() && !tempES->isImmuned())
@@ -290,7 +291,6 @@ void EarthArmy::SpreadInfection()
 				}
 
 				templist.enqueue(tempES);
-				RandESPick--;
 			}
 
 			while (templist.dequeue(tempES)) // Return units to Its Original List

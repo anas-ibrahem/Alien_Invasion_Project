@@ -246,7 +246,7 @@ GenParameters Game::ReadFile()
 
 
 	//Read Infection Probabilty
-	int AM_Infect_prob;
+	double AM_Infect_prob;
 	inFile >> AM_Infect_prob;
 	aMonster::set_AM_Infect_Prob(AM_Infect_prob);
 
