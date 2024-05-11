@@ -9,6 +9,7 @@
 
 class Game;
 
+// Struct to Easily Control Data
 struct GenParameters {
 
 	int prob;
@@ -35,6 +36,7 @@ class RandGen
 
 private :
 
+	//Gen Needed Data
 	GenParameters Data;
 	int LastAlienID;
 	int LastEarthID;
@@ -43,11 +45,17 @@ private :
 public:
 
 	RandGen(GenParameters P);
-	bool WillGenerate() const;
+
+	//Generate Functions
 	unit* GenerateUnitAlien(int TimeJoin, Game* game);
 	unit* GenerateUnitEarth(int TimeJoin,Game*game);
 	unit* GenerateUnitAllied(int TimeJoin, Game* game);
 	unit* Create(unit::UnitType T, int TimeJoin, Game* game);
+
+	//Helper function
+	bool WillGenerate() const;
 	int ValueRand(int Range[]);
+
+	~RandGen();
 
 };

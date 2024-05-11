@@ -6,24 +6,34 @@
 class AlliedArmy : public Army {
 private:
 
+	//Lists of The Army
 	LinkedQueue<unit*> Savers;
 
+	//Print ID and Lists of Current Army Attack
 	int SU_AttackerID;
-
 	LinkedQueue<unit*> SU_Attacked;
 
 
 public:
+
 	AlliedArmy();
 
-	bool AddUnit(unit* unit, char InsertDir = 'n'); // n for nonsent f for front r for rear
+	//Print Functions
 	void PrintAliveUnits();
 	bool PrintFights();
 	void PrintFight(unit::UnitType type);
+
+	//Lists Control
+	bool AddUnit(unit* unit, char InsertDir = 'n'); // n for nonsent f for front r for rear
 	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
-	void attack();
+
+	//Getters
 	int GetUnitCount(unit::UnitType type);
+
+	//Army Functions
 	void clearArmy();
+	void attack();
+
 	~AlliedArmy();
 
 };

@@ -8,40 +8,58 @@
 
 class EarthArmy : public Army {
 private:
+	//Lists of The Army
 	LinkedQueue<unit*> Soldiers;
 	ArrayStack<unit*> Tanks;
 	priQueue<unit*>Gunneries ;
 	ArrayStack<unit*> Healers;
 	priQueue<unit*> UML;
 
+	//Print ID and Lists of Current Army Attack
 	int ET_AttackerID;
 	int ES_AttackerID;
 	int EG_AttackerID;
 	int EH_AttackerID;
-	double InfPercentage;
-	double InfThersholdPercentage;
-
 	LinkedQueue<unit*> ET_Attacked;
 	LinkedQueue<unit*> ES_Attacked;
 	LinkedQueue<unit*> EG_Attacked;
 	LinkedQueue<unit*> EH_Attacked;
 
+	//Inf Percentage
+	double InfPercentage;
+	double InfThersholdPercentage;
+
+
 public:
+
 	EarthArmy();
-	bool AddUnit(unit* unit, char InsertDir = 'n'); // n for nonsent f for front r for rear
+
+	//Print Functions
 	void PrintAliveUnits();
 	bool PrintFights();
 	void PrintFight(unit::UnitType type);
-	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
-	bool AddtoUML(unit* unit);
-	unit* PickfromUML();
-	void attack();
+
+	//Getters
 	int GetUnitCount(unit::UnitType type);
 	int GetUMLCount();
-	void CalcInfPercentage();
 	double GetInfPercentage() const;
-	bool CallAllied();
+
+	//Setters & Calculate
 	void SetInfThershold(double perc);
+	void CalcInfPercentage();
+	
+	//Lists Control
+	bool AddUnit(unit* unit, char InsertDir = 'n'); // n for nonsent f for front r for rear
+	bool AddtoUML(unit* unit);
+	unit* PickfromUML();
+	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
+
+	//Army Functions
+	void attack();
+	bool CallAllied();
+
+
+
 	~EarthArmy();
 
 };

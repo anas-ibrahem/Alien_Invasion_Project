@@ -18,7 +18,7 @@ bool unit::getAttacked(unit* Attacker)
 	if (Attacker->isDead() || this->isDead()) // Won't Be Actually in use "Won't attack A dead Unit in any case "
 		return false;
 
-	reduceHealth( Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health)) ) ; // true if Died
+	reduceHealth( Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health)) ) ;
 		
 	if (Ta == -1) // First Time Getting Attacked
 		Ta = game->GetTS();

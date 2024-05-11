@@ -39,7 +39,7 @@ bool eSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 				tempList.enqueue(temp); // Else Move it to templist
 			}
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(temp); // ADD unit to Print List
 			cap--;
 		}

@@ -46,7 +46,7 @@ bool eTank::attack(LinkedQueue<unit*>& AttackedUnits)
 				tempList.enqueue(tempM);
 			}
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempM); // ADD unit to Print List
 			cap--;
 		}
@@ -64,7 +64,7 @@ bool eTank::attack(LinkedQueue<unit*>& AttackedUnits)
 				tempList.enqueue(tempS);
 			}
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempS); // ADD unit to Print List
 			cap--;
 		}

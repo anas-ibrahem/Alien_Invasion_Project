@@ -37,7 +37,7 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 			else
 				tempListStack.push(tempT);
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempT);
 			cap--;
 		}
@@ -65,7 +65,7 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 			else		
 				tempList.enqueue(tempES);
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempES); // ADD unit to Print List
 
 			cap--;
@@ -83,7 +83,7 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 			else
 				tempList.enqueue(tempSU);
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempSU);
 
 			cap--;

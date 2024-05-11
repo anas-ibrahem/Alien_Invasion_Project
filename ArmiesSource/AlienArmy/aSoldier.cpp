@@ -40,7 +40,7 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 			else 
 				tempList.enqueue(tempES);
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempES); // ADD unit to Print List
 
 			cap--;
@@ -59,7 +59,7 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 			else 
 				 tempList.enqueue(tempSU); // Else Move it to templist
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempSU); // ADD ID to Print List
 
 			cap--;

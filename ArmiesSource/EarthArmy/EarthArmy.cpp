@@ -176,6 +176,7 @@ unit* EarthArmy::PickfromUML()
 	return temp;
 }
 
+
 void EarthArmy::attack()
 {
 	unit* Attacker = nullptr;

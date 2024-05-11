@@ -2,8 +2,8 @@
 
 RandGen::RandGen(GenParameters P) : Data(P)
 {
+	LastEarthID = 1; // Initial IDS for Each
 	LastAlienID = 2000;
-	LastEarthID = 1;
 	LastAlliedID = 4000;
 
 }
@@ -12,7 +12,7 @@ RandGen::RandGen(GenParameters P) : Data(P)
 
 bool RandGen::WillGenerate() const
 {
-	int ProbGen = rand() % 100 + 1;
+	int ProbGen = rand() % 100 + 1; // Helper Function To Check Prob
 	return (ProbGen <= Data.prob);
 
 }
@@ -67,6 +67,8 @@ int RandGen::ValueRand(int Range[])
 {
 	return (rand() % (Range[1] - Range[0] + 1) + Range[0]);
 }
+
+
 
 unit* RandGen::Create(unit::UnitType T, int TimeJoin, Game* game)
 {
@@ -127,4 +129,9 @@ unit* RandGen::Create(unit::UnitType T, int TimeJoin, Game* game)
 
 	}
 
+}
+
+
+RandGen::~RandGen()
+{
 }

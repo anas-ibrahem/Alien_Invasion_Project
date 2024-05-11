@@ -39,7 +39,7 @@ bool aDrone::attack(LinkedQueue<unit*>& AttackedUnits)
 				tempList.enqueue(tempG);
 
 			}
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempG); // ADD unit to Print List
 			cap--;
 		}
@@ -60,7 +60,7 @@ bool aDrone::attack(LinkedQueue<unit*>& AttackedUnits)
 			else
 				tempListStack.push(tempT);
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempT); // ADD unit to Print List
 			cap--;
 		}

@@ -167,6 +167,11 @@ int Game::GetTS() const
 	return TimeStep;
 }
 
+char Game::GetMode() const
+{
+	 return mode;
+}
+
 int Game::NextTS()
 {
 	return ++TimeStep;
@@ -334,10 +339,6 @@ int Game::GetUnitCount(unit::UnitType type)
 		return E_Army->GetUnitCount(type);
 }
 
-char Game::getMode() const
-{
-	return mode;
-}
 
 unit* Game::PickfromUML()
 {

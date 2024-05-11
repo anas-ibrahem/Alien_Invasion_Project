@@ -54,7 +54,7 @@ bool eGunnery::attack(LinkedQueue<unit*>& AttackedUnits)
 
 			}
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempDf);
 		
 			cap--;
@@ -70,7 +70,7 @@ bool eGunnery::attack(LinkedQueue<unit*>& AttackedUnits)
 
 			}
 
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempDr);
 
 			cap--;
@@ -89,7 +89,7 @@ bool eGunnery::attack(LinkedQueue<unit*>& AttackedUnits)
 				tempList.enqueue(tempM); // Else Move it to templist
 
 			}			
-			if (game->getMode() == 'a')
+			if (game->GetMode() == 'a')
 				AttackedUnits.enqueue(tempM);
 			cap--;
 		}

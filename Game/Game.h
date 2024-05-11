@@ -16,56 +16,62 @@ class Game {
 
 
 private :
-	int N; // Number of units to be gerated each time step
+
+	//Main Members
 	int TimeStep;
-	LinkedQueue<unit*>* killedList;
+	char mode; // s for silent a for interactive
+	char winner; // a for alien e for earth t for tie
+
+	//Genereator
+	int N; // Number of units to be gerated each time step
 	RandGen* Generator;
+
+	//Lists
+	LinkedQueue<unit*>* killedList;
 	AlienArmy* A_Army;
 	EarthArmy* E_Army;
 	AlliedArmy* AL_Army;
-	char mode; // s for silent a for interactive
-	char winner; // a for alien e for earth t for tie
-	// Current Attack Lists
 
 public :
 
-	
-
-
-
+	// Game Starter Functions
 	Game();
+	void StartMenu();
+
+	// Getters
 	int GetTS() const;
-	int NextTS(); // Increase Time Step by 1 and return the new value of it
-	GenParameters ReadFile();
-	void PrintAllStats();
-	void PrintKilledUnits();
-	void GenerateUnits(); 
-	bool AddUnit(unit* unit , char InsertDir = 'n'); // n for nonsent f for front r for rear
-	void SetMode(char mode);
-	bool AddToKilled(unit* U);
-	void PrintAliveUnits();
-	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
+	char GetMode() const ;
 	int GetUnitCount(unit::UnitType type);
-	char getMode() const ;
+	int NextTS(); // Increase Time Step by 1 and return the new value of it
 
-	
+	//Files
+	GenParameters ReadFile();
+	void WriteFile(); 
 
+	//Print Funcitons
+	void PrintAllStats();
+	void PrintAliveUnits();
+	void PrintKilledUnits();
+	void PrintFights();
+	void Print_ASCII_ART();
 
-
+	//Simulation & Test
+	void Simulate(); // Main Game Loop
+	void GenerateUnits(); 
+	char WL_Check(); // Win Lose Check Function Return e for Earth Winner , a for Alien , t for tie , n for none
+	void Battle();
 	void TestCode();
 
+	//Setters
+	void SetMode(char mode);
 
 
-	// Phase 2 Added Functions 
-	void WriteFile(); // To Be implemented
-	void PrintFights();
-	void Battle();
+	//Lists Control
+	bool AddUnit(unit* unit , char InsertDir = 'n'); // n for nonsent f for front r for rear
 	bool AddtoUML(unit* U);
+	bool AddToKilled(unit* U);
+	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
 	unit* PickfromUML();
-	void StartMenu();
-	void Simulate(); // Main Game Loop
-	char WL_Check(); // Win Lose Check Function Return e for Earth Winner , a for Alien , t for tie , n for none
-	void Print_ASCII_ART();
 	void ClearUML();
 
 	~Game();
