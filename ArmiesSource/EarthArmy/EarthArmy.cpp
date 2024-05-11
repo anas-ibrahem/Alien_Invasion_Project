@@ -153,7 +153,10 @@ bool EarthArmy::AddtoUML(unit* unit)
 		switch (unit->GetType())
 		{
 
-		case unit::ES:
+		case unit::ES: 
+			if (unit -> isInfected())
+				eSoldier::ReduceInfectedCount();
+
 			if (UML.enqueue(unit, INT_MAX / unit->getHealth())) // Adds Soldiers so that lowest health has largest Pri
 				return true;
 			break;

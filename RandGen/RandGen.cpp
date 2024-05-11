@@ -2,6 +2,10 @@
 
 RandGen::RandGen(GenParameters P) : Data(P)
 {
+	// 1 -> 999
+	// 2000 -> 2999
+	// 4000 -> 4249
+
 	LastEarthID = 1; // Initial IDS for Each
 	LastAlienID = 2000;
 	LastAlliedID = 4000;
@@ -19,7 +23,7 @@ bool RandGen::WillGenerate() const
 
 unit* RandGen::GenerateUnitAlien(int TimeJoin, Game* game)
 {
-	if (LastAlienID == 4000) return nullptr; // OUT of IDS
+	if (LastAlienID == 3000) return nullptr; // OUT of IDS
 
 
 	int ArmyGen = rand() % 100 + 1;
@@ -38,7 +42,7 @@ unit* RandGen::GenerateUnitAlien(int TimeJoin, Game* game)
 unit* RandGen::GenerateUnitEarth(int TimeJoin, Game* game)
 {
 
-	if (LastEarthID == 2000) return nullptr; // OUT of IDS
+	if (LastEarthID == 1000) return nullptr; // OUT of IDS
 
 	int ArmyGen = rand() % 100 + 1;
 	if (ArmyGen <= Data.EarthPercentage[0])
@@ -57,7 +61,7 @@ unit* RandGen::GenerateUnitEarth(int TimeJoin, Game* game)
 unit* RandGen::GenerateUnitAllied(int TimeJoin, Game* game)
 {
 
-	if (LastAlliedID == 6000) return nullptr; // OUT of IDS
+	if (LastAlliedID == 4250) return nullptr; // OUT of IDS
 
 	return Create(unit::SU, TimeJoin, game);
 
