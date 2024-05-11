@@ -71,7 +71,7 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 			 if (tempSU->getAttacked(this))
 				game->AddToKilled(tempS);
 
-			else if (!game->AddUML(tempSU))
+			else
 				tempListSU.enqueue(tempSU);
 
 			if (game->getMode() == 'a')

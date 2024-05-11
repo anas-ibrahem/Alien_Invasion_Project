@@ -33,7 +33,8 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 
 				game->AddToKilled(tempES); // If Unit Died MOVE IT TO KILLED LIST
 			}
-			else {
+			else if (!game->AddUML(tempES)) 
+			{
 				EStempList.enqueue(tempES); // Else Move it to templist
 			}
 			if (game->getMode() == 'a')
@@ -52,7 +53,7 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 				game->AddToKilled(tempS);
 			 // If Unit Died MOVE IT TO KILLED LIST
 
-			else if (!game->AddUML(tempS))
+			else 
 				 StempList.enqueue(tempS); // Else Move it to templist
 
 			if (game->getMode() == 'a')
