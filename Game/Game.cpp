@@ -384,7 +384,7 @@ void Game::WriteFile()
 	{
 		temp.enqueue(U);
 
-		if (!U->GetType() == unit::SU) // Exclude SU from Stats
+		if (U->GetType() != unit::SU) // Exclude SU from Stats
 		{
 			int Td = U->getTd(); //Get All Times
 			int Tj = U->getTj();
