@@ -320,8 +320,9 @@ bool Game::AddUML(unit* U)
 unit* Game::PickUnit(unit::UnitType type , char PickDir)
 {
 	// Will return Null From the PickUnit of The armies in case not found
-
-	if (type == unit::AD || type == unit::AS || type == unit::AM)
+	if(type == unit::SU)
+		return AL_Army->PickUnit(type);
+	else if (type == unit::AD || type == unit::AS || type == unit::AM)
 		return A_Army->PickUnit(type , PickDir);
 	else
 		return E_Army->PickUnit(type);
