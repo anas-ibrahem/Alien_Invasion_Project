@@ -267,9 +267,10 @@ bool EarthArmy::CallAllied()
 
 void EarthArmy::SpreadInfection()
 {
-	int InfectionCount = ( eSoldier::getInfected_Count() ? 1 : 0 );
+	// Assume only one Infected ES has the Chance to Spread the infection each timestep
+	// Avoiding very large amount of infection
 
-	for (; InfectionCount > 0; InfectionCount--) 
+	if (eSoldier::getInfected_Count() > 0 && eSoldier::getInfected_Count() < Soldiers.getCount() )
 	{
 		int ProbGen = rand() % 100 + 1;
 		unit* tempES = nullptr;
@@ -297,6 +298,7 @@ void EarthArmy::SpreadInfection()
 				Soldiers.enqueue(tempES);
 		}
 	}
+
 }
 
 void EarthArmy::SetInfThershold(double perc)

@@ -119,6 +119,6 @@ void aMonster::set_AM_Infect_Prob(double prob)
 
 bool aMonster::WillInfect() const
 {
-	int ProbGen = rand() % 100000 + 1;
-	return (ProbGen <= AM_Infect_Prob*1000);
+	int ProbGen = rand() % 100 + 1;
+	return (ProbGen <= AM_Infect_Prob );
 }
