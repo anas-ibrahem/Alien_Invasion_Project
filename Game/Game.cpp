@@ -498,7 +498,7 @@ void Game::WriteFile()
 	OutFile << "            EH%: " << ((N_EH_alive + N_EH_Killed) ? (double)N_EH_Killed / (N_EH_alive + N_EH_Killed) * 100 : 0) << "%";
 	OutFile << endl << endl;
 
-	OutFile << "Total Infected Percentage : " << ((N_ES_alive + N_ES_Killed) ? eSoldier::get_Total_Infected_Count() * 100.0 / (N_ES_alive + N_ES_Killed) : 0 )<< "%\n";
+	OutFile << "Total Infected ES Percentage : " << ((N_ES_alive + N_ES_Killed) ? eSoldier::get_Total_Infected_Count() * 100.0 / (N_ES_alive + N_ES_Killed) : 0 )<< "%\n";
 	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::GetNumOfHealed() * 100 / ESum_Total : 0) << "%";
 	OutFile << endl;
 
