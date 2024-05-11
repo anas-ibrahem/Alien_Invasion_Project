@@ -20,7 +20,9 @@ bool eSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 	unit* Attacker = nullptr; // Used in Case of Infection no need for it in No infected
 
 	if (infected)
-		Attacker = game->PickUnit(unit::ES);
+	{
+		Attacker = game->PickUnit(unit::ES); //Hold the infected Attacker ES
+	}
 
 	while (cap > 0) {
 
@@ -49,9 +51,17 @@ bool eSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 		//nothing to Attack // Break the Loop
 
 	}
+	
 
-	if (Attacker) // Return Attacker In First (Assumption)
-		game->AddUnit(Attacker);
+	if (infected) 
+	{
+		unit* temp = nullptr;
+		// we will need to empty the the whole ES list in the temp list to keep the order of the queue in this case
+		while (temp = game->PickUnit(unit::ES))
+			tempList.enqueue(temp);
+
+		game->AddUnit(Attacker); // return the Attacker As the First Of the List
+	}
 
 	while (!tempList.isEmpty()) // return units from templist to its original list
 	{

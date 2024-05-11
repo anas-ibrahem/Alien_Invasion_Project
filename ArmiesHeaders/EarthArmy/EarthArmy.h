@@ -18,6 +18,7 @@ private:
 	//Print ID and Lists of Current Army Attack
 	int ET_AttackerID;
 	int ES_AttackerID;
+	bool ES_Attacker_Infected;
 	int EG_AttackerID;
 	int EH_AttackerID;
 	LinkedQueue<unit*> ET_Attacked;
@@ -57,6 +58,7 @@ public:
 	//Army Functions
 	void attack();
 	bool CallAllied();
+	void SpreadInfection();
 
 
 

@@ -507,18 +507,18 @@ void Game::WriteFile()
 	// Print Durations Avg
 	if (ESum_killed) 
 	{
-		OutFile <<    "Average of Df: " << ESumDF / ESum_killed <<'s'
-				<< "\t    Average of Dd: " << ESumDD / ESum_killed <<'s'
-				<< "\t    Average of Db: " << ESumDB / ESum_killed <<'s' << endl;
+		OutFile <<    "Average of Df: " << ESumDF / ESum_killed <<" Ts"
+				<< "\t    Average of Dd: " << ESumDD / ESum_killed <<" Ts"
+				<< "\t    Average of Db: " << ESumDB / ESum_killed <<" Ts" << endl;
 
 		OutFile <<   "Df/Db% = " << ESumDF * 100.0 / ESumDB << "%"
 				<< "    Dd/Db% = " << ESumDD * 100.0 / ESumDB << "%" << endl;
 	}
 	else
 	{
-		OutFile << "Average of Df: " << "0s"
-			<< "\t    Average of Dd: " << "0s"
-			<< "\t    Average of Db: " << "0s" << endl;
+		OutFile << "Average of Df: " << "0 Ts"
+			<< "\t    Average of Dd: " << "0 Ts"
+			<< "\t    Average of Db: " << "0 Ts" << endl;
 
 		OutFile << "Df/Db% = " << 0 << "%"
 			<< "    Dd/Db% = " << 0 << "%" << endl;
@@ -547,17 +547,17 @@ void Game::WriteFile()
 	// Print Durations Avg
 	if (ASum_killed) 
 	{
-		OutFile << "Average of Df: " << ASumDF / ASum_killed <<'s'
-			<< "\t    Average of Dd: " << ASumDD / ASum_killed<<'s'
-			<< "\t    Average of Db: " << ASumDB / ASum_killed<<'s' << endl;
+		OutFile << "Average of Df: " << ASumDF / ASum_killed <<" Ts"
+			<< "\t    Average of Dd: " << ASumDD / ASum_killed<<" Ts"
+			<< "\t    Average of Db: " << ASumDB / ASum_killed<<" Ts" << endl;
 		OutFile << "Df/Db% = " << ASumDF * 100.0 / ASumDB << "%"
 			<< "    Dd/Db% = " << ASumDD * 100.0 / ASumDB << "%" << endl;
 	}
 	else
 	{
-		OutFile << "Average of Df: " <<"0s"
-			<< "\t    Average of Dd: " <<"0s"
-			<< "\t    Average of Db: " <<"0s" << endl;
+		OutFile << "Average of Df: " <<"0 Ts"
+			<< "\t    Average of Dd: " <<"0 Ts"
+			<< "\t    Average of Db: " <<"0 Ts" << endl;
 		OutFile << "Df/Db% = " << 0 << "%"
 			<< "    Dd/Db% = " << 0 << "%" << endl;
 	}
@@ -588,9 +588,12 @@ void Game::PrintFights()
 void Game::Battle()
 {
 	E_Army->attack();
+	E_Army->SpreadInfection();
+
 	A_Army->attack();
 	AL_Army->attack();
-	E_Army->CalcInfPercentage();
+	
+	E_Army->CalcInfPercentage(); // Update at the End od Each battle
 
 }
 

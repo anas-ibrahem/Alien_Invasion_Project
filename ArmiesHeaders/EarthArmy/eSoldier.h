@@ -17,12 +17,19 @@ public:
 
     eSoldier(int id , int Tj, int Health, int AttackCapacity, int AttackPower, Game* game);
     bool attack(LinkedQueue<unit*>& AttackedUnits);
+    
+    //Flags
     bool isInfected();
     bool isImmuned();
+    //Setters
     void setInfected(bool Infect);
     void setImmuned(bool Immune);
+
+    //Getters
     static int getInfected_Count() ;
     static int get_Total_Infected_Count();
+
+    //Control Infection
     static void ReduceInfectedCount();
 
 };

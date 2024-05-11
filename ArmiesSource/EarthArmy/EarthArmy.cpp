@@ -4,6 +4,8 @@ EarthArmy::EarthArmy()
 {
 	InfPercentage = 0;
 	InfThersholdPercentage = 0;
+
+	ES_Attacker_Infected = false;
 }
 
 
@@ -76,7 +78,7 @@ void EarthArmy::PrintFight(unit::UnitType type) {
 	switch (type) {
 	
 	case unit::ES :
-		cout << "ES " << ES_AttackerID << " Attacked ";
+		cout << "ES " << ES_AttackerID << (ES_Attacker_Infected ? "*" : "") << " Attacked "; 
 		ES_Attacked.print();
 		cout << "\n";
 		ES_Attacked.clear();
@@ -189,6 +191,8 @@ void EarthArmy::attack()
 
 	if (Soldiers.peek(Attacker))
 	{
+		ES_Attacker_Infected = Attacker->isInfected();
+
 		Attacker->attack(ES_Attacked);
 		ES_AttackerID = Attacker->getID();
 	}
@@ -251,6 +255,40 @@ double EarthArmy::GetInfPercentage() const
 bool EarthArmy::CallAllied()
 {
 	return InfPercentage > InfThersholdPercentage;
+}
+
+void EarthArmy::SpreadInfection()
+{
+	int InfectionCount = eSoldier::getInfected_Count();
+
+	for (; InfectionCount > 0; InfectionCount--) 
+	{
+		int ProbGen = rand() % 100 + 1;
+		unit* tempES = nullptr;
+
+		if (ProbGen <= 2) // 2% Prob of Spread for each soldier
+		{
+			LinkedQueue<unit*> templist;
+			int RandESPick = rand() % Soldiers.getCount() + 1;
+			
+			while (Soldiers.dequeue(tempES))
+			{
+				if (RandESPick == 0)
+				{
+					if (!tempES->isInfected() && !tempES->isImmuned())
+						tempES->setInfected(true);
+					else
+						RandESPick++; // Check Next One
+				}
+
+				templist.enqueue(tempES);
+				RandESPick--;
+			}
+
+			while (templist.dequeue(tempES)) // Return units to Its Original List
+				Soldiers.enqueue(tempES);
+		}
+	}
 }
 
 void EarthArmy::SetInfThershold(double perc)
