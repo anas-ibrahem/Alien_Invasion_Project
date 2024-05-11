@@ -14,7 +14,6 @@ aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 
 	LinkedQueue<unit*>tempList;
-	LinkedQueue<unit*>tempListSU;
 	ArrayStack<unit*>tempListStack;
 	int cap = AttackCapacity;
 	while (cap > 0) {
@@ -72,7 +71,7 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 				game->AddToKilled(tempS);
 
 			else
-				tempListSU.enqueue(tempSU);
+				tempList.enqueue(tempSU);
 
 			if (game->getMode() == 'a')
 				AttackedUnits.enqueue(tempSU);
@@ -92,11 +91,6 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 		game->AddUnit(temp);
 	}
 
-	while (!tempListSU.isEmpty()) {
-		unit* temp;
-		tempListSU.dequeue(temp);
-		game->AddUnit(temp);
-	}
 
 	while (!tempListStack.isEmpty()) {
 		unit* temp;

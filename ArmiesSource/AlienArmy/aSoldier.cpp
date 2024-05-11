@@ -13,8 +13,7 @@ aSoldier::aSoldier(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 {
-	LinkedQueue<unit*>EStempList;
-	LinkedQueue<unit*>StempList;
+	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
 
 
@@ -35,7 +34,7 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 			}
 			else if (!game->AddUML(tempES)) 
 			{
-				EStempList.enqueue(tempES); // Else Move it to templist
+				tempList.enqueue(tempES); // Else Move it to templist
 			}
 			if (game->getMode() == 'a')
 				AttackedUnits.enqueue(tempES); // ADD ID to Print List
@@ -54,7 +53,7 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 			 // If Unit Died MOVE IT TO KILLED LIST
 
 			else 
-				 StempList.enqueue(tempS); // Else Move it to templist
+				 tempList.enqueue(tempS); // Else Move it to templist
 
 			if (game->getMode() == 'a')
 
@@ -70,16 +69,10 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 
 	}
 
-	while (!EStempList.isEmpty()) // return units from templist to its original list
+	while (!tempList.isEmpty()) // return units from templist to its original list
 	{
 		unit* temp;
-		EStempList.dequeue(temp);
-		game->AddUnit(temp);
-	}
-	while (!StempList.isEmpty()) // return units from templist to its original list
-	{
-		unit* temp;
-		StempList.dequeue(temp);
+		tempList.dequeue(temp);
 		game->AddUnit(temp);
 	}
 
