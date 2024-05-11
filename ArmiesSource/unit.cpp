@@ -31,23 +31,31 @@ bool unit::getHealed(unit* Attacker)
 {
 	if (Attacker->isDead() || this->isDead()) // Won't Be Actually in use "Won't attack A dead Unit in any case "
 		return false;
-
+	
+	//Calculate Amount to be healed
 	double amount = Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health));
+	//Heal by half amount if Infected ES 
 	(isInfected() && type == ES ) ? Health += amount/2 : Health += amount;
 
-	if (!isHealed()) {
-		Num_Healed++;
-		Healed = true;
-	}
 	if (HealthPercent() > 20)
 	{
+		//Cure Infected ES and Immune it
 		if (type == ES && isInfected())
 		{
 			setImmuned(true);
 			setInfected(false);
 		}
+
+		//Set unit as Healed and Count it
+		if (!isHealed())
+		{
+			Num_Healed++;
+			Healed = true;
+		}
+
 		return true; // True if unit has done healing
 	}
+
 	return false;
 }
 

@@ -178,7 +178,7 @@ GenParameters Game::ReadFile()
 	cout << "Enter Input File Name : ex(input.txt)  * Make Sure the file is inside InputFiles Folder  " << endl;
 	cin >> inputfilename;
 
-
+	//User enter Input file name
 	ifstream inFile("../InputFiles/" + inputfilename);
 	while(!inFile.is_open()) // Re Ask If Name is Invalid
 	{
@@ -186,14 +186,23 @@ GenParameters Game::ReadFile()
 		cin >> inputfilename;
 		inFile.open("../InputFiles/"+ inputfilename);
 	}
-	GenParameters P;
+
+	GenParameters P; // Struct to return for RandGen
+
+	//Read N (no of units for each generation)
 	inFile >> N;
-	
+
+	//Read Earth Prop Percentage for Each Type
 	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] >>P.EarthPercentage[3];
+	//Limit EH if more than 5%
 	if (P.EarthPercentage[3] > 5) P.EarthPercentage[3] = 5;
+	//Read Alien Prop Percentage for Each Type
 	inFile >> P.AlienPercentage[0] >> P.AlienPercentage[1] >> P.AlienPercentage[2];
 
+	//Read Prob of generation
 	inFile >> P.prob;
+
+	//Reading Earth Army Ranges
 	inFile >> P.E_Power_Range[0];
 	inFile >> P.E_Power_Range[1];
 	P.E_Power_Range[1] *= -1;
@@ -203,6 +212,8 @@ GenParameters Game::ReadFile()
 	inFile >> P.E_Capacity_Range[0];
 	inFile >> P.E_Capacity_Range[1];
 	P.E_Capacity_Range[1] *= -1;
+
+	//Reading Alien Army Ranges
 	inFile >> P.A_Power_Range[0];
 	inFile >> P.A_Power_Range[1];
 	P.A_Power_Range[1] *= -1;
@@ -214,7 +225,7 @@ GenParameters Game::ReadFile()
 	P.A_Capacity_Range[1] *= -1;
 
 
-
+	//Reading Allied Army Ranges
 	inFile >> P.AL_Power_Range[0];
 	inFile >> P.AL_Power_Range[1];
 	P.AL_Power_Range[1] *= -1;
@@ -225,17 +236,21 @@ GenParameters Game::ReadFile()
 	inFile >> P.AL_Capacity_Range[1];
 	P.AL_Capacity_Range[1] *= -1;
 
+
+	//Read Infection Probabilty
 	int AM_Infect_prob;
 	inFile >> AM_Infect_prob;
 	aMonster::set_AM_Infect_Prob(AM_Infect_prob);
 
-
+	//Read InfectionPercentage Thershold
 	double InfectThershold = 0;
 	inFile >> InfectThershold;
 	E_Army->SetInfThershold(InfectThershold);
 
+	//Close File
 	inFile.close();
 
+	//Return Data Needed for RangGen (Struct)
 	return P;
 }
 
@@ -343,70 +358,77 @@ void Game::PrintKilledUnits()
 
 void Game::WriteFile()
 {
-	int N_ES = 0, N_ET = 0, N_EG = 0, N_EH = 0; //N for each type killed
-	int N_ES_alive = 0, N_ET_alive = 0, N_EG_alive = 0, N_EH_alive = 0; //N for each type alive
-	int N_AS = 0, N_AD = 0, N_AM = 0;
-	int N_AS_alive = 0, N_AD_alive = 0, N_AM_alive = 0;
-	double ESumDF = 0, ESumDD = 0, ESumDB = 0;
+	int N_ES_Killed = 0, N_ET_Killed = 0, N_EG_Killed = 0, N_EH_Killed = 0; //N for each type killed Earth
+	int N_ES_alive = 0, N_ET_alive = 0, N_EG_alive = 0, N_EH_alive = 0; //N for each type alive Earth
+
+	int N_AS_Killed = 0, N_AD_Killed = 0, N_AM_Killed = 0;  //N for each type killed Alien
+	int N_AS_alive = 0, N_AD_alive = 0, N_AM_alive = 0; //N for each type alive Alien
+
+	double ESumDF = 0, ESumDD = 0, ESumDB = 0; // Variables for Durations
 	double ASumDF = 0, ASumDD = 0, ASumDB = 0;
-	double ASum_alive = 0, ASum_killed = 0, ASum_Total = 0;
+
+	double ASum_alive = 0, ASum_killed = 0, ASum_Total = 0; // Sum Variables
 	double ESum_alive = 0, ESum_killed = 0, ESum_Total = 0;
 
 	ofstream OutFile("../OutputFiles/output.txt");
 
 
-	OutFile << "////////////////// KILLED UNITS DATA /////////////////////\n";
+	OutFile << "////////////////// KILLED UNITS DATA /////////////////////\n\n";
 	OutFile << "Td  \tID  \tTj  \tDf  \tDd  \tDb" << endl;
-	LinkedQueue<unit*> temp;
-	unit* tem;
-	while (killedList->dequeue(tem))
-	{
-		temp.enqueue(tem);
 
-		int Td = tem->getTd();
-		int Tj = tem->getTj();
-		int Ta = tem->getTa();
-		OutFile << Td << "   \t" << tem->getID() << "   \t" << Tj << "   \t" << Ta - Tj << "   \t" << Td - Ta << "   \t" << Td - Tj << endl;
-		switch (tem->GetType())
+	LinkedQueue<unit*> temp; //temp list to stre and return to killed list
+	unit* U; // temp pointer for unit
+
+	while (killedList->dequeue(U))
+	{
+		temp.enqueue(U);
+
+		int Td = U->getTd(); //Get All Times
+		int Tj = U->getTj();
+		int Ta = U->getTa();
+
+		OutFile << Td << "   \t" << U->getID() << "   \t" << Tj << "   \t" << Ta - Tj << "   \t" << Td - Ta << "   \t" << Td - Tj << endl;
+		
+		switch (U->GetType())
 		{
 		case unit::ES:
-			N_ES++;
+			N_ES_Killed++;
 			ESumDF += Ta - Tj;
 			ESumDD += Td - Ta;
 			ESumDB += Td - Tj;
 			break;
 		case unit::ET:
-			N_ET++;
+			N_ET_Killed++;
 			ESumDF += Ta - Tj;
 			ESumDD += Td - Ta;
 			ESumDB += Td - Tj;
 			break;
 		case unit::EG:
-			N_EG++;
+			N_EG_Killed++;
 			ESumDF += Ta - Tj;
 			ESumDD += Td - Ta;
 			ESumDB += Td - Tj;
 			break;
 		case unit::EH:
-			N_EH++;
+			N_EH_Killed++;
 			ESumDF += Ta - Tj;
 			ESumDD += Td - Ta;
 			ESumDB += Td - Tj;
 			break;
 		case unit::AS:
-			N_AS++;
+			N_AS_Killed++;
 			ASumDF += Ta - Tj;
 			ASumDD += Td - Ta;
 			ASumDB += Td - Tj;
 			break;
 		case unit::AD:
-			N_AD++;
+			N_AD_Killed++;
 			ASumDF += Ta - Tj;
 			ASumDD += Td - Ta;
 			ASumDB += Td - Tj;
 			break;
 		case unit::AM:
-			N_AM++;
+			N_AM_Killed++;
 			ASumDF += Ta - Tj;
 			ASumDD += Td - Ta;
 			ASumDB += Td - Tj;
@@ -415,10 +437,11 @@ void Game::WriteFile()
 			break;
 		}
 	}
-	while (temp.dequeue(tem))
-	{
-		killedList->enqueue(tem);
-	}
+
+	while (temp.dequeue(U))
+		killedList->enqueue(U); // return units to it's original killedlist to delete them at the destructor
+
+	// Calculate Alive - Killed - Sum Variables
 	N_ES_alive = E_Army->GetUnitCount(unit::ES);
 	N_ET_alive = E_Army->GetUnitCount(unit::ET);
 	N_EG_alive = E_Army->GetUnitCount(unit::EG);
@@ -428,13 +451,16 @@ void Game::WriteFile()
 	N_AD_alive = A_Army->GetUnitCount(unit::AD);
 
 	ESum_alive = N_ES_alive + N_ET_alive + N_EG_alive + N_EH_alive;
-	ESum_killed = N_ES + N_ET + N_EG + N_EH;
+	ESum_killed = N_ES_Killed + N_ET_Killed + N_EG_Killed + N_EH_Killed;
 	ESum_Total = ESum_alive + ESum_killed;
 
 	ASum_alive = N_AS_alive + N_AD_alive + N_AM_alive;
-	ASum_killed = N_AS + N_AD + N_AM;
+	ASum_killed = N_AS_Killed + N_AD_Killed + N_AM_Killed;
 	ASum_Total = ASum_alive + ASum_killed;
 
+
+	// Print Winner
+	OutFile << "\n\n";
 	switch (winner)
 	{
 	case 'a':
@@ -453,65 +479,89 @@ void Game::WriteFile()
 		break;
 	}
 
-	OutFile << "////////////////// E A R T H  A R M Y /////////////////////\n";
-	OutFile << "ES: " << N_ES_alive + N_ES
-			<< "            ET: " << N_ET_alive + N_ET 
-			<< "            EG: " << N_EG_alive + N_EG 
-			<< "            EH: " << N_EH_alive + N_EH << endl;
-	OutFile << "ES%: " << ((N_ES_alive + N_ES) ? (double)N_ES / (N_ES_alive + N_ES) * 100 : 0) << "%";
-	OutFile << "            ET%: " << ((N_ET_alive + N_ET) ? (double)N_ET / (N_ET_alive + N_ET) * 100 : 0) << "%";
-	OutFile << "            EG%: " << ((N_EG_alive + N_EG) ? (double)N_EG / (N_EG_alive + N_EG) * 100 : 0) << "%";
-	OutFile << "            EH%: " << ((N_EH_alive + N_EH) ? (double)N_EH / (N_EH_alive + N_EH) * 100 : 0) << "%";
-	OutFile << endl;
-	OutFile << "Total Infected Percentage : " << eSoldier::get_Total_Infected_Count() * 100.0 / (N_ES_alive + N_ES) << "%\n";
+	// Print Stats For Each Army
+	OutFile << "\n\n////////////////// E A R T H  A R M Y /////////////////////\n";
+
+	OutFile << "\nUnit Total Count :\n";
+	OutFile << "ES: " << N_ES_alive + N_ES_Killed
+			<< "            ET: " << N_ET_alive + N_ET_Killed 
+			<< "            EG: " << N_EG_alive + N_EG_Killed 
+			<< "            EH: " << N_EH_alive + N_EH_Killed << endl;
+
+	OutFile << "\nUnit Killed Percentage :\n";
+	OutFile << "ES%: " << ((N_ES_alive + N_ES_Killed) ? (double)N_ES_Killed / (N_ES_alive + N_ES_Killed) * 100 : 0) << "%";
+	OutFile << "            ET%: " << ((N_ET_alive + N_ET_Killed) ? (double)N_ET_Killed / (N_ET_alive + N_ET_Killed) * 100 : 0) << "%";
+	OutFile << "            EG%: " << ((N_EG_alive + N_EG_Killed) ? (double)N_EG_Killed / (N_EG_alive + N_EG_Killed) * 100 : 0) << "%";
+	OutFile << "            EH%: " << ((N_EH_alive + N_EH_Killed) ? (double)N_EH_Killed / (N_EH_alive + N_EH_Killed) * 100 : 0) << "%";
+	OutFile << endl << endl;
+
+	OutFile << "Total Infected Percentage : " << ((N_ES_alive + N_ES_Killed) ? eSoldier::get_Total_Infected_Count() * 100.0 / (N_ES_alive + N_ES_Killed) : 0 )<< "%\n";
 	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::NumOfHealed() * 100 / ESum_Total : 0) << "%";
 	OutFile << endl;
-	OutFile << "Total Destructed Percentage: " << ((ESum_Total) ? ESum_killed * 100 / ESum_Total : 0) << "%";
-	OutFile << endl;
-	if (ESum_killed) {
-		OutFile <<    "Average of Df: " << ESumDF / ESum_killed 
-				<< "\t ,Average of Dd: " << ESumDD / ESum_killed 
-				<< "\t ,Average of Db: " << ESumDB / ESum_killed << endl;
-		OutFile <<   "Df/Db% = " << ESumDF * 100 / ESumDB << "%"
-				<< ", Dd/Db% = " << ESumDD * 100 / ESumDB << "%" << endl;
+
+	OutFile << "Total Destructed Percentage: " << ((ESum_Total) ? ESum_killed * 100.0 / ESum_Total : 0) << "%";
+	OutFile << endl << endl;
+
+	// Print Durations Avg
+	if (ESum_killed) 
+	{
+		OutFile <<    "Average of Df: " << ESumDF / ESum_Total <<'s'
+				<< "\t    Average of Dd: " << ESumDD / ESum_killed <<'s'
+				<< "\t    Average of Db: " << ESumDB / ESum_killed <<'s' << endl;
+
+		OutFile <<   "Df/Db% = " << ESumDF * 100.0 / ESumDB << "%"
+				<< "    Dd/Db% = " << ESumDD * 100.0 / ESumDB << "%" << endl;
 	}
 	else
 	{
-		OutFile << "Average of Df: " << 0
-			<< "\t ,Average of Dd: " << 0
-			<< "\t ,Average of Db: " << 0 << endl;
+		OutFile << "Average of Df: " << "0s"
+			<< "\t    Average of Dd: " << "0s"
+			<< "\t    Average of Db: " << "0s" << endl;
+
 		OutFile << "Df/Db% = " << 0 << "%"
-			<< ", Dd/Db% = " << 0 << "%" << endl;
+			<< "    Dd/Db% = " << 0 << "%" << endl;
 	}
 
 
 
 
-	OutFile << "////////////////// A L I E N  A R M Y /////////////////////\n";
-	OutFile <<			   "AS: " << N_AS_alive + N_AS
-			<< "            AD: " << N_AD_alive + N_AD
-			<< "            AM: " << N_AM_alive + N_AM << endl;
-	OutFile << "AS%: " << ((N_AS_alive + N_AS) ? (double)N_AS / (N_AS_alive + N_AS) * 100 : 0) << "%";
-	OutFile << "            AD%: " << ((N_AD_alive + N_AD) ? (double)N_AD / (N_AD_alive + N_AD) * 100 : 0) << "%";
-	OutFile << "            AM%: " << ((N_AM_alive + N_AM) ? (double)N_AM / (N_AM_alive + N_AM) * 100 : 0) << "%";
-	OutFile << endl;
-	OutFile << "Total Destructed Percentage: " << ((ASum_Total) ? ASum_killed * 100 / ASum_Total : 0) << "%";
-	OutFile << endl;
-	if (ASum_killed) {
-		OutFile << "Average of Df: " << ASumDF / ASum_killed
-			<< "\t Average of Dd: " << ASumDD / ASum_killed
-			<< "\t Average of Db: " << ASumDB / ASum_killed << endl;
-		OutFile << "Df/Db% = " << ASumDF * 100 / ASumDB << "%"
-			<< ", Dd/Db% = " << ASumDD * 100 / ASumDB << "%" << endl;
+	OutFile << "\n\n////////////////// A L I E N  A R M Y /////////////////////\n";
+
+	OutFile << "\nUnit Total Count :\n";
+	OutFile <<			   "AS: " << N_AS_alive + N_AS_Killed
+			<< "            AD: " << N_AD_alive + N_AD_Killed
+			<< "            AM: " << N_AM_alive + N_AM_Killed << endl;
+
+	OutFile << "\nUnit Killed Percentage :\n";
+	OutFile << "AS%: " << ((N_AS_alive + N_AS_Killed) ? (double)N_AS_Killed / (N_AS_alive + N_AS_Killed) * 100 : 0) << "%";
+	OutFile << "            AD%: " << ((N_AD_alive + N_AD_Killed) ? (double)N_AD_Killed / (N_AD_alive + N_AD_Killed) * 100 : 0) << "%";
+	OutFile << "            AM%: " << ((N_AM_alive + N_AM_Killed) ? (double)N_AM_Killed / (N_AM_alive + N_AM_Killed) * 100 : 0) << "%";
+	OutFile << endl << endl;
+
+	OutFile << "Total Destructed Percentage: " << ((ASum_Total) ? ASum_killed * 100.0 / ASum_Total : 0) << "%";
+	OutFile << endl << endl;
+
+
+	// Print Durations Avg
+	if (ASum_killed) 
+	{
+		OutFile << "Average of Df: " << ASumDF / ASum_Total<<'s'
+			<< "\t    Average of Dd: " << ASumDD / ASum_killed<<'s'
+			<< "\t    Average of Db: " << ASumDB / ASum_killed<<'s' << endl;
+		OutFile << "Df/Db% = " << ASumDF * 100.0 / ASumDB << "%"
+			<< "    Dd/Db% = " << ASumDD * 100.0 / ASumDB << "%" << endl;
 	}
 	else
 	{
-		OutFile << "Average of Df: " << 0
-			<< "\t Average of Dd: " << 0
-			<< "\t Average of Db: " << 0 << endl;
+		OutFile << "Average of Df: " <<"0s"
+			<< "\t    Average of Dd: " <<"0s"
+			<< "\t    Average of Db: " <<"0s" << endl;
 		OutFile << "Df/Db% = " << 0 << "%"
-			<< ", Dd/Db% = " << 0 << "%" << endl;
+			<< "    Dd/Db% = " << 0 << "%" << endl;
 	}
+
+	//Close the file
+	OutFile.close();
 }
 
 void Game::PrintFights()
