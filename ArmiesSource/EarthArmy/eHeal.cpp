@@ -21,28 +21,30 @@ bool eHeal::attack(LinkedQueue<unit*>& AttackedUnits)
 	{
 
 		unit* temp = nullptr;
-		temp = game->PickUML();
+		temp = game->PickfromUML();
 
 
 		if (temp)
 		{
-			if (game->GetTS() - temp->getTd() >= 10)
+			if (game->GetTS() - temp->getTj_UML() >= 10)
 			{
 				game->AddToKilled(temp); //if unit spent more than Limit time it moves to killed list
-				temp->setTD(game->GetTS()); // SET TIME DESTRUCTION
 			}
+
 			else
 			{
-				if (temp->getHealed(this)) {
+				if (temp->getHealed(this))
+				{
 					game->AddUnit(temp); // If Unit Already got maximum healing
-					temp->setTD(-1); // return Td to its original value
 				}
-				else {
+				else 
+				{
 					tempList.enqueue(temp); // Else Move it to templist
 				}
 
 				if (game->getMode() == 'a')
-					AttackedUnits.enqueue(temp); // ADD ID to Print List
+					AttackedUnits.enqueue(temp); // ADD Unit to Print List
+
 				cap--;
 			}
 		}
@@ -59,7 +61,7 @@ bool eHeal::attack(LinkedQueue<unit*>& AttackedUnits)
 	{
 		unit* temp;
 		tempList.dequeue(temp);
-		game->AddUML(temp);
+		game->AddtoUML(temp);
 	}
 
 	if (cap != AttackCapacity)

@@ -27,17 +27,22 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 
 
 
-		if (tempES) {
+		if (tempES) 
+		{
 			if (tempES->getAttacked(this)) {
 
 				game->AddToKilled(tempES); // If Unit Died MOVE IT TO KILLED LIST
 			}
-			else if (!game->AddUML(tempES)) 
+			else if (tempES->CanJoinUML())
 			{
-				tempList.enqueue(tempES); // Else Move it to templist
+				game->AddtoUML(tempES);
 			}
+			else 
+				tempList.enqueue(tempES);
+
 			if (game->getMode() == 'a')
-				AttackedUnits.enqueue(tempES); // ADD ID to Print List
+				AttackedUnits.enqueue(tempES); // ADD unit to Print List
+
 			cap--;
 		}
 
@@ -49,14 +54,12 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 		if (tempSU)
 		{
 			 if (tempSU->getAttacked(this))
-				game->AddToKilled(tempSU);
-			 // If Unit Died MOVE IT TO KILLED LIST
-
+				game->AddToKilled(tempSU);// If Unit Died MOVE IT TO KILLED LIST
+						 
 			else 
 				 tempList.enqueue(tempSU); // Else Move it to templist
 
 			if (game->getMode() == 'a')
-
 				AttackedUnits.enqueue(tempSU); // ADD ID to Print List
 
 			cap--;

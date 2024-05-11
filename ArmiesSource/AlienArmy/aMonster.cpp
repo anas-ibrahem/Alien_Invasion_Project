@@ -14,7 +14,8 @@ aMonster::aMonster(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 
 	LinkedQueue<unit*>tempList;
-	ArrayStack<unit*>tempListStack;
+	ArrayStack<unit*>tempListStack; // For Tanks
+
 	int cap = AttackCapacity;
 	while (cap > 0) {
 		unit* tempES = nullptr;
@@ -25,12 +26,17 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 
 		if (tempT) 
 		{
-			if (tempT->getAttacked(this)) {
+			if (tempT->getAttacked(this)) // If unit Died will return true
+			{
 				game->AddToKilled(tempT);
 			}
-			else if (!game->AddUML(tempT)) {
-				tempListStack.push(tempT);
+			else if (tempT->CanJoinUML()) 
+			{
+				game->AddtoUML(tempT);
 			}
+			else
+				tempListStack.push(tempT);
+
 			if (game->getMode() == 'a')
 				AttackedUnits.enqueue(tempT);
 			cap--;
@@ -49,14 +55,18 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 				tempList.enqueue(tempES);
 			} 
 
-			else if (tempES->getAttacked(this)) 
+			else if (tempES->getAttacked(this))  // if unit died will return true
 					game->AddToKilled(tempES);
 
-			else if (!game->AddUML(tempES)) 
-					tempList.enqueue(tempES);
+			else if (tempES->CanJoinUML())
+			{
+				game->AddToKilled(tempES);
+			}
+			else		
+				tempList.enqueue(tempES);
 
 			if (game->getMode() == 'a')
-				AttackedUnits.enqueue(tempES);
+				AttackedUnits.enqueue(tempES); // ADD unit to Print List
 
 			cap--;
 		}

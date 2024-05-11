@@ -8,8 +8,8 @@ unit::unit(int id, UnitType type, int Tj, double Health, int AttackCapacity, dou
 {
 	Healed = false;
 	intialHealth = Health;
-	Ta = -1;
-	Td = -1;
+	Ta = Tj_UML = Td = -1;
+
 }
 
 
@@ -18,12 +18,12 @@ bool unit::getAttacked(unit* Attacker)
 	if (Attacker->isDead() || this->isDead()) // Won't Be Actually in use "Won't attack A dead Unit in any case "
 		return false;
 
-	if (reduceHealth(Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health)))) {
-		Td = game->GetTS();
-	 }
-	if (Ta == -1) {
+	reduceHealth( Attacker->AttackPower * Attacker->Health / (100 * sqrt(Health)) ) ; // true if Died
+		
+	if (Ta == -1) // First Time Getting Attacked
 		Ta = game->GetTS();
-	}
+
+
 	return isDead();
 }
 
@@ -64,6 +64,11 @@ bool unit::isDead() const
 	return (Health == 0) ;
 }
 
+bool unit::CanJoinUML() const
+{
+	return HealthPercent() < 20 && HealthPercent() > 0;
+}
+
 double unit::getHealth() const
 {
 	return Health;
@@ -77,12 +82,11 @@ double unit::HealthPercent() const
 bool unit::reduceHealth(double amount)
 {
 	Health -= amount;
+
 	if (Health <= 0)
-	{
-		Health = 0;
-		return true; // True if unit died
-	}
-	return false;
+			Health = 0;
+
+	return isDead();
 }
 
 double unit::getPower() const
@@ -125,15 +129,26 @@ void unit::setTa(int T)
 	Ta = T;
 }
 
+void unit::setTj_UML(int T)
+{
+	Tj_UML = T;
+}
+
+int unit::getTj_UML() const
+{
+	return Tj_UML ;
+}
+
 bool unit::isHealed() const
 {
 	return Healed;
 }
 
-int unit::NumOfHealed()
+int unit::GetNumOfHealed()
 {
 	return Num_Healed;
 }
+
 
 bool unit::isInfected()
 {

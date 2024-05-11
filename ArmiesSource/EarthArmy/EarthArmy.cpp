@@ -146,20 +146,25 @@ unit* EarthArmy::PickUnit(unit::UnitType type , char PickDir)
 
 bool EarthArmy::AddtoUML(unit* unit)
 {
-	if (unit)
+	if (unit) 
+	{
 		switch (unit->GetType())
 		{
+
 		case unit::ES:
-			if(UML.enqueue(unit, INT_MAX / unit->getHealth()))
+			if (UML.enqueue(unit, INT_MAX / unit->getHealth())) // Adds Soldiers so that lowest health has largest Pri
 				return true;
 			break;
+
 		case unit::ET:
-			if(UML.enqueue(unit, -1))
+			if (UML.enqueue(unit, -1))
 				return true;
 			break;
+
 		default:
 			break;
 		}
+	}
 	return false;
 }
 

@@ -141,7 +141,7 @@ void Game::Print_ASCII_ART()
 void Game::ClearUML()
 {
 	unit* temp = nullptr;
-	while (temp = PickUML())
+	while (temp = PickfromUML())
 		AddToKilled(temp);
 }
 
@@ -153,6 +153,8 @@ void Game::SetMode(char mode)
 
 bool Game::AddToKilled(unit*U)
 {
+	U->setTD(GetTS()); // SET TIME DESTRUCTION
+
 	if (U->GetType() == unit::ES && U->isInfected())
 		eSoldier::ReduceInfectedCount();
 	return killedList->enqueue(U);
@@ -306,15 +308,10 @@ void Game::PrintAliveUnits()
 
 }
 
-bool Game::AddUML(unit* U)
+bool Game::AddtoUML(unit* U)
 {
-	if (U->HealthPercent() < 20 && U->HealthPercent() > 0)
-		if (E_Army->AddtoUML(U))
-		{
-			U->setTD(TimeStep);
-			return true;
-		}
-	return false;
+	U->setTj_UML(TimeStep);
+	return (E_Army->AddtoUML(U));
 }
 
 unit* Game::PickUnit(unit::UnitType type , char PickDir)
@@ -342,9 +339,9 @@ char Game::getMode() const
 	return mode;
 }
 
-unit* Game::PickUML()
+unit* Game::PickfromUML()
 {
-		return E_Army->PickfromUML();
+	return E_Army->PickfromUML();
 }
 
 
@@ -500,7 +497,7 @@ void Game::WriteFile()
 	OutFile << endl << endl;
 
 	OutFile << "Total Infected Percentage : " << ((N_ES_alive + N_ES_Killed) ? eSoldier::get_Total_Infected_Count() * 100.0 / (N_ES_alive + N_ES_Killed) : 0 )<< "%\n";
-	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::NumOfHealed() * 100 / ESum_Total : 0) << "%";
+	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::GetNumOfHealed() * 100 / ESum_Total : 0) << "%";
 	OutFile << endl;
 
 	OutFile << "Total Destructed Percentage: " << ((ESum_Total) ? ESum_killed * 100.0 / ESum_Total : 0) << "%";
@@ -509,7 +506,7 @@ void Game::WriteFile()
 	// Print Durations Avg
 	if (ESum_killed) 
 	{
-		OutFile <<    "Average of Df: " << ESumDF / ESum_Total <<'s'
+		OutFile <<    "Average of Df: " << ESumDF / ESum_killed <<'s'
 				<< "\t    Average of Dd: " << ESumDD / ESum_killed <<'s'
 				<< "\t    Average of Db: " << ESumDB / ESum_killed <<'s' << endl;
 
@@ -549,7 +546,7 @@ void Game::WriteFile()
 	// Print Durations Avg
 	if (ASum_killed) 
 	{
-		OutFile << "Average of Df: " << ASumDF / ASum_Total<<'s'
+		OutFile << "Average of Df: " << ASumDF / ASum_killed <<'s'
 			<< "\t    Average of Dd: " << ASumDD / ASum_killed<<'s'
 			<< "\t    Average of Db: " << ASumDB / ASum_killed<<'s' << endl;
 		OutFile << "Df/Db% = " << ASumDF * 100.0 / ASumDB << "%"
@@ -673,7 +670,7 @@ void Game::TestCode()
 			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
 			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
 			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
-			if (!AddUML(ESDummy))
+			if (!AddtoUML(ESDummy))
 				AddUnit(ESDummy);
 		}
 	}  

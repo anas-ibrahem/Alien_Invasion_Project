@@ -60,8 +60,8 @@ public :
 	void WriteFile(); // To Be implemented
 	void PrintFights();
 	void Battle();
-	bool AddUML(unit* U);
-	unit* PickUML();
+	bool AddtoUML(unit* U);
+	unit* PickfromUML();
 	void StartMenu();
 	void Simulate(); // Main Game Loop
 	char WL_Check(); // Win Lose Check Function Return e for Earth Winner , a for Alien , t for tie , n for none
