@@ -145,6 +145,11 @@ void Game::ClearUML()
 		AddToKilled(temp);
 }
 
+void Game::IncTotalInfectedEarth()
+{
+	E_Army->IncTotalInfected();
+}
+
 
 void Game::SetMode(char mode)
 {
@@ -155,8 +160,6 @@ bool Game::AddToKilled(unit*U)
 {
 	U->setTD(GetTS()); // SET TIME DESTRUCTION
 
-	if (U->GetType() == unit::ES && U->isInfected())
-		eSoldier::ReduceInfectedCount();
 
 	return killedList->enqueue(U);
 }
@@ -332,7 +335,7 @@ unit* Game::PickUnit(unit::UnitType type , char PickDir)
 
 }
 
-int Game::GetUnitCount(unit::UnitType type)
+int Game::GetUnitCount(unit::UnitType type) const
 {
 	if (type == unit::AD || type == unit::AS || type == unit::AM)
 		return A_Army->GetUnitCount(type);
@@ -498,7 +501,7 @@ void Game::WriteFile()
 	OutFile << "            EH%: " << ((N_EH_alive + N_EH_Killed) ? (double)N_EH_Killed / (N_EH_alive + N_EH_Killed) * 100 : 0) << "%";
 	OutFile << endl << endl;
 
-	OutFile << "Total Infected ES Percentage : " << ((N_ES_alive + N_ES_Killed) ? eSoldier::get_Total_Infected_Count() * 100.0 / (N_ES_alive + N_ES_Killed) : 0 )<< "%\n";
+	OutFile << "Total Infected ES Percentage : " << ((N_ES_alive + N_ES_Killed) ? E_Army->GetInfTotal() * 100.0 / (N_ES_alive + N_ES_Killed) : 0 )<< "%\n";
 	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::GetNumOfHealed() * 100 / ESum_Total : 0) << "%";
 	OutFile << endl;
 
@@ -594,8 +597,6 @@ void Game::Battle()
 	A_Army->attack();
 	AL_Army->attack();
 	
-	E_Army->CalcInfPercentage(); // Update at the End od Each battle
-
 }
 
 void Game::GenerateUnits()

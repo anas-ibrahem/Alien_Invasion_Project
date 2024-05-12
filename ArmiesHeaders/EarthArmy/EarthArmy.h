@@ -26,7 +26,7 @@ private:
 	LinkedQueue<unit*> EG_Attacked;
 	LinkedQueue<unit*> EH_Attacked;
 
-	//Inf Percentage
+	//Inf Percentage & Counters
 	int Infected_ES_Count;
 	int Infected_ES_Count_Total;
 	double InfThersholdPercentage;
@@ -44,12 +44,12 @@ public:
 	//Getters
 	int GetUnitCount(unit::UnitType type);
 	int GetUMLCount();
+	int GetInfTotal() const;
 	double GetInfPercentage() const;
 
-	//Setters & Calculate
+	//Setters 
 	void SetInfThershold(double perc);
-	void CalcInfPercentage();
-	
+
 	//Lists Control
 	bool AddUnit(unit* unit, char InsertDir = 'n'); // n for nonsent f for front r for rear
 	bool AddtoUML(unit* unit);
@@ -59,6 +59,7 @@ public:
 	//Army Functions
 	void attack();
 	bool CallAllied();
+	void IncTotalInfected();
 	void SpreadInfection();
 
 

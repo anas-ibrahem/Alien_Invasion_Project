@@ -85,6 +85,9 @@ bool eSoldier::isInfected()
 
 void eSoldier::setInfected(bool Infect)
 {
+	if (Infect && !infected)
+		game->IncTotalInfectedEarth();
+
 	infected = Infect;
 
 }

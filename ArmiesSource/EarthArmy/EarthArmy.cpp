@@ -16,10 +16,7 @@ bool EarthArmy::AddUnit(unit* unit, char InsertDir)
 		return Tanks.push(unit);
 	case unit::ES:
 		if (unit->isInfected())
-		{
 			Infected_ES_Count++;
-			Infected_ES_Count_Total++;
-		}
 		return Soldiers.enqueue(unit);
 	case unit::EG:
 		return Gunneries.enqueue(unit,unit->getPower()*unit->getHealth());
@@ -136,7 +133,7 @@ unit* EarthArmy::PickUnit(unit::UnitType type , char PickDir)
 	case unit::ES:
 		Soldiers.dequeue(temp);
 
-		if (temp->isInfected())
+		if (temp && temp->isInfected())
 			Infected_ES_Count--;
 
 		break;
@@ -248,6 +245,16 @@ int EarthArmy::GetUMLCount()
 	return UML.getCount();
 }
 
+int EarthArmy::GetInfTotal() const
+{
+	return Infected_ES_Count_Total;
+}
+
+double EarthArmy::GetInfPercentage() const
+{
+	return (Soldiers.getCount() > 0 ? double(Infected_ES_Count) / Soldiers.getCount() : 0);
+}
+
 
 
 void EarthArmy::SpreadInfection()
@@ -273,7 +280,10 @@ void EarthArmy::SpreadInfection()
 				if (RandESPick == 0)
 				{
 					if (!tempES->isInfected() && !tempES->isImmuned())
+					{
 						tempES->setInfected(true);
+						Infected_ES_Count++;
+					}
 					else
 						RandESPick++; // Check Next One
 				}
@@ -289,7 +299,7 @@ void EarthArmy::SpreadInfection()
 
 bool EarthArmy::CallAllied()
 {
-	return (Soldiers.getCount() > 0 ? double(Infected_ES_Count) / Soldiers.getCount() : 0) > InfThersholdPercentage;
+	return GetInfPercentage() > InfThersholdPercentage;
 }
 
 void EarthArmy::SetInfThershold(double perc)
@@ -297,6 +307,10 @@ void EarthArmy::SetInfThershold(double perc)
 	InfThersholdPercentage = perc;
 }
 
+void EarthArmy::IncTotalInfected()
+{
+	Infected_ES_Count_Total++;
+}
 
 EarthArmy::~EarthArmy()
 {

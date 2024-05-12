@@ -41,7 +41,7 @@ public :
 	// Getters
 	int GetTS() const;
 	char GetMode() const ;
-	int GetUnitCount(unit::UnitType type);
+	int GetUnitCount(unit::UnitType type) const;
 	int NextTS(); // Increase Time Step by 1 and return the new value of it
 
 	//Files
@@ -73,6 +73,7 @@ public :
 	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
 	unit* PickfromUML();
 	void ClearUML();
+	void IncTotalInfectedEarth();
 
 	~Game();
 
