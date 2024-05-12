@@ -2,9 +2,9 @@
 
 EarthArmy::EarthArmy()
 {
-	InfPercentage = 0;
 	InfThersholdPercentage = 0;
-
+	Infected_ES_Count = 0;
+	Infected_ES_Count_Total = 0;
 	ES_Attacker_Infected = false;
 }
 
@@ -15,6 +15,11 @@ bool EarthArmy::AddUnit(unit* unit, char InsertDir)
 	case unit::ET:
 		return Tanks.push(unit);
 	case unit::ES:
+		if (unit->isInfected())
+		{
+			Infected_ES_Count++;
+			Infected_ES_Count_Total++;
+		}
 		return Soldiers.enqueue(unit);
 	case unit::EG:
 		return Gunneries.enqueue(unit,unit->getPower()*unit->getHealth());
@@ -33,7 +38,7 @@ void EarthArmy::PrintAliveUnits()
 {
 	cout << "\033[32m";
 	cout << "=============== Earth Army Alive Units ===============" << endl << endl;
-	cout << "Infection Percentage : " << InfPercentage << "%" << endl << endl;
+	cout << "Infection Percentage : " << (Soldiers.getCount() > 0 ?  double(Infected_ES_Count) / Soldiers.getCount() : 0) << "%" << endl << endl;
 	cout << Soldiers.getCount() << " ES: ";
 	Soldiers.print();
 	cout << endl << endl << Tanks.getCount() << " ET: ";
@@ -130,6 +135,10 @@ unit* EarthArmy::PickUnit(unit::UnitType type , char PickDir)
 		break;
 	case unit::ES:
 		Soldiers.dequeue(temp);
+
+		if (temp->isInfected())
+			Infected_ES_Count--;
+
 		break;
 	case unit::EG:
 		Gunneries.dequeue(temp, I);
@@ -152,12 +161,7 @@ bool EarthArmy::AddtoUML(unit* unit)
 	{
 		switch (unit->GetType())
 		{
-
 		case unit::ES: 
-			if (unit -> isInfected())
-				eSoldier::ReduceInfectedCount(); // Assumption Count should discard the joining infected to UML
-												 // As they Considered Dead or Immuned
-
 			if (UML.enqueue(unit, INT_MAX / unit->getHealth())) // Adds Soldiers so that lowest health has largest Pri
 				return true;
 			break;
@@ -179,10 +183,6 @@ unit* EarthArmy::PickfromUML()
 	unit* temp = nullptr;
 	int I; // Dummy integer
 	UML.dequeue(temp, I);
-
-	if (temp && temp->GetType() == unit::ES && temp->isInfected())
-		eSoldier::IncreaseInfectedCount(); // Increase Infected Count ( Will be Decreased In case Healed or Adding to Killed)
-
 	return temp;
 }
 
@@ -248,40 +248,27 @@ int EarthArmy::GetUMLCount()
 	return UML.getCount();
 }
 
-void EarthArmy::CalcInfPercentage()
-{
-	if (Soldiers.getCount() == 0) InfPercentage = 0;
-	else
-	InfPercentage = eSoldier::getInfected_Count() * 100.0 / Soldiers.getCount();
-}
 
-double EarthArmy::GetInfPercentage() const
-{
-	return InfPercentage;
-}
-
-bool EarthArmy::CallAllied()
-{
-	return InfPercentage > InfThersholdPercentage;
-}
 
 void EarthArmy::SpreadInfection()
 {
 	// Assume only one Infected ES has the Chance to Spread the infection each timestep
 	// Avoiding very large amount of infection
 
-	if (eSoldier::getInfected_Count() > 0 && eSoldier::getInfected_Count() < Soldiers.getCount() )
+	int ES_Count = Soldiers.getCount();
+
+	if (Infected_ES_Count > 0 && Infected_ES_Count < ES_Count)
 	{
 		int ProbGen = rand() % 100 + 1;
 		unit* tempES = nullptr;
 
-		if (ProbGen <= 1) // 2% Prob of Spread for each soldier
+		if (ProbGen <= 2) // 2% Prob of Spread for each soldier
 		{
-			LinkedQueue<unit*> templist;
 			int RandESPick = rand() % Soldiers.getCount() + 1;
-			
-			while (Soldiers.dequeue(tempES))
+
+			for (; ES_Count > 0; ES_Count--)
 			{
+				Soldiers.dequeue(tempES);
 				RandESPick--;
 				if (RandESPick == 0)
 				{
@@ -291,14 +278,18 @@ void EarthArmy::SpreadInfection()
 						RandESPick++; // Check Next One
 				}
 
-				templist.enqueue(tempES);
-			}
+				Soldiers.enqueue(tempES); // return the soldier
 
-			while (templist.dequeue(tempES)) // Return units to Its Original List
-				Soldiers.enqueue(tempES);
+			}
+			
 		}
 	}
 
+}
+
+bool EarthArmy::CallAllied()
+{
+	return (Soldiers.getCount() > 0 ? double(Infected_ES_Count) / Soldiers.getCount() : 0) > InfThersholdPercentage;
 }
 
 void EarthArmy::SetInfThershold(double perc)

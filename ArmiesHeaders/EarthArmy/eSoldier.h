@@ -10,8 +10,7 @@ class eSoldier :
 private:
     bool infected;
     bool immuned;
-    static int Infected_Count;
-    static int Infected_Count_Total;
+
 
 public:
 
@@ -25,13 +24,7 @@ public:
     void setInfected(bool Infect);
     void setImmuned(bool Immune);
 
-    //Getters
-    static int getInfected_Count() ;
-    static int get_Total_Infected_Count();
 
-    //Control Infection
-    static void ReduceInfectedCount();
-    static void IncreaseInfectedCount();
 
 };
 

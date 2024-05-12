@@ -2,9 +2,6 @@
 #include "..\..\Game\Game.h"
 
 
-int eSoldier::Infected_Count = 0;
-int eSoldier::Infected_Count_Total = 0;
-
 eSoldier::eSoldier(int id, int Tj, int Health, int AttackCapacity, int AttackPower, Game* game) :
 	unit(id, ES, Tj, Health, AttackCapacity, AttackPower, game)
 {
@@ -88,13 +85,6 @@ bool eSoldier::isInfected()
 
 void eSoldier::setInfected(bool Infect)
 {
-	if (Infect && !infected)
-	{
-		Infected_Count++; Infected_Count_Total++;
-	}
-	
-	//Reducing Count is Handeld Inside AddtoUML & AddtoKilledList & getHealed
-
 	infected = Infect;
 
 }
@@ -102,24 +92,4 @@ void eSoldier::setInfected(bool Infect)
 void eSoldier::setImmuned(bool Immune)
 {
 	immuned = Immune;
-}
-
-int eSoldier::getInfected_Count()
-{
-	return Infected_Count;
-}
-
-int eSoldier::get_Total_Infected_Count()
-{
-	return Infected_Count_Total;
-}
-
-void eSoldier::ReduceInfectedCount()
-{
-	Infected_Count--;
-}
-
-void eSoldier::IncreaseInfectedCount() 
-{
-	Infected_Count++;
 }

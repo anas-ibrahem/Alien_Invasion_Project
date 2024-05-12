@@ -27,7 +27,8 @@ private:
 	LinkedQueue<unit*> EH_Attacked;
 
 	//Inf Percentage
-	double InfPercentage;
+	int Infected_ES_Count;
+	int Infected_ES_Count_Total;
 	double InfThersholdPercentage;
 
 
