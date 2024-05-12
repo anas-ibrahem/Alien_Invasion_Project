@@ -336,6 +336,8 @@ int Game::GetUnitCount(unit::UnitType type)
 {
 	if (type == unit::AD || type == unit::AS || type == unit::AM)
 		return A_Army->GetUnitCount(type);
+	else if (type == unit::SU)
+		return AL_Army->GetUnitCount(type);
 	else
 		return E_Army->GetUnitCount(type);
 }
