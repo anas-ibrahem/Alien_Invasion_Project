@@ -12,6 +12,9 @@ eSoldier::eSoldier(int id, int Tj, int Health, int AttackCapacity, int AttackPow
 
 bool eSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 {
+
+	// Assumption in case of infected ES attack other ES (No change will happen in original List (*Same Order) )
+
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
 	unit* Attacker = nullptr; // Used in Case of Infection no need for it in No infected
@@ -33,6 +36,10 @@ bool eSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 			if (temp->getAttacked(this)) {
 
 				game->AddToKilled(temp); // If Unit Died MOVE IT TO KILLED LIST
+			}
+			else if (temp->GetType() == unit::ES  &&  temp->CanJoinUML()) // UML Check in case of infected ES attacks ES
+			{
+				game->AddtoUML(temp);
 			}
 			else {
 				tempList.enqueue(temp); // Else Move it to templist
@@ -86,7 +93,7 @@ bool eSoldier::isInfected()
 void eSoldier::setInfected(bool Infect)
 {
 	if (Infect && !infected)
-		game->IncTotalInfectedEarth();
+		game->IncTotalInfectedEarth(); // Increase the Total Infected Count (The one that includes even those got healed)
 
 	infected = Infect;
 
