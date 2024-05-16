@@ -72,7 +72,7 @@ bool eHeal::attack(LinkedQueue<unit*>& AttackedUnits)
 		game->AddToKilled(this); //AFTER HEALING ... HEALER MOVED TO KILLED LIST
 		return true;
 	}
-	else
+	else // Won't Happen But For Safety (Checked in Attack function of EarthArmy)
 	{
 		game->AddUnit(this); //IF SHE DOESNT HEAL ANY UNIT MOVE BACK TO THE GAME
 		return false;

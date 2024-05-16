@@ -189,11 +189,12 @@ void EarthArmy::attack()
 {
 	unit* Attacker = nullptr;
 
-	if (Healers.pop(Attacker))
-	{
-		Attacker->attack(EH_Attacked);
-		EH_AttackerID = Attacker->getID();
-	}
+	if (UML.getCount() > 0)
+		if (Healers.pop(Attacker))
+		{
+			Attacker->attack(EH_Attacked);
+			EH_AttackerID = Attacker->getID();
+		}
 
 	if (Soldiers.peek(Attacker))
 	{
