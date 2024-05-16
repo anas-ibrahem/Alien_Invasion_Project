@@ -76,7 +76,7 @@ void Game::Simulate()
 
 	} while (winner == 'n');
 
-	ClearUML(); // Clear UML and move it's units to KilledList
+	ClearUML(); // Clear UML and move it's units to 
 	WriteFile();
 	cout << "\n=============== Simulation END =================";
 

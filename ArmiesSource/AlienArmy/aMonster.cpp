@@ -60,7 +60,7 @@ bool aMonster::attack(LinkedQueue<unit*>& AttackedUnits) {
 
 			else if (tempES->CanJoinUML())
 			{
-				game->AddToKilled(tempES);
+				game->AddtoUML(tempES);
 			}
 			else		
 				tempList.enqueue(tempES);
