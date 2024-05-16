@@ -49,7 +49,7 @@ bool AlienArmy::AddUnit(unit* unit , char InsertDir)
 
 void AlienArmy::PrintAliveUnits()
 {
-	cout << "\033[31m";
+	cout << "\033[35m";
 	cout << "=============== Alien Army Alive Units ===============" << endl;
 	cout << Soldiers.getCount() << " AS: ";
 	Soldiers.print();

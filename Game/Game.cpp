@@ -68,7 +68,8 @@ void Game::Simulate()
 			PrintAllStats();
 
 			// Change Mode To Silent Mode Option
-			cout << "\n\n*To continue in Silent mode press s\nPress any other key to continue . . ."<< endl;
+			cout << "\n====================================================================================================\n";
+			cout << "\n*To continue in Silent mode press s\nPress any other key to continue . . .";
 			c = tolower(_getch()); // wait for user to press any key to continue ( s to change to silent mode )
 
 			if (c == 's')
@@ -83,7 +84,6 @@ void Game::Simulate()
 				}
 			}
 
-			cout << "##################################################################################\n";
 		}
 
 		if (TimeStep >= 40) // Wait at least 40 timesteps 
@@ -375,10 +375,14 @@ unit* Game::PickfromUML()
 
 void Game::PrintKilledUnits()
 {
+	cout << "\033[1;31m";
 	cout << "\n=============== Killed Units ===============" << endl;
 
 	cout << killedList->getCount() << " units ";
 	killedList->print();
+	cout << "\n";
+
+	cout << "\033[0m";
 }
 
 void Game::WriteFile()
@@ -678,7 +682,7 @@ void Game::GenerateUnits()
 
 void Game::PrintAllStats()
 {
-	cout << "##################################################################################\n";
+	cout << "====================================================================================================\n";
 	cout << "Current TimeStep : " << TimeStep << endl << endl;
 	PrintAliveUnits();
 	PrintFights();
