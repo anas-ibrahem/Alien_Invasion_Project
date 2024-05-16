@@ -11,33 +11,62 @@ aSoldier::aSoldier(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 
 
-bool aSoldier::attack(LinkedQueue<int>& AttackedIDs) {
-
+bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
+{
 	LinkedQueue<unit*>tempList;
 	int cap = AttackCapacity;
 
+
 	while (cap > 0) {
 
-		unit* temp = nullptr;
+		unit* tempES = nullptr;
 
-		temp = game->PickUnit(unit::ES);
+		unit* tempSU = nullptr;
+
+		tempES = game->PickUnit(unit::ES);
 
 
 
-		if (temp) {
-			if (temp->getAttacked(this)) {
+		if (tempES) 
+		{
+			if (tempES->getAttacked(this)) {
 
-				game->AddToKilled(temp); // If Unit Died MOVE IT TO KILLED LIST
+				game->AddToKilled(tempES); // If Unit Died MOVE IT TO KILLED LIST
 			}
-			else {
-				tempList.enqueue(temp); // Else Move it to templist
+			else if (tempES->CanJoinUML())
+			{
+				game->AddtoUML(tempES);
 			}
+			else 
+				tempList.enqueue(tempES);
 
-			AttackedIDs.enqueue(temp->getID()); // ADD ID to Print List
+			if (game->GetMode() == 'a')
+				AttackedUnits.enqueue(tempES); // ADD unit to Print List
+
 			cap--;
 		}
 
-		if (!temp)
+
+
+		if (cap > 0)//check if capacity can offer another one 
+			tempSU = game->PickUnit(unit::SU);
+
+		if (tempSU)
+		{
+			 if (tempSU->getAttacked(this))
+				game->AddToKilled(tempSU);// If Unit Died MOVE IT TO KILLED LIST
+						 
+			else 
+				 tempList.enqueue(tempSU); // Else Move it to templist
+
+			if (game->GetMode() == 'a')
+				AttackedUnits.enqueue(tempSU); // ADD ID to Print List
+
+			cap--;
+		}
+
+
+		if (!tempES && !tempSU)
 			break;
 		//nothing to Attack // Break the Loop
 

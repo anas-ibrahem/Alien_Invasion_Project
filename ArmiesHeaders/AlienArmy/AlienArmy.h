@@ -8,32 +8,42 @@
 
 class AlienArmy : public Army {
 private:
+
+	//Lists of The Army
 	char LastAddedAD;
 	DoubleLinkedQueue<unit*> Drones;
 	LinkedQueue<unit*> Soldiers;
 	DynamicArray<unit*> Monster;
 
+	//Print ID and Lists of Current Army Attack
 	int AS_AttackerID;
 	int AM_AttackerID;
 	int AD_AttackerID_Front;
 	int AD_AttackerID_Rear;
+	LinkedQueue<unit*> AS_Attacked;
+	LinkedQueue<unit*> AM_Attacked;
+	LinkedQueue<unit*> AD_Attacked_Front;
+	LinkedQueue<unit*> AD_Attacked_Rear;
 
-	LinkedQueue<int> AS_Attacked;
-	LinkedQueue<int> AM_Attacked;
-	LinkedQueue<int> AD_Attacked_Front;
-	LinkedQueue<int> AD_Attacked_Rear;
 
 public :
 	AlienArmy();
-	bool AddUnit(unit* unit, char InsertDir = 'n'); // n for nonsent f for front r for rear
-	void PrintAliveUnits();
 
+	//Lists Control
+	bool AddUnit(unit* unit, char InsertDir = 'n'); // n for nonsent f for front r for rear
+	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
+
+	//Print Functions
+	void PrintAliveUnits();
 	bool PrintFights();
 	void PrintFight(unit::UnitType type);
 
-	unit* PickUnit(unit::UnitType type , char PickDir = 'n'); // n for nonsent f for front r for rear
-	void attack();
+	//Getters
 	int GetUnitCount(unit::UnitType type);
+
+	//Army Functions
+	void attack();
+
 	~AlienArmy();
 
 };

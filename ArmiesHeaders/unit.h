@@ -12,7 +12,8 @@ class unit
 {
 public:
 
-
+	//Shared Members
+	static int GetNumOfHealed();
 	enum UnitType {
 		ES = 1,
 		AS = 2,
@@ -20,41 +21,70 @@ public:
 		EG = 4,
 		AM = 5,
 		AD = 6,
-		EH = 7
+		EH = 7,
+		SU = 8
 	};
+	
 
 
 	unit(int id , UnitType type , int Tj  , double Health , int AttackCapacity , double AttackPower, Game*game);
-	virtual bool attack(LinkedQueue<int>& AttackedIDs) = 0; // Just To avoid Abstract Error
-	virtual bool getAttacked(unit* Attacker);
-	virtual bool getHealed(unit* Attacker);
-	virtual bool isDead() const; // Implementes As it's the same for all
-	double getHealth() const;
-	double HealthPercent() const;
-	double getPower() const;
-	int getID() const;
+	//Pure virtual 
+	virtual bool attack(LinkedQueue<unit*>& AttackedUnits) = 0;
+
+	//Shared Functions(Same for all units)
+	bool getAttacked(unit* Attacker);
+	bool getHealed(unit* Attacker);
 	bool reduceHealth(double amount); // returns true if the unit died
-	UnitType GetType() const;
+	double HealthPercent() const;
+
+	// Setters
 	void setTD(int T);
-	int getTa() const;
-	int getTd() const;
-	int getTj() const;
 	void setTa(int T);
+	void setTj_UML(int T);
+
+
+	
+	// Getters
+	double getPower() const;
+	UnitType GetType() const;
+	int getID() const;
+	int getTa() const;
+	int getTj() const;
+	int getTd() const;
+	int getTj_UML() const;
+	double getHealth() const;
+
+	// Flags
 	bool isHealed() const;
-	static int NumOfHealed();
+	bool isDead() const; // Implementes As it's the same for all
+	bool CanJoinUML() const;
+
+	// Flags (Special for ES)
+	virtual bool isInfected();
+	virtual bool isImmuned();
+	virtual void setInfected(bool Infect);
+	virtual void setImmuned(bool Immune);
 
 protected:
+		//Shared Member (static)
+		static int Num_Healed;
+		
+		//Members
 		int id;
 		UnitType type;
+
 		int Tj;
 		int Ta;
 		int Td;
+		int Tj_UML; // Time Joining UML
+
 		double Health;
-		bool Healed;
 		double intialHealth;
+		bool Healed;
+
 		int AttackCapacity;
 		double AttackPower;
-		static int Num_Healed;
+
 		Game* game;
 };
 

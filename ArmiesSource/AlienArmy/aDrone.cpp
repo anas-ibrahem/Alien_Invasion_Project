@@ -10,8 +10,8 @@ aDrone::aDrone(int id , int Tj , int Health , int AttackCapacity , int AttackPow
 
 
 
-bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
-
+bool aDrone::attack(LinkedQueue<unit*>& AttackedUnits)
+{
 	LinkedQueue<unit*> tempList; // queue for the rest (Gunnery)
 	ArrayStack<unit*> tempListStack; // Stack For Tanks
 
@@ -39,25 +39,29 @@ bool aDrone::attack(LinkedQueue<int>& AttackedIDs) {
 				tempList.enqueue(tempG);
 
 			}
-
-			AttackedIDs.enqueue(tempG->getID());
+			if (game->GetMode() == 'a')
+				AttackedUnits.enqueue(tempG); // ADD unit to Print List
 			cap--;
 		}
 
 		if (cap > 0) 
 			tempT = game->PickUnit(unit::ET); // Pick Tank in case there still capacity left
 
-		if (tempT) {
-
-			if (tempT->getAttacked(this))
+		if (tempT)
+		{
+			if (tempT->getAttacked(this)) // If unit Died will return true
 			{
 				game->AddToKilled(tempT);
 			}
-			else if (!game->AddUML(tempT)) {
-				tempListStack.push(tempT);
+			else if (tempT->CanJoinUML())
+			{
+				game->AddtoUML(tempT);
 			}
+			else
+				tempListStack.push(tempT);
 
-			AttackedIDs.enqueue(tempT->getID());
+			if (game->GetMode() == 'a')
+				AttackedUnits.enqueue(tempT); // ADD unit to Print List
 			cap--;
 		}
 

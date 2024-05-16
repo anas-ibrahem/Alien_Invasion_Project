@@ -1,6 +1,12 @@
 #include "..\..\ArmiesHeaders\EarthArmy\EarthArmy.h"
 
-EarthArmy::EarthArmy(){}
+EarthArmy::EarthArmy()
+{
+	InfPercentage = 0;
+	InfThersholdPercentage = 0;
+
+	ES_Attacker_Infected = false;
+}
 
 
 bool EarthArmy::AddUnit(unit* unit, char InsertDir)
@@ -26,7 +32,8 @@ bool EarthArmy::AddUnit(unit* unit, char InsertDir)
 void EarthArmy::PrintAliveUnits()
 {
 	cout << "\033[32m";
-	cout << "=============== Earth Army Alive Units ===============" << endl;
+	cout << "=============== Earth Army Alive Units ===============" << endl << endl;
+	cout << "Infection Percentage : " << InfPercentage << "%" << endl << endl;
 	cout << Soldiers.getCount() << " ES: ";
 	Soldiers.print();
 	cout << endl << endl << Tanks.getCount() << " ET: ";
@@ -67,53 +74,41 @@ bool EarthArmy::PrintFights()
 
 void EarthArmy::PrintFight(unit::UnitType type) {
 
-	int id;
 
 	switch (type) {
 	
 	case unit::ES :
-		cout << "ES " << ES_AttackerID << " Attacked [ ";
+		cout << "ES " << ES_AttackerID << (ES_Attacker_Infected ? "*" : "") << " Attacked "; 
+		ES_Attacked.print();
+		cout << "\n";
+		ES_Attacked.clear();
 		
-		while (ES_Attacked.dequeue(id))
-		{
-			cout << id;
-			if (!ES_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
 		break;
 
 	case unit::ET:
-		cout << "ET " << ET_AttackerID << " Attacked [ ";
+		cout << "ET " << ET_AttackerID << " Attacked ";
 
-		while (ET_Attacked.dequeue(id))
-		{
-			cout << id;
-			if (!ET_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
+		ET_Attacked.print();
+		cout << "\n";
+		ET_Attacked.clear();
 		break;
 
 
 	case unit::EG:
-		cout << "EG " << EG_AttackerID << " Attacked [ ";
+		cout << "EG " << EG_AttackerID << " Attacked ";
 
-		while (EG_Attacked.dequeue(id))
-		{
-			cout << id;
-			if (!EG_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
+		EG_Attacked.print();
+		cout << "\n";
+		EG_Attacked.clear();
+
 		break;
 
 	case unit::EH:
-		cout << "EH " << EH_AttackerID << " Healed [ ";
+		cout << "EH " << EH_AttackerID << " Healed ";
 
-		while (EH_Attacked.dequeue(id))
-		{
-			cout << id;
-			if (!EH_Attacked.isEmpty()) cout << " , ";
-			else cout << " ]\n";
-		}
+		EH_Attacked.print();
+		cout << "\n";
+		EH_Attacked.clear();
 	
 	
 	default :
@@ -153,20 +148,29 @@ unit* EarthArmy::PickUnit(unit::UnitType type , char PickDir)
 
 bool EarthArmy::AddtoUML(unit* unit)
 {
-	if (unit)
+	if (unit) 
+	{
 		switch (unit->GetType())
 		{
-		case unit::ES:
-			if(UML.enqueue(unit, INT_MAX / unit->getHealth()))
+
+		case unit::ES: 
+			if (unit -> isInfected())
+				eSoldier::ReduceInfectedCount(); // Assumption Count should discard the joining infected to UML
+												 // As they Considered Dead or Immuned
+
+			if (UML.enqueue(unit, INT_MAX / unit->getHealth())) // Adds Soldiers so that lowest health has largest Pri
 				return true;
 			break;
+
 		case unit::ET:
-			if(UML.enqueue(unit, -1))
+			if (UML.enqueue(unit, -1))
 				return true;
 			break;
+
 		default:
 			break;
 		}
+	}
 	return false;
 }
 
@@ -175,8 +179,13 @@ unit* EarthArmy::PickfromUML()
 	unit* temp = nullptr;
 	int I; // Dummy integer
 	UML.dequeue(temp, I);
+
+	if (temp && temp->GetType() == unit::ES && temp->isInfected())
+		eSoldier::IncreaseInfectedCount(); // Increase Infected Count ( Will be Decreased In case Healed or Adding to Killed)
+
 	return temp;
 }
+
 
 void EarthArmy::attack()
 {
@@ -190,6 +199,8 @@ void EarthArmy::attack()
 
 	if (Soldiers.peek(Attacker))
 	{
+		ES_Attacker_Infected = Attacker->isInfected();
+
 		Attacker->attack(ES_Attacked);
 		ES_AttackerID = Attacker->getID();
 	}
@@ -236,6 +247,65 @@ int EarthArmy::GetUMLCount()
 {
 	return UML.getCount();
 }
+
+void EarthArmy::CalcInfPercentage()
+{
+	if (Soldiers.getCount() == 0) InfPercentage = 0;
+	else
+	InfPercentage = eSoldier::getInfected_Count() * 100.0 / Soldiers.getCount();
+}
+
+double EarthArmy::GetInfPercentage() const
+{
+	return InfPercentage;
+}
+
+bool EarthArmy::CallAllied()
+{
+	return InfPercentage > InfThersholdPercentage;
+}
+
+void EarthArmy::SpreadInfection()
+{
+	// Assume only one Infected ES has the Chance to Spread the infection each timestep
+	// Avoiding very large amount of infection
+
+	if (eSoldier::getInfected_Count() > 0 && eSoldier::getInfected_Count() < Soldiers.getCount() )
+	{
+		int ProbGen = rand() % 100 + 1;
+		unit* tempES = nullptr;
+
+		if (ProbGen <= 2) // 2% Prob of Spread for each soldier
+		{
+			LinkedQueue<unit*> templist;
+			int RandESPick = rand() % Soldiers.getCount() + 1;
+			
+			while (Soldiers.dequeue(tempES))
+			{
+				RandESPick--;
+				if (RandESPick == 0)
+				{
+					if (!tempES->isInfected() && !tempES->isImmuned())
+						tempES->setInfected(true);
+					else
+						RandESPick++; // Check Next One
+				}
+
+				templist.enqueue(tempES);
+			}
+
+			while (templist.dequeue(tempES)) // Return units to Its Original List
+				Soldiers.enqueue(tempES);
+		}
+	}
+
+}
+
+void EarthArmy::SetInfThershold(double perc)
+{
+	InfThersholdPercentage = perc;
+}
+
 
 EarthArmy::~EarthArmy()
 {

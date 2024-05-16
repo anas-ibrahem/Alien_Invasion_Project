@@ -21,7 +21,8 @@ public :
 	bool peek(T& frntEntry)  const;	
 	int getCount() const;
 	~LinkedQueue();
-
+	void clear();
+	void del() {}
 	bool print() const; // Specialized for unit* type // returns false if empty
 
 };
@@ -149,12 +150,29 @@ LinkedQueue<T>::~LinkedQueue()
 	//cout<<"\nFreeing all nodes in the queue...";
 
 	//Free all nodes in the queue
-	T temp;
-	while(dequeue(temp));
+	clear();
 	
 	//cout<<"\n Is LinkedQueue Empty now?? ==> "<<boolalpha<<isEmpty();
 	//cout<<"\nEnding LinkedQueue destructor..."<<endl;
 }
+
+template<typename T>
+inline void LinkedQueue<T>::clear()
+{
+	T temp;
+	while (dequeue(temp));
+}
+
+
+
+template<>
+inline void LinkedQueue<unit*>::del()
+{
+	unit* temp;
+	while (dequeue(temp))
+		delete temp;
+}
+
 
 
 template<>
@@ -168,7 +186,12 @@ inline bool LinkedQueue<unit*>::print() const
 	cout << "[ ";
 	while (ptr)
 	{
-		cout << ptr->getItem()->getID() << " ";
+		if (ptr->getItem()->GetType() == unit::ES && ptr->getItem()->isInfected())
+			cout << ptr->getItem()->getID() << "* ";
+		else 
+			cout << ptr->getItem()->getID() << " ";
+
+
 		ptr = ptr->getNext();
 		if (!ptr) cout << "]"; // Last Element
 		else cout << ", "; // Not Last Element

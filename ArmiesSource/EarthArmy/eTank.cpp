@@ -11,7 +11,7 @@ eTank::eTank(int id, int Tj, int Health, int AttackCapacity, int AttackPower, Ga
 
 }
 
-bool eTank::attack(LinkedQueue<int>& AttackedIDs)
+bool eTank::attack(LinkedQueue<unit*>& AttackedUnits)
 {
 	LinkedQueue<unit*> tempList; // queue temp list
 	int cap = AttackCapacity;
@@ -46,7 +46,8 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 				tempList.enqueue(tempM);
 			}
 
-			AttackedIDs.enqueue(tempM->getID());
+			if (game->GetMode() == 'a')
+				AttackedUnits.enqueue(tempM); // ADD unit to Print List
 			cap--;
 		}
 
@@ -63,7 +64,8 @@ bool eTank::attack(LinkedQueue<int>& AttackedIDs)
 				tempList.enqueue(tempS);
 			}
 
-			AttackedIDs.enqueue(tempS->getID());
+			if (game->GetMode() == 'a')
+				AttackedUnits.enqueue(tempS); // ADD unit to Print List
 			cap--;
 		}
 

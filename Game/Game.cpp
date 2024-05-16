@@ -8,6 +8,7 @@ Game::Game() {
 	TimeStep = 0;
 	A_Army = new AlienArmy();
 	E_Army = new EarthArmy();
+	AL_Army = new AlliedArmy();
 	killedList = new LinkedQueue<unit*>();
 	srand(time(NULL)); // seed the random number generator // SEED ONCE NO NEED TO SEED AGAIN
 	StartMenu();
@@ -53,8 +54,14 @@ void Game::Simulate()
 
 
 		NextTS();
+
+		if (E_Army->GetInfPercentage() == 0)
+			 AL_Army->clearArmy(); // Delete Saver Units if Call Allied is false
+
 		GenerateUnits();
 		Battle();
+
+
 		if (mode == 'a')
 		{
 			cout << "\n\n";
@@ -69,7 +76,7 @@ void Game::Simulate()
 
 	} while (winner == 'n');
 
-
+	ClearUML(); // Clear UML and move it's units to KilledList
 	WriteFile();
 	cout << "\n=============== Simulation END =================";
 
@@ -78,31 +85,28 @@ void Game::Simulate()
 
 char Game::WL_Check()
 {
-	int ESC = GetUnitCount(unit::ES);
-	int EGC = GetUnitCount(unit::EG);
-	int ASC = GetUnitCount(unit::AS);
-	int ADC = GetUnitCount(unit::AD); // Leave these variables for debugging
-	int EHC = GetUnitCount(unit::EH);
-	int UMLC = E_Army->GetUMLCount();
-
-	long int E_Total = GetUnitCount(unit::ET) + GetUnitCount(unit::ES) + GetUnitCount(unit::EG) + GetUnitCount(unit::EH) + E_Army->GetUMLCount();
+	int UML_C = E_Army->GetUMLCount();
+	int EH_C = GetUnitCount(unit::EH);
+	long int E_Total = GetUnitCount(unit::ET) + GetUnitCount(unit::ES) + GetUnitCount(unit::EG) + EH_C + UML_C;
 	long int A_Total = GetUnitCount(unit::AD) + GetUnitCount(unit::AS) + GetUnitCount(unit::AM);
-
-	// Tie Check
-	// if both total = 0 or the Left units are not able to attack each other (following cases)
-	// ES and AD only
-	// EG and AS only
 
 
 	if (E_Total > 0 && A_Total == 0)
 		return 'e';
 
 	// Assume if only EH or if only UML then earth lost
-	else if (A_Total > 0 && ( E_Total == 0 || E_Total == GetUnitCount(unit::EH) || E_Total == E_Army->GetUMLCount() ) )
+	else if (A_Total > 0 && ( E_Total == 0 || E_Total == EH_C || E_Total == UML_C) )
 		return 'a';
 
-	else if ((GetUnitCount(unit::ES) == E_Total && GetUnitCount(unit::AD) == A_Total) ||
-		(GetUnitCount(unit::EG) == E_Total && GetUnitCount(unit::AS) == A_Total)
+	// Tie Check
+	// 
+	// if both total = 0 or the Left units are not able to attack each other
+	// (following cases) ( Regardless of UML in case of no EH they are not considered )
+	// 
+	// ES and AD only
+	// EG and AS only
+	else if ((GetUnitCount(unit::ES) == E_Total - UML_C && GetUnitCount(unit::AD) == A_Total) ||
+		(GetUnitCount(unit::EG) == E_Total - UML_C && GetUnitCount(unit::AS) == A_Total)
 		|| (E_Total == 0 && A_Total == 0)) 
 
 		return 't';
@@ -134,6 +138,19 @@ void Game::Print_ASCII_ART()
 	std::cout << "============================ALIEN INVASION SIMULATOR===========================" << std::endl;;
 }
 
+void Game::ClearUML()
+{
+	unit* temp = nullptr;
+	while (temp = PickfromUML())
+	{
+		if (winner == 'e')
+			AddUnit(temp);
+		else
+			AddToKilled(temp);
+	}
+}
+
+
 void Game::SetMode(char mode)
 {
 	this->mode = mode;
@@ -141,6 +158,11 @@ void Game::SetMode(char mode)
 
 bool Game::AddToKilled(unit*U)
 {
+	U->setTD(GetTS()); // SET TIME DESTRUCTION
+
+	if (U->GetType() == unit::ES && U->isInfected())
+		eSoldier::ReduceInfectedCount();
+
 	return killedList->enqueue(U);
 }
 
@@ -149,6 +171,11 @@ bool Game::AddToKilled(unit*U)
 int Game::GetTS() const
 {
 	return TimeStep;
+}
+
+char Game::GetMode() const
+{
+	 return mode;
 }
 
 int Game::NextTS()
@@ -164,7 +191,7 @@ GenParameters Game::ReadFile()
 	cout << "Enter Input File Name : ex(input.txt)  * Make Sure the file is inside InputFiles Folder  " << endl;
 	cin >> inputfilename;
 
-
+	//User enter Input file name
 	ifstream inFile("../InputFiles/" + inputfilename);
 	while(!inFile.is_open()) // Re Ask If Name is Invalid
 	{
@@ -172,15 +199,23 @@ GenParameters Game::ReadFile()
 		cin >> inputfilename;
 		inFile.open("../InputFiles/"+ inputfilename);
 	}
-	GenParameters P;
+
+	GenParameters P; // Struct to return for RandGen
+
+	//Read N (no of units for each generation)
 	inFile >> N;
 
+	//Read Earth Prop Percentage for Each Type
 	inFile >> P.EarthPercentage[0] >> P.EarthPercentage[1] >> P.EarthPercentage[2] >>P.EarthPercentage[3];
+	//Limit EH if more than 5%
 	if (P.EarthPercentage[3] > 5) P.EarthPercentage[3] = 5;
+	//Read Alien Prop Percentage for Each Type
 	inFile >> P.AlienPercentage[0] >> P.AlienPercentage[1] >> P.AlienPercentage[2];
 
-
+	//Read Prob of generation
 	inFile >> P.prob;
+
+	//Reading Earth Army Ranges
 	inFile >> P.E_Power_Range[0];
 	inFile >> P.E_Power_Range[1];
 	P.E_Power_Range[1] *= -1;
@@ -190,6 +225,8 @@ GenParameters Game::ReadFile()
 	inFile >> P.E_Capacity_Range[0];
 	inFile >> P.E_Capacity_Range[1];
 	P.E_Capacity_Range[1] *= -1;
+
+	//Reading Alien Army Ranges
 	inFile >> P.A_Power_Range[0];
 	inFile >> P.A_Power_Range[1];
 	P.A_Power_Range[1] *= -1;
@@ -199,8 +236,34 @@ GenParameters Game::ReadFile()
 	inFile >> P.A_Capacity_Range[0];
 	inFile >> P.A_Capacity_Range[1];
 	P.A_Capacity_Range[1] *= -1;
+
+
+	//Reading Allied Army Ranges
+	inFile >> P.AL_Power_Range[0];
+	inFile >> P.AL_Power_Range[1];
+	P.AL_Power_Range[1] *= -1;
+	inFile >> P.AL_Health_Range[0];
+	inFile >> P.AL_Health_Range[1];
+	P.AL_Health_Range[1] *= -1;
+	inFile >> P.AL_Capacity_Range[0];
+	inFile >> P.AL_Capacity_Range[1];
+	P.AL_Capacity_Range[1] *= -1;
+
+
+	//Read Infection Probabilty
+	double AM_Infect_prob;
+	inFile >> AM_Infect_prob;
+	aMonster::set_AM_Infect_Prob(AM_Infect_prob);
+
+	//Read InfectionPercentage Thershold
+	double InfectThershold = 0;
+	inFile >> InfectThershold;
+	E_Army->SetInfThershold(InfectThershold);
+
+	//Close File
 	inFile.close();
 
+	//Return Data Needed for RangGen (Struct)
 	return P;
 }
 
@@ -210,7 +273,16 @@ bool Game::AddUnit(unit* unit, char InsertDir)
 {
 	if (!unit) return false; // Case Random Generator will send Null if Out Of IDS
 
-	if ( unit->GetType() == unit::AD || unit->GetType() == unit::AS || unit->GetType() == unit::AM)
+	if (unit->GetType() == unit::SU) 
+	{
+		if (!AL_Army->AddUnit(unit, InsertDir))// Delete the unit if it is not added to the army
+		{
+			delete unit;
+			return false;
+		}
+	
+	}
+	else if ( unit->GetType() == unit::AD || unit->GetType() == unit::AS || unit->GetType() == unit::AM)
 	{
 		if (!A_Army->AddUnit(unit , InsertDir))// Delete the unit if it is not added to the army
 		{
@@ -239,26 +311,26 @@ void Game::PrintAliveUnits()
 
 	cout << "\n\n";
 
+	AL_Army->PrintAliveUnits();
+	
+	cout << "\n\n";
+
 	A_Army->PrintAliveUnits();
 
 }
 
-bool Game::AddUML(unit* U)
+bool Game::AddtoUML(unit* U)
 {
-	if (U->HealthPercent() < 20 && U->HealthPercent() > 0)
-		if (E_Army->AddtoUML(U))
-		{
-			U->setTD(TimeStep);
-			return true;
-		}
-	return false;
+	U->setTj_UML(TimeStep);
+	return (E_Army->AddtoUML(U));
 }
 
 unit* Game::PickUnit(unit::UnitType type , char PickDir)
 {
 	// Will return Null From the PickUnit of The armies in case not found
-
-	if (type == unit::AD || type == unit::AS || type == unit::AM)
+	if(type == unit::SU)
+		return AL_Army->PickUnit(type);
+	 else if (type == unit::AD || type == unit::AS || type == unit::AM)
 		return A_Army->PickUnit(type , PickDir);
 	else
 		return E_Army->PickUnit(type);
@@ -269,13 +341,16 @@ int Game::GetUnitCount(unit::UnitType type)
 {
 	if (type == unit::AD || type == unit::AS || type == unit::AM)
 		return A_Army->GetUnitCount(type);
+	else if (type == unit::SU)
+		return AL_Army->GetUnitCount(type);
 	else
 		return E_Army->GetUnitCount(type);
 }
 
-unit* Game::PickUML()
+
+unit* Game::PickfromUML()
 {
-		return E_Army->PickfromUML();
+	return E_Army->PickfromUML();
 }
 
 
@@ -290,82 +365,93 @@ void Game::PrintKilledUnits()
 
 void Game::WriteFile()
 {
-	int N_ES = 0, N_ET = 0, N_EG = 0, N_EH = 0; //N for each type killed
-	int N_ES_alive = 0, N_ET_alive = 0, N_EG_alive = 0, N_EH_alive = 0; //N for each type alive
-	int N_AS = 0, N_AD = 0, N_AM = 0;
-	int N_AS_alive = 0, N_AD_alive = 0, N_AM_alive = 0;
-	double ESumDF = 0, ESumDD = 0, ESumDB = 0;
+	int N_ES_Killed = 0, N_ET_Killed = 0, N_EG_Killed = 0, N_EH_Killed = 0; //N for each type killed Earth
+	int N_ES_alive = 0, N_ET_alive = 0, N_EG_alive = 0, N_EH_alive = 0; //N for each type alive Earth
+
+	int N_AS_Killed = 0, N_AD_Killed = 0, N_AM_Killed = 0;  //N for each type killed Alien
+	int N_AS_alive = 0, N_AD_alive = 0, N_AM_alive = 0; //N for each type alive Alien
+
+	double ESumDF = 0, ESumDD = 0, ESumDB = 0; // Variables for Durations
 	double ASumDF = 0, ASumDD = 0, ASumDB = 0;
-	double ASum_alive = 0, ASum_killed = 0, ASum_Total = 0;
+
+	double ASum_alive = 0, ASum_killed = 0, ASum_Total = 0; // Sum Variables
 	double ESum_alive = 0, ESum_killed = 0, ESum_Total = 0;
 
 	ofstream OutFile("../OutputFiles/output.txt");
 
 
-	OutFile << "////////////////// KILLED UNITS DATA /////////////////////\n";
+	OutFile << "////////////////// KILLED UNITS DATA /////////////////////\n\n";
 	OutFile << "Td  \tID  \tTj  \tDf  \tDd  \tDb" << endl;
-	LinkedQueue<unit*> temp;
-	unit* tem;
-	while (killedList->dequeue(tem))
-	{
-		temp.enqueue(tem);
 
-		int Td = tem->getTd();
-		int Tj = tem->getTj();
-		int Ta = tem->getTa();
-		OutFile << Td << "   \t" << tem->getID() << "   \t" << Tj << "   \t" << Ta - Tj << "   \t" << Td - Ta << "   \t" << Td - Tj << endl;
-		switch (tem->GetType())
+	LinkedQueue<unit*> temp; //temp list to stre and return to killed list
+	unit* U = nullptr; // temp pointer for unit
+
+	while (killedList->dequeue(U))
+	{
+		temp.enqueue(U);
+
+		if (U->GetType() != unit::SU) // Exclude SU from Stats
 		{
-		case unit::ES:
-			N_ES++;
-			ESumDF += Ta - Tj;
-			ESumDD += Td - Ta;
-			ESumDB += Td - Tj;
-			break;
-		case unit::ET:
-			N_ET++;
-			ESumDF += Ta - Tj;
-			ESumDD += Td - Ta;
-			ESumDB += Td - Tj;
-			break;
-		case unit::EG:
-			N_EG++;
-			ESumDF += Ta - Tj;
-			ESumDD += Td - Ta;
-			ESumDB += Td - Tj;
-			break;
-		case unit::EH:
-			N_EH++;
-			ESumDF += Ta - Tj;
-			ESumDD += Td - Ta;
-			ESumDB += Td - Tj;
-			break;
-		case unit::AS:
-			N_AS++;
-			ASumDF += Ta - Tj;
-			ASumDD += Td - Ta;
-			ASumDB += Td - Tj;
-			break;
-		case unit::AD:
-			N_AD++;
-			ASumDF += Ta - Tj;
-			ASumDD += Td - Ta;
-			ASumDB += Td - Tj;
-			break;
-		case unit::AM:
-			N_AM++;
-			ASumDF += Ta - Tj;
-			ASumDD += Td - Ta;
-			ASumDB += Td - Tj;
-			break;
-		default:
-			break;
+			int Td = U->getTd(); //Get All Times
+			int Tj = U->getTj();
+			int Ta = U->getTa();
+
+			OutFile << Td << "   \t" << U->getID() << "   \t" << Tj << "   \t" << Ta - Tj << "   \t" << Td - Ta << "   \t" << Td - Tj << endl;
+
+			switch (U->GetType())
+			{
+			case unit::ES:
+				N_ES_Killed++;
+				ESumDF += Ta - Tj;
+				ESumDD += Td - Ta;
+				ESumDB += Td - Tj;
+				break;
+			case unit::ET:
+				N_ET_Killed++;
+				ESumDF += Ta - Tj;
+				ESumDD += Td - Ta;
+				ESumDB += Td - Tj;
+				break;
+			case unit::EG:
+				N_EG_Killed++;
+				ESumDF += Ta - Tj;
+				ESumDD += Td - Ta;
+				ESumDB += Td - Tj;
+				break;
+			case unit::EH:
+				N_EH_Killed++;
+				ESumDF += Ta - Tj;
+				ESumDD += Td - Ta;
+				ESumDB += Td - Tj;
+				break;
+			case unit::AS:
+				N_AS_Killed++;
+				ASumDF += Ta - Tj;
+				ASumDD += Td - Ta;
+				ASumDB += Td - Tj;
+				break;
+			case unit::AD:
+				N_AD_Killed++;
+				ASumDF += Ta - Tj;
+				ASumDD += Td - Ta;
+				ASumDB += Td - Tj;
+				break;
+			case unit::AM:
+				N_AM_Killed++;
+				ASumDF += Ta - Tj;
+				ASumDD += Td - Ta;
+				ASumDB += Td - Tj;
+				break;
+			default:
+				break;
+			}
 		}
 	}
-	while (temp.dequeue(tem))
-	{
-		killedList->enqueue(tem);
-	}
+
+	while (temp.dequeue(U))
+		killedList->enqueue(U); // return units to it's original killedlist to delete them at the destructor
+
+	// Calculate Alive - Killed - Sum Variables
 	N_ES_alive = E_Army->GetUnitCount(unit::ES);
 	N_ET_alive = E_Army->GetUnitCount(unit::ET);
 	N_EG_alive = E_Army->GetUnitCount(unit::EG);
@@ -375,14 +461,17 @@ void Game::WriteFile()
 	N_AD_alive = A_Army->GetUnitCount(unit::AD);
 
 	ESum_alive = N_ES_alive + N_ET_alive + N_EG_alive + N_EH_alive;
-	ESum_killed = N_ES + N_ET + N_EG + N_EH;
+	ESum_killed = N_ES_Killed + N_ET_Killed + N_EG_Killed + N_EH_Killed;
 	ESum_Total = ESum_alive + ESum_killed;
 
 	ASum_alive = N_AS_alive + N_AD_alive + N_AM_alive;
-	ASum_killed = N_AS + N_AD + N_AM;
+	ASum_killed = N_AS_Killed + N_AD_Killed + N_AM_Killed;
 	ASum_Total = ASum_alive + ASum_killed;
 
-	switch (WL_Check())
+
+	// Print Winner
+	OutFile << "\n\n";
+	switch (winner)
 	{
 	case 'a':
 		OutFile << "      A   L   I   E   N    W   I   N   S\n";
@@ -391,7 +480,7 @@ void Game::WriteFile()
 		OutFile << "      E   A   R   T   H    W   I   N   S\n";
 		break;
 	case 't':
-		OutFile << "      D   E   A   D    L   O   C   K\n";
+		OutFile << "      D   R   A   W   /    T   I   E\n";
 		break;
 	case 'n':
 		OutFile << "      N   O    B   O   D   Y    W   I   N   S\n";
@@ -399,65 +488,91 @@ void Game::WriteFile()
 	default:
 		break;
 	}
+	OutFile << "\n     Finish TimeStep : " << TimeStep;
 
-	OutFile << "////////////////// E A R T H  A R M Y /////////////////////\n";
-	OutFile <<			   "ES: " << N_ES_alive + N_ES 
-			<< "            ET: " << N_ET_alive + N_ET 
-			<< "            EG: " << N_EG_alive + N_EG 
-			<< "            EH: " << N_EH_alive + N_EH << endl;
-	OutFile << "ES%: " << ((N_ES_alive + N_ES) ? (double)N_ES / (N_ES_alive + N_ES) * 100 : 0) << "%";
-	OutFile << "            ET%: " << ((N_ET_alive + N_ET) ? (double)N_ET / (N_ET_alive + N_ET) * 100 : 0) << "%";
-	OutFile << "            EG%: " << ((N_EG_alive + N_EG) ? (double)N_EG / (N_EG_alive + N_EG) * 100 : 0) << "%";
-	OutFile << "            EH%: " << ((N_EH_alive + N_EH) ? (double)N_EH / (N_EH_alive + N_EH) * 100 : 0) << "%";
+	// Print Stats For Each Army
+	OutFile << "\n\n////////////////// E A R T H  A R M Y /////////////////////\n";
+
+	OutFile << "\nUnit Total Count :\n";
+	OutFile << "ES: " << N_ES_alive + N_ES_Killed
+			<< "            ET: " << N_ET_alive + N_ET_Killed 
+			<< "            EG: " << N_EG_alive + N_EG_Killed 
+			<< "            EH: " << N_EH_alive + N_EH_Killed << endl;
+
+	OutFile << "\nUnit Killed Percentage :\n";
+	OutFile << "ES%: " << ((N_ES_alive + N_ES_Killed) ? (double)N_ES_Killed / (N_ES_alive + N_ES_Killed) * 100 : 0) << "%";
+	OutFile << "            ET%: " << ((N_ET_alive + N_ET_Killed) ? (double)N_ET_Killed / (N_ET_alive + N_ET_Killed) * 100 : 0) << "%";
+	OutFile << "            EG%: " << ((N_EG_alive + N_EG_Killed) ? (double)N_EG_Killed / (N_EG_alive + N_EG_Killed) * 100 : 0) << "%";
+	OutFile << "            EH%: " << ((N_EH_alive + N_EH_Killed) ? (double)N_EH_Killed / (N_EH_alive + N_EH_Killed) * 100 : 0) << "%";
+	OutFile << endl << endl;
+
+	OutFile << "Total Infected ES Percentage : " << ((N_ES_alive + N_ES_Killed) ? eSoldier::get_Total_Infected_Count() * 100.0 / (N_ES_alive + N_ES_Killed) : 0 )<< "%\n";
+	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::GetNumOfHealed() * 100 / ESum_Total : 0) << "%";
 	OutFile << endl;
-	OutFile << "Total Healed Percentage: " << ((ESum_Total) ? unit::NumOfHealed() * 100 / ESum_Total : 0) << "%";
-	OutFile << endl;
-	OutFile << "Total Destructed Percentage: " << ((ESum_Total) ? ESum_killed * 100 / ESum_Total : 0) << "%";
-	OutFile << endl;
-	if (ESum_killed) {
-		OutFile <<    "Average of Df: " << ESumDF / ESum_killed 
-				<< "\t ,Average of Dd: " << ESumDD / ESum_killed 
-				<< "\t ,Average of Db: " << ESumDB / ESum_killed << endl;
-		OutFile <<   "Df/Db% = " << ESumDF * 100 / ESumDB << "%"
-				<< ", Dd/Db% = " << ESumDD * 100 / ESumDB << "%" << endl;
+
+	OutFile << "Total Destructed Percentage: " << ((ESum_Total) ? ESum_killed * 100.0 / ESum_Total : 0) << "%";
+	OutFile << endl << endl;
+
+	// Print Durations Avg
+	if (ESum_killed) 
+	{
+		OutFile <<    "Average of Df: " << ESumDF / ESum_killed <<" Ts"
+				<< "\t    Average of Dd: " << ESumDD / ESum_killed <<" Ts"
+				<< "\t    Average of Db: " << ESumDB / ESum_killed <<" Ts" << endl;
+
+		OutFile <<   "Df/Db% = " << ESumDF * 100.0 / ESumDB << "%"
+				<< "    Dd/Db% = " << ESumDD * 100.0 / ESumDB << "%" << endl;
 	}
 	else
 	{
-		OutFile << "Average of Df: " << 0
-			<< "\t ,Average of Dd: " << 0
-			<< "\t ,Average of Db: " << 0 << endl;
+		OutFile << "Average of Df: " << "0 Ts"
+			<< "\t    Average of Dd: " << "0 Ts"
+			<< "\t    Average of Db: " << "0 Ts" << endl;
+
 		OutFile << "Df/Db% = " << 0 << "%"
-			<< ", Dd/Db% = " << 0 << "%" << endl;
+			<< "    Dd/Db% = " << 0 << "%" << endl;
 	}
 
 
 
 
-	OutFile << "////////////////// A L I E N  A R M Y /////////////////////\n";
-	OutFile <<			   "AS: " << N_AS_alive + N_AS
-			<< "            AD: " << N_AD_alive + N_AD
-			<< "            AM: " << N_AM_alive + N_AM << endl;
-	OutFile << "AS%: " << ((N_AS_alive + N_AS) ? (double)N_AS / (N_AS_alive + N_AS) * 100 : 0) << "%";
-	OutFile << "            AD%: " << ((N_AD_alive + N_AD) ? (double)N_AD / (N_AD_alive + N_AD) * 100 : 0) << "%";
-	OutFile << "            AM%: " << ((N_AM_alive + N_AM) ? (double)N_AM / (N_AM_alive + N_AM) * 100 : 0) << "%";
-	OutFile << endl;
-	OutFile << "Total Destructed Percentage: " << ((ASum_Total) ? ASum_killed * 100 / ASum_Total : 0) << "%";
-	OutFile << endl;
-	if (ASum_killed) {
-		OutFile << "Average of Df: " << ASumDF / ASum_killed
-			<< "\t Average of Dd: " << ASumDD / ASum_killed
-			<< "\t Average of Db: " << ASumDB / ASum_killed << endl;
-		OutFile << "Df/Db% = " << ASumDF * 100 / ASumDB << "%"
-			<< ", Dd/Db% = " << ASumDD * 100 / ASumDB << "%" << endl;
+	OutFile << "\n\n////////////////// A L I E N  A R M Y /////////////////////\n";
+
+	OutFile << "\nUnit Total Count :\n";
+	OutFile <<			   "AS: " << N_AS_alive + N_AS_Killed
+			<< "            AD: " << N_AD_alive + N_AD_Killed
+			<< "            AM: " << N_AM_alive + N_AM_Killed << endl;
+
+	OutFile << "\nUnit Killed Percentage :\n";
+	OutFile << "AS%: " << ((N_AS_alive + N_AS_Killed) ? (double)N_AS_Killed / (N_AS_alive + N_AS_Killed) * 100 : 0) << "%";
+	OutFile << "            AD%: " << ((N_AD_alive + N_AD_Killed) ? (double)N_AD_Killed / (N_AD_alive + N_AD_Killed) * 100 : 0) << "%";
+	OutFile << "            AM%: " << ((N_AM_alive + N_AM_Killed) ? (double)N_AM_Killed / (N_AM_alive + N_AM_Killed) * 100 : 0) << "%";
+	OutFile << endl << endl;
+
+	OutFile << "Total Destructed Percentage: " << ((ASum_Total) ? ASum_killed * 100.0 / ASum_Total : 0) << "%";
+	OutFile << endl << endl;
+
+
+	// Print Durations Avg
+	if (ASum_killed) 
+	{
+		OutFile << "Average of Df: " << ASumDF / ASum_killed <<" Ts"
+			<< "\t    Average of Dd: " << ASumDD / ASum_killed<<" Ts"
+			<< "\t    Average of Db: " << ASumDB / ASum_killed<<" Ts" << endl;
+		OutFile << "Df/Db% = " << ASumDF * 100.0 / ASumDB << "%"
+			<< "    Dd/Db% = " << ASumDD * 100.0 / ASumDB << "%" << endl;
 	}
 	else
 	{
-		OutFile << "Average of Df: " << 0
-			<< "\t Average of Dd: " << 0
-			<< "\t Average of Db: " << 0 << endl;
+		OutFile << "Average of Df: " <<"0 Ts"
+			<< "\t    Average of Dd: " <<"0 Ts"
+			<< "\t    Average of Db: " <<"0 Ts" << endl;
 		OutFile << "Df/Db% = " << 0 << "%"
-			<< ", Dd/Db% = " << 0 << "%" << endl;
+			<< "    Dd/Db% = " << 0 << "%" << endl;
 	}
+
+	//Close the file
+	OutFile.close();
 }
 
 void Game::PrintFights()
@@ -466,17 +581,28 @@ void Game::PrintFights()
 	cout << "=============== BATTLE ROUND  ===============" << endl;
 	bool EarthBattle = E_Army->PrintFights();
 	bool ALienBattle = A_Army->PrintFights();
-	cout << "\033[0m";
+	bool AlliedBattle = AL_Army->PrintFights();
 
-	if (! (EarthBattle || ALienBattle )) 
+
+	if (!(EarthBattle || ALienBattle || AlliedBattle))
+	{
+		cout << "\033[34m";
 		cout <<"\n\n~~~~SILENCE~ NOTHING HAPPENED ! ~SILENCE~~~~\n\n\n";
+		cout << "\033[0m";
+
+	}
 
 }
 
 void Game::Battle()
 {
 	E_Army->attack();
+	E_Army->SpreadInfection();
+
 	A_Army->attack();
+	AL_Army->attack();
+	
+	E_Army->CalcInfPercentage(); // Update at the End od Each battle
 
 }
 
@@ -484,29 +610,51 @@ void Game::GenerateUnits()
 {
 	bool GenerateAlienUnits = Generator->WillGenerate();
 	bool GenerateEarthUnits = Generator->WillGenerate();
+	bool GenerateAlliedUnits = E_Army ->CallAllied() && Generator->WillGenerate();
 
 	if (GenerateAlienUnits)
 		for (int i = N; i > 0; --i) // Generate if meet the prob 
 		{
 			unit* Created = Generator->GenerateUnitAlien(TimeStep, this);
-			if (!Created && mode == 'a')
+			if (!Created)
 			{
-				cout << "---------------- Can't Generate Alien IDs OUT OF RANGE ----------------"; break;
+				if (mode =='a')
+					cout << "---------------- Can't Generate Alien IDs OUT OF RANGE ----------------"; 
+
+				break;
 			}
-			
-			AddUnit(Created);
+			else if (Created)
+				AddUnit(Created);
 		}
 
 	if (GenerateEarthUnits)
 		for (int i = N; i > 0; --i) // Generate if meet the prob 
 		{
 			unit* Created = Generator->GenerateUnitEarth(TimeStep, this);
-			if (!Created && mode =='a')
+			if (!Created)
 			{
-				cout << "---------------- Can't Generate Earth IDs OUT OF RANGE ----------------"; break;
-			}
+				if (mode == 'a')
+					cout << "---------------- Can't Generate Earth IDs OUT OF RANGE ----------------";
 
-			AddUnit(Created);
+				break;
+			}
+			else if (Created)
+				AddUnit(Created);
+		}
+
+	if (GenerateAlliedUnits)
+		for (int i = N; i > 0; --i) // Generate if meet the prob 
+		{
+			unit* Created = Generator->GenerateUnitAllied(TimeStep, this);
+			if (!Created)
+			{
+				if (mode == 'a')
+					cout << "---------------- Can't Generate Allied IDs OUT OF RANGE ----------------";
+
+				break;
+			}
+			else if (Created)
+				AddUnit(Created);
 		}
 }
 
@@ -535,7 +683,7 @@ void Game::TestCode()
 			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
 			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
 			ESDummy->reduceHealth(ESDummy->getHealth() / 2);
-			if (!AddUML(ESDummy))
+			if (!AddtoUML(ESDummy))
 				AddUnit(ESDummy);
 		}
 	}  
@@ -620,6 +768,8 @@ Game::~Game()
 		delete E_Army;
 		cout << "\nDelete All Alien Army Units.............";
 		delete A_Army;
+		cout << "\nDelete All Allied Army Units.............";
+		delete AL_Army;
 		cout << "\nDelete All Dead Units.............";
 		delete killedList;
 
