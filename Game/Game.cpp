@@ -143,10 +143,10 @@ void Game::ClearUML()
 	unit* temp = nullptr;
 	while (temp = PickfromUML())
 	{
-		if (winner == 'a')
-			AddToKilled(temp);
-		else
+		if (winner == 'e')
 			AddUnit(temp);
+		else
+			AddToKilled(temp);
 	}
 }
 
