@@ -23,7 +23,7 @@ bool AlliedArmy::AddUnit(unit* unit, char InsertDir)
 void AlliedArmy::PrintAliveUnits()
 {
 	cout << "\033[32m";
-	cout << "=============== Allied Army Alive Units ===============" << endl << endl;
+	cout << "=============== Allied Army Alive Units ===============" << endl;
 	cout << Savers.getCount() << " SU: ";
 	Savers.print();
 	cout <<"\033[0m" ;

@@ -66,22 +66,24 @@ void Game::Simulate()
 		{
 			cout << "\n\n";
 			PrintAllStats();
-			cout << "\n\n*To continue in Silent mode press s\nPress any other key to continue"<< endl;
+
+			// Change Mode To Silent Mode Option
+			cout << "\n\n*To continue in Silent mode press s\nPress any other key to continue . . ."<< endl;
 			c = tolower(_getch()); // wait for user to press any key to continue ( s to change to silent mode )
 
 			if (c == 's')
 			{
-				cout << "\n## Are You Sure You Want To Change To Silent Mode ? --> Press Y to confirm ##\n";
+				cout << "\n## Are You Sure You Want To Change To Silent Mode ? --> Press Y to confirm . . . ##\n";
 				c = tolower(_getch()); 
 				
 				if (c == 'y') 
 				{
 					SetMode('s');
-					cout << "\n\nChanged To Silent Mode ~SHHHHHHHHHHHHHHHHHH~\n\n";
+					cout << "Changed To Silent Mode ~SHHHHHHHHHHHHHHHHHH~\n";
 				}
 			}
 
-			cout << "\n\n\n\n";
+			cout << "##################################################################################\n";
 		}
 
 		if (TimeStep >= 40) // Wait at least 40 timesteps 
@@ -604,7 +606,7 @@ void Game::PrintFights()
 	if (!(EarthBattle || ALienBattle || AlliedBattle))
 	{
 		cout << "\033[34m";
-		cout <<"\n\n~~~~SILENCE~ NOTHING HAPPENED ! ~SILENCE~~~~\n\n\n";
+		cout <<"~~~~SILENCE~ NOTHING HAPPENED ! ~SILENCE~~~~\n";
 		cout << "\033[0m";
 
 	}
@@ -676,6 +678,7 @@ void Game::GenerateUnits()
 
 void Game::PrintAllStats()
 {
+	cout << "##################################################################################\n";
 	cout << "Current TimeStep : " << TimeStep << endl << endl;
 	PrintAliveUnits();
 	PrintFights();
