@@ -67,9 +67,19 @@ void Game::Simulate()
 			cout << "\n\n";
 			PrintAllStats();
 			cout << "\n\n*To continue in Silent mode press s\nPress any other key to continue"<< endl;
-			c = tolower(_getch()); // wait for user to press any key to continue
+			c = tolower(_getch()); // wait for user to press any key to continue ( s to change to silent mode )
+
 			if (c == 's')
-				SetMode('s');
+			{
+				cout << "\n## Are You Sure You Want To Change To Silent Mode ? --> Press Y to confirm ##\n";
+				c = tolower(_getch()); 
+				
+				if (c == 'y') 
+				{
+					SetMode('s');
+					cout << "\n\nChanged To Silent Mode ~SHHHHHHHHHHHHHHHHHH~\n\n";
+				}
+			}
 
 			cout << "\n\n\n\n";
 		}
