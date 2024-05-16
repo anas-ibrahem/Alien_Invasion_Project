@@ -49,7 +49,7 @@ public :
 	void WriteFile(); 
 
 	//Print Funcitons
-	void PrintAllStats();
+	void PrintAllStats(); // Main Output Screen Function
 	void PrintAliveUnits();
 	void PrintKilledUnits();
 	void PrintFights();

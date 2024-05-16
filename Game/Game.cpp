@@ -598,6 +598,7 @@ void Game::PrintFights()
 	bool EarthBattle = E_Army->PrintFights();
 	bool ALienBattle = A_Army->PrintFights();
 	bool AlliedBattle = AL_Army->PrintFights();
+	cout << "\033[0m";
 
 
 	if (!(EarthBattle || ALienBattle || AlliedBattle))
@@ -675,7 +676,7 @@ void Game::GenerateUnits()
 
 void Game::PrintAllStats()
 {
-	cout << "Current TimeStep " << TimeStep << endl << endl;
+	cout << "Current TimeStep : " << TimeStep << endl << endl;
 	PrintAliveUnits();
 	PrintFights();
 	PrintKilledUnits();
