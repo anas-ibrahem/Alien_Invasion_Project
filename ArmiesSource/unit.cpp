@@ -44,7 +44,6 @@ bool unit::getHealed(unit* Attacker)
 		{
 			setImmuned(true);
 			setInfected(false);
-			eSoldier::ReduceInfectedCount();
 		}
 
 		//Set unit as Healed and Count it
