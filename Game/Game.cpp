@@ -61,13 +61,16 @@ void Game::Simulate()
 		GenerateUnits();
 		Battle();
 
-
+		char c = '`';
 		if (mode == 'a')
 		{
 			cout << "\n\n";
 			PrintAllStats();
-			cout << "\n\nPress any key to continue" << endl;
-			_getch(); // wait for user to press any key to continue
+			cout << "\n\n*To continue in Silent mode press s\nPress any other key to continue"<< endl;
+			c = tolower(_getch()); // wait for user to press any key to continue
+			if (c == 's')
+				SetMode('s');
+
 			cout << "\n\n\n\n";
 		}
 
