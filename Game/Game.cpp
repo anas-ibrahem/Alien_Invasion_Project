@@ -142,7 +142,12 @@ void Game::ClearUML()
 {
 	unit* temp = nullptr;
 	while (temp = PickfromUML())
-		AddToKilled(temp);
+	{
+		if (winner == 'e')
+			AddUnit(temp);
+		else
+			AddToKilled(temp);
+	}
 }
 
 void Game::IncTotalInfectedEarth()
@@ -486,6 +491,7 @@ void Game::WriteFile()
 	default:
 		break;
 	}
+	OutFile << "\n     Finish TimeStep : " << TimeStep;
 
 	// Print Stats For Each Army
 	OutFile << "\n\n////////////////// E A R T H  A R M Y /////////////////////\n";
