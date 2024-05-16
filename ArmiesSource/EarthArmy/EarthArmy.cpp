@@ -160,12 +160,12 @@ bool EarthArmy::AddtoUML(unit* unit)
 		switch (unit->GetType())
 		{
 		case unit::ES: 
-			if (UML.enqueue(unit, INT_MAX / unit->getHealth())) // Adds Soldiers so that lowest health has largest Pri
+			if (UML.enqueue(unit,-1*unit->getHealth())) // Adds Soldiers so that lowest health has largest Pri
 				return true;
 			break;
 
 		case unit::ET:
-			if (UML.enqueue(unit, -1))
+			if (UML.enqueue(unit, INT_MIN))
 				return true;
 			break;
 
