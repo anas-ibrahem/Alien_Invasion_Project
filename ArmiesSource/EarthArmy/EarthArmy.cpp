@@ -36,7 +36,7 @@ void EarthArmy::PrintAliveUnits()
 	cout << "\033[32m";
 	cout << "=============== Earth Army Alive Units ===============" << endl << endl;
 	cout << "Infected Count : " << Infected_ES_Count << "   Infected Count (Of All Time) : " << Infected_ES_Count_Total;
-	cout << "   Infection Percentage : " << (Soldiers.getCount() > 0 ?  double(Infected_ES_Count) / Soldiers.getCount() : 0) << "%" << endl << endl;
+	cout << "   Infection Percentage : " << (Soldiers.getCount() > 0 ?  double(Infected_ES_Count)*100.0 / Soldiers.getCount() : 0) << "%" << endl << endl;
 	cout << Soldiers.getCount() << " ES: ";
 	Soldiers.print();
 	cout << endl << endl << Tanks.getCount() << " ET: ";
