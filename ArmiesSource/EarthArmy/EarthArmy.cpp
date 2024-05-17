@@ -36,7 +36,7 @@ void EarthArmy::PrintAliveUnits()
 	cout << "\033[32m";
 	cout << "=============== Earth Army Alive Units ===============" << endl;
 	cout << "Infected Count : " << Infected_ES_Count << "   Infected Count (Of All Time) : " << Infected_ES_Count_Total;
-	cout << "   Infection Percentage : " << (Soldiers.getCount() > 0 ?  double(Infected_ES_Count)*100.0 / Soldiers.getCount() : 0) << "%" << endl << endl;
+	cout << "   Infection Percentage : " << GetInfPercentage() << "%" << endl << endl;
 	cout << Soldiers.getCount() << " ES: ";
 	Soldiers.print();
 	cout << endl << endl << Tanks.getCount() << " ET: ";
@@ -254,7 +254,7 @@ int EarthArmy::GetInfTotal() const
 
 double EarthArmy::GetInfPercentage() const
 {
-	return (Soldiers.getCount() > 0 ? double(Infected_ES_Count) / Soldiers.getCount() : 0);
+	return (Soldiers.getCount() > 0 ? double(Infected_ES_Count) * 100 / Soldiers.getCount() : 0);
 }
 
 
@@ -301,7 +301,7 @@ void EarthArmy::SpreadInfection()
 
 bool EarthArmy::CallAllied()
 {
-	return GetInfPercentage() > InfThersholdPercentage;
+	return  (Soldiers.getCount() > 0 ? double(Infected_ES_Count) * 100 / Soldiers.getCount() : 0) > InfThersholdPercentage;
 }
 
 void EarthArmy::SetInfThershold(double perc)
