@@ -27,10 +27,6 @@ bool EarthArmy::AddUnit(unit* unit, char InsertDir)
 	}
 }
 
-
-
-
-
 void EarthArmy::PrintAliveUnits()
 {
 	cout << "\033[32m";
@@ -184,7 +180,6 @@ unit* EarthArmy::PickfromUML()
 	return temp;
 }
 
-
 void EarthArmy::attack()
 {
 	unit* Attacker = nullptr;
@@ -219,7 +214,6 @@ void EarthArmy::attack()
 
 
 }
-
 
 int EarthArmy::GetUnitCount(unit::UnitType type)
 {
@@ -256,8 +250,6 @@ double EarthArmy::GetInfPercentage() const
 {
 	return (Soldiers.getCount() > 0 ? double(Infected_ES_Count) * 100 / Soldiers.getCount() : 0);
 }
-
-
 
 void EarthArmy::SpreadInfection()
 {

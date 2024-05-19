@@ -14,7 +14,6 @@ Game::Game() {
 	StartMenu();
 
 }
-
 void Game::StartMenu()
 {
 
@@ -45,8 +44,6 @@ void Game::StartMenu()
 	}
 
 }
-
-
 void Game::Simulate()
 {
 
@@ -97,7 +94,6 @@ void Game::Simulate()
 
 
 }
-
 char Game::WL_Check()
 {
 	int UML_C = E_Army->GetUMLCount();
@@ -130,7 +126,6 @@ char Game::WL_Check()
 		return 'n';
 
 }
-
 void Game::Print_ASCII_ART()
 {
 	std::cout << "============================SIMULATE OR SURRNEDER !!!===========================" << std::endl << std::endl;
@@ -152,7 +147,6 @@ void Game::Print_ASCII_ART()
 	std::cout << "                                               `-.,,_',_,.-' " << std::endl << std::endl;
 	std::cout << "============================ALIEN INVASION SIMULATOR===========================" << std::endl;;
 }
-
 void Game::ClearUML()
 {
 	unit* temp = nullptr;
@@ -164,18 +158,14 @@ void Game::ClearUML()
 			AddToKilled(temp);
 	}
 }
-
 void Game::IncTotalInfectedEarth()
 {
 	E_Army->IncTotalInfected();
 }
-
-
 void Game::SetMode(char mode)
 {
 	this->mode = mode;
 }
-
 bool Game::AddToKilled(unit*U)
 {
 	U->setTD(GetTS()); // SET TIME DESTRUCTION
@@ -183,26 +173,18 @@ bool Game::AddToKilled(unit*U)
 
 	return killedList->enqueue(U);
 }
-
-
-
 int Game::GetTS() const
 {
 	return TimeStep;
 }
-
 char Game::GetMode() const
 {
 	 return mode;
 }
-
 int Game::NextTS()
 {
 	return ++TimeStep;
 }
-
-
-
 GenParameters Game::ReadFile()
 {
 	string inputfilename;
@@ -284,9 +266,6 @@ GenParameters Game::ReadFile()
 	//Return Data Needed for RangGen (Struct)
 	return P;
 }
-
-
-
 bool Game::AddUnit(unit* unit, char InsertDir)
 {
 	if (!unit) return false; // Case Random Generator will send Null if Out Of IDS
@@ -318,10 +297,6 @@ bool Game::AddUnit(unit* unit, char InsertDir)
 	}
 	return true;
 }
-
-
-
-
 void Game::PrintAliveUnits()
 {
 
@@ -336,13 +311,11 @@ void Game::PrintAliveUnits()
 	A_Army->PrintAliveUnits();
 
 }
-
 bool Game::AddtoUML(unit* U)
 {
 	U->setTj_UML(TimeStep);
 	return (E_Army->AddtoUML(U));
 }
-
 unit* Game::PickUnit(unit::UnitType type , char PickDir)
 {
 	// Will return Null From the PickUnit of The armies in case not found
@@ -354,7 +327,6 @@ unit* Game::PickUnit(unit::UnitType type , char PickDir)
 		return E_Army->PickUnit(type);
 
 }
-
 int Game::GetUnitCount(unit::UnitType type) const
 {
 	if (type == unit::AD || type == unit::AS || type == unit::AM)
@@ -364,15 +336,10 @@ int Game::GetUnitCount(unit::UnitType type) const
 	else
 		return E_Army->GetUnitCount(type);
 }
-
-
 unit* Game::PickfromUML()
 {
 	return E_Army->PickfromUML();
 }
-
-
-
 void Game::PrintKilledUnits()
 {
 	cout << "\033[1;31m";
@@ -384,7 +351,6 @@ void Game::PrintKilledUnits()
 
 	cout << "\033[0m";
 }
-
 void Game::WriteFile()
 {
 	int N_ES_Killed = 0, N_ET_Killed = 0, N_EG_Killed = 0, N_EH_Killed = 0; //N for each type killed Earth
@@ -596,7 +562,6 @@ void Game::WriteFile()
 	//Close the file
 	OutFile.close();
 }
-
 void Game::PrintFights()
 {
 	cout << "\033[34m";
@@ -616,7 +581,6 @@ void Game::PrintFights()
 	}
 
 }
-
 void Game::Battle()
 {
 	E_Army->attack();
@@ -626,7 +590,6 @@ void Game::Battle()
 	AL_Army->attack();
 	
 }
-
 void Game::GenerateUnits()
 {
 	bool GenerateAlienUnits = Generator->WillGenerate();
@@ -678,8 +641,6 @@ void Game::GenerateUnits()
 				AddUnit(Created);
 		}
 }
-
-
 void Game::PrintAllStats()
 {
 	cout << "====================================================================================================\n";
@@ -689,7 +650,6 @@ void Game::PrintAllStats()
 	PrintKilledUnits();
 
 }
-
 void Game::TestCode()
 {
 
@@ -782,7 +742,6 @@ void Game::TestCode()
 	}
 
 }
-
 Game::~Game()
 {
 		cout << "\n\nClosing Game...........";

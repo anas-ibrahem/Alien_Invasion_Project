@@ -9,8 +9,6 @@ aSoldier::aSoldier(int id ,int Tj, int Health, int AttackCapacity, int AttackPow
 
 }
 
-
-
 bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 {
 	LinkedQueue<unit*>tempList;
@@ -24,7 +22,6 @@ bool aSoldier::attack(LinkedQueue<unit*>& AttackedUnits)
 		unit* tempSU = nullptr;
 
 		tempES = game->PickUnit(unit::ES);
-
 
 
 		if (tempES) 
