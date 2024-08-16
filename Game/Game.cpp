@@ -399,8 +399,10 @@ void Game::WriteFile()
 	double ASum_alive = 0, ASum_killed = 0, ASum_Total = 0; // Sum Variables
 	double ESum_alive = 0, ESum_killed = 0, ESum_Total = 0;
 
-	ofstream OutFile("../OutputFiles/output.txt");
-
+	string outputfilename;
+	cout << "\nEnter Output File Name : ex(output.txt)  \n* File Will be Created inside OutputFiles Folder " << endl;
+	cin >> outputfilename;
+	ofstream OutFile("../OutputFiles/" + outputfilename);
 
 	OutFile << "////////////////// KILLED UNITS DATA /////////////////////\n\n";
 	OutFile << "Td  \tID  \tTj  \tDf  \tDd  \tDb" << endl;
@@ -593,6 +595,7 @@ void Game::WriteFile()
 			<< "    Dd/Db% = " << 0 << "%" << endl;
 	}
 
+	cout << "Output File Generated Successfully...\n";
 	//Close the file
 	OutFile.close();
 }
