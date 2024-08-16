@@ -22,7 +22,7 @@ Project is ready to run with a prepared Visual Studio solution.
 Just clone the repo and help HUMANITY! 🤺
 
 ```bash
-git clone https://github.com/your-repo-link.git
+   git clone https://github.com/anas-ibrahem/Alien_Invasion_Project.git
 ```
 
 ## Simulation Modes 🕹️
