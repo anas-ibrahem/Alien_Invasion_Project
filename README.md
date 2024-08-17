@@ -11,9 +11,9 @@
 
 ## Table of Contents 🗒️
 
-- [Installation](#installation)
-- [Simulation Modes](#simulation-modes)
-- [Contributors](#contributors)
+- [Installation](#installation-🔨)
+- [Simulation Modes](#simulation-modes-🕹️)
+- [Contributors](#contributors-🙎‍♂️)
 - [License](#license)
 
 ## Installation 🔨
